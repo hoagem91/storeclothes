@@ -9,13 +9,20 @@ CREATE TABLE storeclothes.users (
 );
 INSERT INTO storeclothes.users (id,name, email,password) 
 VALUES (1,'Vu Hoang Anh', 'vana@example.com', "12345");
-
+		
 CREATE TABLE storeclothes.categories (
   `id` int NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 );
+INSERT INTO storeclothes.categories (id, name, description) VALUES
+(1, 'T-Shirt', 'Casual and comfortable short-sleeve shirt'),
+(2, 'Ao Polo', 'Collared shirt, stylish and semi-formal'),
+(3, 'Shirt', 'Formal or casual button-up shirt'),
+(4, 'Hoodie', 'Warm and cozy hooded sweatshirt'),
+(5, 'Jacket', 'Outerwear for warmth and style');
+
 
 CREATE TABLE storeclothes.products (
   `id` int NOT NULL,
@@ -27,6 +34,18 @@ CREATE TABLE storeclothes.products (
   PRIMARY KEY (`id`),
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
+);
+
+CREATE TABLE storeclothes.cart (
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_idx` (`user_id`),
+  KEY `product_id_idx` (`product_id`),
+  CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
 
 CREATE TABLE storeclothes.orders (
@@ -49,18 +68,6 @@ CREATE TABLE storeclothes.orders_items (
   KEY `product_id_idx` (`product_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-);
-
-CREATE TABLE storeclothes.cart (
-  `id` int NOT NULL,
-  `user_id` int DEFAULT NULL,
-  `product_id` int DEFAULT NULL,
-  `quantity` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `product_id_idx` (`product_id`),
-  CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
 
 CREATE TABLE storeclothes.payments (
