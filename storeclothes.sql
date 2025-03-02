@@ -35,7 +35,12 @@ CREATE TABLE storeclothes.products (
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
-
+INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
+(1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
+- Chất liệu: Cotton
+- Form: Oversize
+- Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
+- Thiết kế: in lụa",195000,1,"assests\products\t-shirts\shirt-1.webp");
 CREATE TABLE storeclothes.cart (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
