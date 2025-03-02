@@ -35,7 +35,6 @@ CREATE TABLE storeclothes.products (
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
-
 -- (
 -- 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
 -- - Chất liệu: Cotton
