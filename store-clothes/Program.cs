@@ -1,40 +1,56 @@
-﻿//var builder = WebApplication.CreateBuilder(args);
-
-//// Add services to the container.
-//builder.Services.AddControllersWithViews();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//}
-//app.UseStaticFiles();
-
-//app.UseRouting();
-
-//app.UseAuthorization();
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//app.Run();
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using store_clothes.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using store_clothes.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Sử dụng Pomelo.EntityFrameworkCore.MySql
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))
-    )
+// Đọc chuỗi kết nối từ appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("storeclothes");
+
+// Đăng ký DbContext với MySQL
+builder.Services.AddDbContext<storeclothesContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
 
-var app = builder.Build();
-app.Run();
+// Đăng ký dịch vụ MVC
+builder.Services.AddControllersWithViews();
 
+var app = builder.Build();
+
+// Middleware xử lý lỗi
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+
+app.UseStaticFiles(); // Hỗ trợ file tĩnh (CSS, JS, Images)
+app.UseRouting(); // Cấu hình định tuyến
+app.UseAuthorization(); // Hỗ trợ xác thực người dùng
+
+// Thiết lập route mặc định cho MVC
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+app.MapControllerRoute(
+    name: "product",
+    pattern: "product/{action=Index}/{id?}",
+    defaults: new { controller = "Product" }
+);
+
+app.MapControllerRoute(
+    name: "cart",
+    pattern: "cart/{action=Index}/{id?}",
+    defaults: new { controller = "Cart" }
+);
+
+app.MapControllerRoute(
+    name: "payments",
+    pattern: "payments/{action=Index}/{id?}",
+    defaults: new { controller = "Payments" }
+);
+app.MapControllerRoute(
+    name: "login",
+    pattern: "login/{action=Index}/{id?}",
+    defaults: new { controller = "Login" }
+);
+app.Run();
