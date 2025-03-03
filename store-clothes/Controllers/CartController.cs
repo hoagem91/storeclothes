@@ -18,5 +18,17 @@ namespace store_clothes.Controllers
             var cartItems = await _context.Carts.Include(c => c.Product).ToListAsync();
             return View(cartItems);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int id, int quantity)
+        {
+            var cartItem = await _context.Carts.FindAsync(id);
+            if (cartItem != null)
+            {
+                cartItem.Quantity = quantity;
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
