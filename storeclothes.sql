@@ -36,15 +36,14 @@ CREATE TABLE storeclothes.products (
 );
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
 
--- (
--- 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
--- - Chất liệu: Cotton
--- - Form: Oversize
--- - Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
--- - Thiết kế: in lụa
+1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
+- Chất liệu: Cotton
+- Form: Oversize
+- Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
+- Thiết kế: in lụa
 
--- Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-1.webp"
--- ),
+Màu sắc: Trắng",195000,1,"/t-shirts/shirt-1.webp"
+),
 
 (
 2,"Áo Thun Local Brand Unisex Teelab Summer Fresh Tshirt TS282","Thông tin sản phẩm:
@@ -53,7 +52,7 @@ INSERT INTO storeclothes.products (id, name, description,price,category_id,image
 - Màu sắc: Đen/Kem
 - Thiết kế: In lụa
 
-Màu sắc: Đen",195000,1,"assests\products\t-shirts\shirt-2.webp"
+Màu sắc: Đen",195000,1,"/t-shirts/shirt-2.webp"
 ),
 
 (
@@ -63,7 +62,7 @@ Màu sắc: Đen",195000,1,"assests\products\t-shirts\shirt-2.webp"
 - Màu sắc: Xám Tiêu/Đen/Trắng/Xám Đậm
 - Thiết kế: In lụa
 
-Màu sắc: Xám Tiêu",210000,1,"assests\products\t-shirts\shirt-3.webp"
+Màu sắc: Xám Tiêu",210000,1,"/t-shirts/shirt-3.webp"
 ),
 
 (
@@ -73,7 +72,7 @@ Màu sắc: Xám Tiêu",210000,1,"assests\products\t-shirts\shirt-3.webp"
 - Màu sắc: Xám Tiêu/Kem
 - Thiết kế: In lụa
 
-Màu sắc: Xám Tiêu",195000,1,"assests\products\t-shirts\shirt-4.webp"
+Màu sắc: Xám Tiêu",195000,1,"/t-shirts/shirt-4.webp"
 ),
 
 (
@@ -83,7 +82,7 @@ Màu sắc: Xám Tiêu",195000,1,"assests\products\t-shirts\shirt-4.webp"
 - Màu sắc: Trắng/Đen
 - Thiết kế: In lụa
 
-Màu sắc: Trắng",210000,1,"assests\products\t-shirts\shirt-5.webp"
+Màu sắc: Trắng",210000,1,"/t-shirts/shirt-5.webp"
 ),
 
 (
@@ -93,7 +92,7 @@ Màu sắc: Trắng",210000,1,"assests\products\t-shirts\shirt-5.webp"
 - Màu sắc: Đen
 - Thiết kế: In lụa
 
-Màu sắc: Wash",210000,1,"assests\products\t-shirts\shirt-6.webp"
+Màu sắc: Wash",210000,1,"/t-shirts/shirt-6.webp"
 ),
 
 (
@@ -101,7 +100,7 @@ Màu sắc: Wash",210000,1,"assests\products\t-shirts\shirt-6.webp"
 - Chất liệu: Cotton
 - Form: Oversize
 - Màu sắc: Đỏ/Xanh/Vàng
-- Thiết kế: Thêu.",200000,1,"assests\products\t-shirts\shirt-7.webp"
+- Thiết kế: Thêu.",200000,1,"/t-shirts/shirt-7.webp"
 ),
 
 (
@@ -111,8 +110,8 @@ Màu sắc: Wash",210000,1,"assests\products\t-shirts\shirt-6.webp"
 - Màu sắc: Trắng
 - Thiết kế: In lụa
 
-Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-8.webp"
- ),
+Màu sắc: Trắng",195000,1,"/t-shirts/shirt-8.webp"
+),
 
 (
 9,"Áo Thun Teelab Local Brand Unisex Athletic club Tshirt TS275","Thông tin sản phẩm:
@@ -121,7 +120,7 @@ Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-8.webp"
 - Màu sắc: Đen/Đỏ
 - Thiết kế: in lụa.
 
-Màu sắc: Đỏ",195000,1,"assests\products\t-shirts\shirt-9.webp"
+Màu sắc: Đỏ",195000,1,"/t-shirts/shirt-9.webp"
 ),
 
 (
@@ -131,7 +130,7 @@ Màu sắc: Đỏ",195000,1,"assests\products\t-shirts\shirt-9.webp"
 - Màu sắc: Wash
 - Thiết kế: in lụa
 
-Màu sắc: Wash",210000,1,"assests\products\t-shirts\shirt-10.webp"
+Màu sắc: Wash",210000,1,"/t-shirts/shirt-10.webp"
 ),
 
 (
@@ -141,7 +140,7 @@ Màu sắc: Wash",210000,1,"assests\products\t-shirts\shirt-10.webp"
 - Màu sắc: Trắng
 - Thiết kế: In lụa
 
-Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-11.webp"
+Màu sắc: Trắng",195000,1,"/t-shirts/shirt-11.webp"
 ),
 
 (
@@ -151,17 +150,15 @@ Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-11.webp"
 - Màu sắc: Xám/Nâu/Đen
 - Thiết kế: Thêu
 
-Màu sắc: Xám",210000,1,"assests\products\t-shirts\shirt-12.webp"
-),
-
-(
+Màu sắc: Xám",210000,1,"/t-shirts/shirt-12.webp"
+),(
 13,"Áo Polo Teelab Local Brand Unisex Contrast Collar Metalic Symbol TLB Polo Shirt AP054","Thông tin sản phẩm:
 - Chất liệu: TC cá sấu
 - Form: Oversize
 - Màu sắc: Xám/Đen
 - Thiết kế: In lụa
 
-Màu sắc: Xám",195000,2,"assests\products\polo-shirt\polo-1.webp"
+Màu sắc: Xám",195000,2,"/polo-shirt/polo-1.webp"
 ),
 
 (
@@ -171,17 +168,17 @@ Màu sắc: Xám",195000,2,"assests\products\polo-shirt\polo-1.webp"
 - Màu sắc: Đen/Xanh/Hồng
 - Thiết kế: In lụa
 
-Màu sắc: Đen",195000,2,"assests\products\polo-shirt\polo-2.webp"
+Màu sắc: Đen",195000,2,"/polo-shirt/polo-2.webp"
 ),
 
 (
 15,"Áo Polo Teelab Local Brand Unisex Tyrannosaurus Polo shirt AP060","Thông tin sản phẩm:
-- Chất liệu:  Cotton
+- Chất liệu: Cotton
 - Form: Oversize
 - Màu sắc: Xám
 - Thiết kế: In lụa
 
-Màu sắc: Xám Melane",195000,2,"assests\products\polo-shirt\polo-3.webp"
+Màu sắc: Xám Melane",195000,2,"/polo-shirt/polo-3.webp"
 ),
 
 (
@@ -191,7 +188,7 @@ Màu sắc: Xám Melane",195000,2,"assests\products\polo-shirt\polo-3.webp"
 - Màu sắc: Đen
 - Thiết kế: In lụa
 
-Màu sắc: Đen",195000,2,"assests\products\polo-shirt\polo-4.webp"
+Màu sắc: Đen",195000,2,"/polo-shirt/polo-4.webp"
 ),
 
 (
@@ -202,7 +199,7 @@ Màu sắc: Đen",195000,2,"assests\products\polo-shirt\polo-4.webp"
 - Thiết kế: In lụa
 
 Màu sắc: Đen
-",195000,2,"assests\products\polo-shirt\polo-5.webp"
+",195000,2,"/polo-shirt/polo-5.webp"
 ),
 
 (
@@ -213,7 +210,7 @@ Màu sắc: Đen
 - Thiết kế: In lụa
 
 Màu sắc: Đen
-",175000,2,"assests\products\polo-shirt\polo-6.webp"
+",175000,2,"/polo-shirt/polo-6.webp"
 ),
 
 (
@@ -224,7 +221,7 @@ Màu sắc: Đen
 - Thiết kế: In lụa
 
 Màu sắc: Kem
-",195000,2,"assests\products\polo-shirt\polo-7.webp"
+",195000,2,"/polo-shirt/polo-7.webp"
 ),
 
 (
@@ -235,7 +232,7 @@ Màu sắc: Kem
 - Thiết kế: In lụa
 
 Màu sắc: Trắng
-",195000,2,"assests\products\polo-shirt\polo-8.webp"
+",195000,2,"/polo-shirt/polo-8.webp"
 ),
 
 (
@@ -246,7 +243,7 @@ Màu sắc: Trắng
 - Thiết kế: In lụa.
 
 Màu sắc: Trắng
-",219000,3,"assests\products\shirts\somi-1.webp"
+",219000,3,"/shirts/somi-1.webp"
 ),
 
 (
@@ -257,7 +254,7 @@ Màu sắc: Trắng
 - Thiết kế: Thêu.
 
 Màu sắc: Xanh
-",219000,3,"assests\products\shirts\somi-2.webp"
+",219000,3,"/shirts/somi-2.webp"
 ),
 
 (
@@ -268,7 +265,7 @@ Màu sắc: Xanh
 - Thiết kế: In lụa.
 
 Màu sắc: Đen
-",210000,3,"assests\products\shirts\somi-3.webp"
+",210000,3,"/shirts/somi-3.webp"
 ),
 
 (
@@ -279,7 +276,7 @@ Màu sắc: Đen
 - Thiết kế: Thêu
 
 Màu sắc: Trắng
-",219000,3,"assests\products\shirts\somi-4.webp"
+",219000,3,"/shirts/somi-4.webp"
 ),
 
 (
@@ -290,19 +287,18 @@ Màu sắc: Trắng
 - Thiết kế: Thêu
 
 Màu sắc: Hồng
-",210000,3,"assests\products\shirts\somi-5.webp"
+",210000,3,"/shirts/somi-5.webp"
 ),
 
 (
 26,"Áo Sơ Mi Ngắn Tay Teelab Graffiti Oversize Shirt SS049","Thông tin sản phẩm:
-
 - Chất liệu: Vải Oxford
 - Form: Oversize
 - Màu sắc: Xanh
 - Thiết kế: In lụa.
 
 Màu sắc: Xanh
-",210000,3,"assests\products\shirts\somi-6.webp"
+",210000,3,"/shirts/somi-6.webp"
 ),
 
 (
@@ -313,7 +309,7 @@ Màu sắc: Xanh
 - Thiết kế: In lụa.
 
 Màu sắc: Xanh
-",219000,3,"assests\products\shirts\somi-7.webp"
+",219000,3,"/shirts/somi-7.webp"
 ),
 
 (28,"Áo Hoodie Teelab Local Brand Unisex Bunny Cake Hoodie HD107","Thông tin sản phẩm:
@@ -321,101 +317,95 @@ Màu sắc: Xanh
 - Form: Oversize
 - Màu sắc: Kem/Xám Tiêu
 - Thiết kế: In lụa
-Màu sắc: Kem",275000,4,"assests\products\hoddie\hoddie-1.webp"),
+Màu sắc: Kem",275000,4,"/hoddie/hoddie-1.webp"),
 
-(29,"Áo Sweatshirt Local Brand Unisex Teelab  Love is in the air Sweatshirt HD109","Thông tin sản phẩm:
+(29,"Áo Sweatshirt Local Brand Unisex Teelab Love is in the air Sweatshirt HD109","Thông tin sản phẩm:
 - Chất liệu: Nỉ
 - Form: Oversize
 - Màu sắc: Kem/Xám Tiêu
 - Thiết kế: In lụa
-Màu sắc: Kem",269000,4,"assests\products\hoddie\hoddie-2.webp"),
+Màu sắc: Kem",269000,4,"/hoddie/hoddie-2.webp"),
 
 (30,"Áo Hoodie Zipup Local Brand Unisex Teelab Classic Hoodie Zipup Boxy HD100","Thông tin sản phẩm:
 - Chất liệu: Nỉ bông
 - Form: Oversize
 - Màu sắc: Đen/Xanh Navy/Xám Tiêu/Xám Đậm
 - Thiết kế: In lụa
-Màu sắc: Đen",275000,4,"assests\products\hoddie\hoddie-3.webp"),
+Màu sắc: Đen",275000,4,"/hoddie/hoddie-3.webp"),
 
 (31,"Áo Hoodie Local Brand Unisex Teelab Tulipvalley Hoodie HD105","Thông tin sản phẩm:
 - Chất liệu: Nỉ
 - Form: Oversize
 - Màu sắc: Đen/Kem/Xám Tiêu
 - Thiết kế: In lụa
-Màu sắc: Kem",350000,4,"assests\products\hoddie\hoddie-4.webp"),
+Màu sắc: Kem",350000,4,"/hoddie/hoddie-4.webp"),
 
 (32,"Áo Hoodie Local Brand Unisex Teelab Dino Christmas Hoodie HD098","Thông tin sản phẩm:
 - Chất liệu: Nỉ
 - Form: Oversize
 - Màu sắc: Kem/Xám Tiêu
 - Thiết kế: In lụa
-Màu sắc: Kem",330000,4,"assests\products\hoddie\hoddie-5.webp"),
+Màu sắc: Kem",330000,4,"/hoddie/hoddie-5.webp"),
 
 (33,"Áo Hoodie Worldwide Studio Collection Teelab Local Brand Unisex Form Oversize HD091","Thông tin sản phẩm:
 - Chất liệu: Nỉ bông
 - Form: Oversize
 - Màu sắc: Nâu/Hồng/Tím/Kem/Đen/Xám Tiêu/Be/Xám Đậm
 - Thiết kế: In cao thành
-Màu sắc: Đen",330000,4,"assests\products\hoddie\hoddie-6.webp"),
+Màu sắc: Đen",330000,4,"/hoddie/hoddie-6.webp"),
 
 (34,"Áo Hoodie Teelab Local Brand Unisex PREMIUM Basic 8 Màu Thêu Logo Basic HD074","Thông tin sản phẩm:
 - Chất liệu: Nỉ bông
 - Form: Oversize
 - Thiết kế: Thêu
-Màu sắc: Đen",275000,4,"assests\products\hoddie\hoddie-7.webp"),
+Màu sắc: Đen",275000,4,"/hoddie/hoddie-7.webp"),
 
 (35,"Áo Hoodie Teelab Local Brand Unisex Morning Star Bunny HD062","Thông tin sản phẩm:
 - Chất liệu: Nỉ bông 360gsm
 - Form: Oversize
 - Màu sắc: Kem
 - Thiết kế: Thêu
-Màu sắc: Kem",330000,4,"assests\products\hoddie\hoddie-8.webp"),
+Màu sắc: Kem",330000,4,"/hoddie/hoddie-8.webp"),
 
 (36,"Áo Hoodie Zip Teelab Local Brand Unisex Basic Kéo Khóa HD036","Thông tin sản phẩm: 
 - Chất liệu: Nỉ bông
 - Form: Oversize
 - Thiết kế: In lụa cao cấp
-Color: Kem",249000,4,"assests\products\hoddie\hoddie-9.webp"),
-
+Color: Kem",249000,4,"/hoddie/hoddie-9.webp"),
 
 (37,"Áo khoác Local Brand Unisex Teelab Preppy Varsity Jacket AK122","Thông tin sản phẩm:
 - Chất liệu: Dạ
 - Form: Oversize
 - Màu sắc: Xám Tiêu/Xanh Than
 - Thiết kế: Thêu
-Màu sắc: Xanh Than",350000,5,"assests\products\jacket\jacket-1.webp"),
-
+Màu sắc: Xanh Than",350000,5,"/jacket/jacket-1.webp"),
 
 (38,"Áo Khoác Len Local Brand Unisex Teelab 'Simple love with Teelab' AK125","Thông tin sản phẩm:
 - Chất liệu: Len
 - Form: Oversize
 - Màu sắc: Đen/Kem
 - Thiết kế: Thêu
-Màu sắc: Đen",299000,5,"assests\products\jacket\jacket-2.webp"),
-
+Màu sắc: Đen",299000,5,"/jacket/jacket-2.webp"),
 
 (39,"Áo khoác Local Brand Unisex Teelab Tech Pack Military Unlined Vest AK118","Thông tin sản phẩm:
 - Chất liệu: Vải gió dù
 - Form: Oversize
 - Màu sắc: Đen/Xám/Kem
-- Thiết kế: In lụa.",275000,5,"assests\products\jacket\jacket-3.webp"),
-
+- Thiết kế: In lụa.",275000,5,"/jacket/jacket-3.webp"),
 
 (40,"Áo khoác Gió Local Brand Unisex Teelab Diode Insulated Jacket AK120","Thông tin sản phẩm:
 - Chất liệu: Vải gió
 - Form: Oversize
 - Màu sắc: Đen/Xám/Nâu Nhạt
 - Thiết kế: In lụa.
-Màu sắc: Đen",299000,5,"assests\products\jacket\jacket-4.webp"),
-
+Màu sắc: Đen",299000,5,"/jacket/jacket-4.webp"),
 
 (41,"Áo khoác Local Brand Unisex Teelab Classic Varsity AK117","Thông tin sản phẩm:
 - Chất liệu: Dạ
 - Form: Oversize
 - Màu sắc: Đen/Be/Xanh Than/Xám Đậm
 - Thiết kế: Thêu.
-Màu sắc: Đen",320000,5,"assests\products\jacket\jacket-5.webp");
-
+Màu sắc: Đen",320000,5,"/jacket/jacket-5.webp");
 CREATE TABLE storeclothes.orders (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
