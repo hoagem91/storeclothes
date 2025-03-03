@@ -48,4 +48,9 @@ app.MapControllerRoute(
     pattern: "payments/{action=Index}/{id?}",
     defaults: new { controller = "Payments" }
 );
+app.MapControllerRoute(
+    name: "login",
+    pattern: "login/{action=Index}/{id?}",
+    defaults: new { controller = "Login" }
+);
 app.Run();
