@@ -35,55 +35,39 @@ CREATE TABLE storeclothes.products (
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
--- (
--- 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
--- - Chất liệu: Cotton
--- - Form: Oversize
--- - Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
--- - Thiết kế: in lụa
+(1, "Áo khoác Local Brand Unisex Teelab Preppy Varsity Jacket AK122", "Thông tin sản phẩm:
+- Chất liệu: Dạ
+- Form: Oversize
+- Màu sắc: Xám Tiêu/Xanh Than
+- Thiết kế: Thêu
+Màu sắc: Xanh Than", 350000, 5, "/jacket/jacket-1.webp"),
 
--- Màu sắc: Trắng",195000,1,"assests\products\t-shirts\shirt-1.webp"
--- ),
-
-(
-2,"Áo Thun Local Brand Unisex Teelab Summer Fresh Tshirt TS282","Thông tin sản phẩm:
-- Chất liệu: Cotton
+(2, "Áo Khoác Len Local Brand Unisex Teelab 'Simple love with Teelab' AK125", "Thông tin sản phẩm:
+- Chất liệu: Len
 - Form: Oversize
 - Màu sắc: Đen/Kem
-- Thiết kế: In lụa
+- Thiết kế: Thêu
+Màu sắc: Đen", 299000, 5, "/jacket/jacket-2.webp"),
 
-Màu sắc: Đen",195000,1,"assests\products\t-shirts\shirt-2.webp"
-),
-
-(
-3,"Áo Thun Dài Tay Local Brand Unisex Teelab Academy LongSleeve Tshirt TS292","Thông tin sản phẩm:
-- Chất liệu: Cotton
+(3, "Áo khoác Local Brand Unisex Teelab Tech Pack Military Unlined Vest AK118", "Thông tin sản phẩm:
+- Chất liệu: Vải gió dù
 - Form: Oversize
-- Màu sắc: Xám Tiêu/Đen/Trắng/Xám Đậm
-- Thiết kế: In lụa
+- Màu sắc: Đen/Xám/Kem
+- Thiết kế: In lụa.", 275000, 5, "/jacket/jacket-3.webp"),
 
-Màu sắc: Xám Tiêu",210000,1,"assests\products\t-shirts\shirt-3.webp"
-),
-
-(
-4,"Áo Thun Local Brand Unisex Teelab Dino Petite Tshirt TS287","Thông tin sản phẩm:
-- Chất liệu: Cotton
+(4, "Áo khoác Gió Local Brand Unisex Teelab Diode Insulated Jacket AK120", "Thông tin sản phẩm:
+- Chất liệu: Vải gió
 - Form: Oversize
-- Màu sắc: Xám Tiêu/Kem
-- Thiết kế: In lụa
+- Màu sắc: Đen/Xám/Nâu Nhạt
+- Thiết kế: In lụa.
+Màu sắc: Đen", 299000, 5, "/jacket/jacket-4.webp"),
 
-Màu sắc: Xám Tiêu",195000,1,"assests\products\t-shirts\shirt-4.webp"
-),
-
-(
-5,"Áo Thun Dài Tay Local Brand Unisex Teelab No.88 Jersey LongSleeve Tshirt TS290","Thông tin sản phẩm:
-- Chất liệu: Vải thể thao
+(5, "Áo khoác Local Brand Unisex Teelab Classic Varsity AK117", "Thông tin sản phẩm:
+- Chất liệu: Dạ
 - Form: Oversize
-- Màu sắc: Trắng/Đen
-- Thiết kế: In lụa
-
-Màu sắc: Trắng",210000,1,"assests\products\t-shirts\shirt-5.webp"
-),
+- Màu sắc: Đen/Be/Xanh Than/Xám Đậm
+- Thiết kế: Thêu.
+Màu sắc: Đen", 320000, 5, "/jacket/jacket-5.webp");
 
 (
 6,"Áo Thun Teelab Local Brand Unisex Royal Jersey wash Tshirt TS281","Thông tin sản phẩm:
