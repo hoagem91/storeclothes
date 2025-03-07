@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Shopping Cart";
 }
+<link rel="stylesheet" href="~/css/cart_style/cart.css" />
 
-<link rel="stylesheet" href="~/css/cart.css" />
-
+<!-- Content -->
 <div class="cart-container">
     <h2 class="cart-title">Shopping Cart</h2>
     <table class="cart-table">
@@ -20,30 +20,32 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr class="product-view__cart">
                     <td class="product-info">
                         <img src="~/assests/products/@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
                         <span>@item.Product.Name</span>
                     </td>
-                    <td class="price">$@item.Product.Price</td>
+                    <td class="price">
+                        @(String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0} ₫", item.Product.Price))
+                    </td>
                     <td class="quantity">
                         <button class="qty-btn minus" data-id="@item.Id">-</button>
                         <input type="text" value="@item.Quantity" class="qty-input" data-id="@item.Id" />
                         <button class="qty-btn plus" data-id="@item.Id">+</button>
                     </td>
-                    <td class="total-price" data-id="@item.Id">$@(item.Product.Price * item.Quantity)</td>
+                    <td class="total-price" data-id="@item.Id">
+                        @(String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0} ₫", item.Product.Price * item.Quantity))
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-
-    <div class="cart-summary">
-        <span>Subtotal: </span>
-        <span id="cart-subtotal">$@Model.Sum(x => x.Product.Price * x.Quantity)</span>
+    <div class="cart-active">
+        <div class="cart-summary">
+            <span>Subtotal: </span>
+            <span id="cart-subtotal">$@Model.Sum(x => x.Product.Price * x.Quantity)</span>
+        </div>
+        <button class="pay-btn">Pay Now</button>
     </div>
-
-    <button class="pay-btn">Pay Now</button>
-    <a href="/cart" class="view-cart-btn">View Cart</a>
 </div>
-
-<script src="~/js/cart.js"></script>
+<script src="~/js/cart_shop/cart.js"></script>
