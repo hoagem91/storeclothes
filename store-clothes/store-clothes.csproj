@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="assests\**" />
+    <Content Remove="assests\**" />
+    <EmbeddedResource Remove="assests\**" />
+    <None Remove="assests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.36" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.36">
       <PrivateAssets>all</PrivateAssets>
@@ -19,12 +26,6 @@
     </PackageReference>
     <PackageReference Include="MySql.Data" Version="9.2.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="assests\products\hoddie\" />
-    <Folder Include="assests\products\jacket\" />
-    <Folder Include="assests\products\t-shirts\" />
   </ItemGroup>
 
 </Project>
