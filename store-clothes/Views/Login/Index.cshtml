@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LITA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
 </head>
 <body>
 
@@ -21,22 +23,27 @@
                 <h3 class="text-center">Welcome to LITA</h3>
                 <div class="d-flex justify-content-center my-3">
                     <button class="btn-toggle me-2 active">Login</button>
-                    <a href="@Url.Action("Register", "Account")" class="btn-toggle">Register</a>
+                    <a href="@Url.Action("Index", "Register")" class="btn-toggle">Register</a>
                 </div>
                 <p class="text-center text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
-                <form method="post" action="@Url.Action("Login", "Account")">
-                    <input type="text" class="input-field" name="username" placeholder="Enter your User name" required>
+                <form method="post" action="@Url.Action("Authenticate", "Login")">
+                    <input type="email" class="input-field" name="email" placeholder="Enter your Email" required>
                     <input type="password" class="input-field" name="password" placeholder="Enter your Password" required>
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                             <input type="checkbox" id="rememberMe">
                             <label for="rememberMe">Remember me</label>
                         </div>
-                        <a href="#">Forgot Password?</a>
+                        <a href="@Url.Action("Index", "ForgotPassword")">Forgot Password?</a>
                     </div>
                     <button type="submit" class="btn-login">Login</button>
                 </form>
+
+                @if (!string.IsNullOrEmpty(ViewBag.Error))
+                {
+                    <div class="alert alert-danger text-center mt-3">@ViewBag.Error</div>
+                }
             </div>
         </div>
     </div>
