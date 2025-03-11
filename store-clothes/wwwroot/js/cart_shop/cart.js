@@ -21,7 +21,14 @@
     function updateTotal(id, quantity) {
         const priceElement = document.querySelector(`.total-price[data-id='${id}']`);
         const price = parseFloat(priceElement.getAttribute("data-price"));
-        priceElement.innerText = `$${(price * quantity).toFixed(2)}`;
+
+        const total = price * quantity;
+        const formattedTotal = new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+        }).format(total);
+
+        priceElement.innerText = formattedTotal;
 
         updateCartSubtotal();
     }
@@ -29,8 +36,19 @@
     function updateCartSubtotal() {
         let total = 0;
         document.querySelectorAll(".total-price").forEach(el => {
-            total += parseFloat(el.innerText.replace("$", ""));
+            const id = el.getAttribute("data-id");
+            const price = parseFloat(el.getAttribute("data-price"));
+            const quantity = parseInt(document.querySelector(`.qty-input[data-id='${id}']`).value);
+            total += price * quantity;
         });
-        document.getElementById("cart-subtotal").innerText = `$${total.toFixed(2)}`;
+
+        const formattedSubtotal = new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+        }).format(total);
+
+        document.getElementById("cart-subtotal").innerText = formattedSubtotal;
     }
+
+    updateCartSubtotal(); // Gọi khi tải trang
 });
