@@ -14,6 +14,9 @@ builder.Services.AddDbContext<storeclothesContext>(options =>
 // Đăng ký dịch vụ MVC
 builder.Services.AddControllersWithViews();
 
+// ✅ Đăng ký Session
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Middleware xử lý lỗi
@@ -22,15 +25,33 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseStaticFiles(); // Hỗ trợ file tĩnh (CSS, JS, Images)
-app.UseRouting(); // Cấu hình định tuyến
-app.UseAuthorization(); // Hỗ trợ xác thực người dùng
+app.UseStaticFiles();
+app.UseRouting();
 
-// Thiết lập route mặc định cho MVC
+// ✅ Kích hoạt Session Middleware
+app.UseSession();
+
+app.UseAuthorization();
+
+// ✅ Đặt MainController làm trang mặc định thay vì HomeController
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
+    pattern: "{controller=Main}/{action=Index}/{id?}"
 );
+
+// Giữ HomeController và các route khác
+app.MapControllerRoute(
+    name: "home",
+    pattern: "home/{action=Index}/{id?}",
+    defaults: new { controller = "Home" }
+);
+
+app.MapControllerRoute(
+    name: "main",
+    pattern: "main/{action=Index}/{id?}",
+    defaults: new { controller = "Main" }
+);
+
 app.MapControllerRoute(
     name: "product",
     pattern: "product/{action=Index}/{id?}",
@@ -48,9 +69,17 @@ app.MapControllerRoute(
     pattern: "payments/{action=Index}/{id?}",
     defaults: new { controller = "Payments" }
 );
+
 app.MapControllerRoute(
     name: "login",
     pattern: "login/{action=Index}/{id?}",
     defaults: new { controller = "Login" }
 );
+
+app.MapControllerRoute(
+    name: "register",
+    pattern: "register/{action=Index}/{id?}",
+    defaults: new { controller = "Register" }
+);
+
 app.Run();

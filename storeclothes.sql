@@ -37,7 +37,7 @@ CREATE TABLE storeclothes.products (
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
 
 
-1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
+(1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
 - Chất liệu: Cotton
 - Form: Oversize
 - Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
