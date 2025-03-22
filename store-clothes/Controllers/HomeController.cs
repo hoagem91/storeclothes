@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using store_clothes.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace store_clothes.Controllers
 {
@@ -17,7 +18,10 @@ namespace store_clothes.Controllers
         public async Task<IActionResult> Index()
         {
             var categories = await _context.Categories.ToListAsync();
-            return View(categories);
+            var products = await _context.Products.ToListAsync();
+
+            var model = new Tuple<IEnumerable<Category>, IEnumerable<Product>>(categories, products);
+            return View(model);
         }
     }
 }

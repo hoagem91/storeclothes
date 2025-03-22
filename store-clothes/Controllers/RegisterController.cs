@@ -1,20 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using store_clothes.Models;
+using System.Linq;
 
 namespace store_clothes.Controllers
 {
     public class RegisterController : Controller
     {
-        // Hiển thị trang đăng ký (Register)
-        public IActionResult Index()
+        private readonly storeclothesContext _context; // Inject DbContext
+
+        public RegisterController(storeclothesContext context)
         {
-            return View(); // Tìm file Views/Register/Index.cshtml
+            _context = context;
         }
 
-        // Chuyển hướng đến trang đăng nhập (Login)
-        public IActionResult Login()
+        [HttpGet]
+        public IActionResult Index()
         {
-            return RedirectToAction("Index", "Login"); // Điều hướng đến LoginController.Index()
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", user);
+            }
+
+            // Kiểm tra email đã tồn tại chưa
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
+            if (existingUser != null)
+            {
+                TempData["ErrorMessage"] = "Email đã tồn tại!";
+                return RedirectToAction("Index");
+            }
+
+            // Lưu user vào database (KHÔNG mã hóa mật khẩu)
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            // Lưu thông báo thành công
+            TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
+
+            // Chuyển hướng về trang Login
+            return RedirectToAction("Index", "Login");
         }
     }
 }
-
