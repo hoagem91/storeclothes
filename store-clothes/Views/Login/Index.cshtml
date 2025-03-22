@@ -50,3 +50,23 @@
 
 </body>
 </html>
+<script>
+    <script>
+        document.querySelector(".btn-login").addEventListener("click", function (event) {
+            event.preventDefault();
+            window.location.href = "/Home/Index";
+        });
+</script>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["ErrorMessage"]
+    </div>
+}

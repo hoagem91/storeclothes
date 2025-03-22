@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using store_clothes.Models;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace store_clothes.Controllers
 {
@@ -24,9 +22,7 @@ namespace store_clothes.Controllers
         [HttpPost]
         public IActionResult Authenticate(string email, string password)
         {
-            string hashedPassword = HashPassword(password); // Mã hóa password trước khi so sánh
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == hashedPassword);
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password); // Không băm mật khẩu
 
             if (user != null)
             {
@@ -44,15 +40,6 @@ namespace store_clothes.Controllers
             HttpContext.Session.Remove("UserEmail");
             HttpContext.Session.Remove("UserName");
             return RedirectToAction("Index");
-        }
-
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
         }
     }
 }

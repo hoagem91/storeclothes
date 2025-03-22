@@ -1,4 +1,6 @@
-﻿@{
+﻿@model store_clothes.Models.User
+
+@{
     Layout = null;
 }
 
@@ -15,8 +17,7 @@
 
     <div class="login-container">
         <!-- Hình ảnh bên trái -->
-        <div class="image-section">
-        </div>
+        <div class="image-section"></div>
 
         <!-- Form đăng ký bên phải -->
         <div class="form-section">
@@ -28,15 +29,40 @@
                 </div>
                 <p class="text-center text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
-                <form method="post" action="@Url.Action("Register", "Register")">
-                    <input type="email" class="input-field" name="email" placeholder="Enter your Email Address" required>
-                    <input type="text" class="input-field" name="username" placeholder="Enter your User name" required>
-                    <input type="password" class="input-field" name="password" placeholder="Enter your Password" required>
+                <!-- Hiển thị thông báo lỗi từ Server -->
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
+                }
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success text-center">@TempData["SuccessMessage"]</div>
+                }
+
+                <form method="post" asp-action="Register" asp-controller="Register">
+                    <!-- Email -->
+                    <input asp-for="Email" class="input-field" placeholder="Enter your Email Address" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                    <!-- Tên đăng nhập -->
+                    <input asp-for="Name" class="input-field" placeholder="Enter your User name" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                    <!-- Mật khẩu -->
+                    <input asp-for="Password" type="password" class="input-field" placeholder="Enter your Password" required>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
                     <button type="submit" class="btn-register">Register</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Thêm script để hiển thị Validation phía client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
 </body>
 </html>
