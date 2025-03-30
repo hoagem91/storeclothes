@@ -42,8 +42,10 @@ ADD size VARCHAR(50) ;
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
 
 
+
 (
 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
+
 - Chất liệu: Cotton
 - Form: Oversize
 - Màu sắc: Đen/Trắng/Nâu Nhạt/Xanh Navy
@@ -91,7 +93,6 @@ Màu sắc: Xám Tiêu",195000,1,"/t-shirts/shirt-4.webp"
 
 Màu sắc: Trắng",210000,1,"/t-shirts/shirt-5.webp"
 ),
-
 (
 6,"Áo Thun Teelab Local Brand Unisex Royal Jersey wash Tshirt TS281","Thông tin sản phẩm:
 - Chất liệu: Cotton

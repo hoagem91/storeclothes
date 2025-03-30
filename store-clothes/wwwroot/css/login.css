@@ -1,0 +1,93 @@
+﻿html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', sans-serif;
+}
+
+body {
+    background: url('/assests/Home/Login.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Đẩy form sang phải */
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.login-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: flex-end; /* Đẩy form về bên phải */
+    align-items: center;
+    padding-right: 50px; /* Khoảng cách lề phải */
+}
+
+.form-section {
+    width: 33.33%; /* Chiếm 1/3 màn hình */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px; /* Điều chỉnh kích thước form */
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-toggle {
+    background: #D6C5AE;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration:none;
+    font-weight:bold;
+    color:black;
+}
+
+    .btn-toggle:hover {
+        background: #b8a995;
+        text-decoration: none;
+    }
+
+.btn-login,
+.btn-register {
+    background-color: #A08D75;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-login:hover,
+    .btn-register:hover {
+        background-color: #8c7761;
+    }
+
+.input-field {
+    border-radius: 20px;
+    padding: 15px;
+    border: 1px solid #A08D75;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none; /* Bỏ dấu gạch chân */
+    color: black;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: gray; /* Đổi màu khi hover */
+    }
