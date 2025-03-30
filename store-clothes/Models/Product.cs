@@ -16,8 +16,10 @@ namespace store_clothes.Models
         public decimal? Price { get; set; }
         public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }
+        public string? size { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+     
     }
 }

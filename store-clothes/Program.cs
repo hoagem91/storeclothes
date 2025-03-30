@@ -11,6 +11,15 @@ builder.Services.AddDbContext<storeclothesContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
 
+// Thêm dịch vụ session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout của session
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Đăng ký dịch vụ MVC
 builder.Services.AddControllersWithViews();
 
@@ -25,11 +34,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseStaticFiles();
-app.UseRouting();
+app.UseStaticFiles(); // Hỗ trợ file tĩnh (CSS, JS, Images)
 
-// ✅ Kích hoạt Session Middleware
+// Thêm middleware session
 app.UseSession();
+
+app.UseRouting(); // Cấu hình định tuyến
+app.UseAuthorization(); // Hỗ trợ xác thực người dùng
+
 
 app.UseAuthorization();
 
@@ -45,6 +57,7 @@ app.MapControllerRoute(
     pattern: "home/{action=Index}/{id?}",
     defaults: new { controller = "Home" }
 );
+
 
 app.MapControllerRoute(
     name: "main",

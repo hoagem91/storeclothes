@@ -1,0 +1,274 @@
+﻿/* Breadcrumbs */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.breadcrumb-item {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+    .breadcrumb-item a {
+        color: #666;
+        text-decoration: none;
+    }
+
+    .breadcrumb-item.active {
+        color: #333;
+    }
+
+/* Buttons */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Filters */
+.filter-section {
+    padding: 15px;
+    border-right: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filter-title {
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+}
+
+.filter-group {
+    margin-bottom: 10px;
+}
+
+    .filter-group h5 {
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+    }
+
+.form-check {
+    margin-bottom: 5px;
+}
+
+.form-check-input {
+    margin-top: 0.3rem;
+}
+
+.form-check-label {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    color: #555;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-check-input:checked + .form-check-label {
+    color: #007bff;
+    font-weight: 500;
+}
+
+.filter-group select,
+.filter-group input[type="text"],
+.filter-group input[type="number"] {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+}
+
+    .filter-group select::placeholder,
+    .filter-group input[type="text"]::placeholder,
+    .filter-group input[type="number"]::placeholder {
+        color: #aaa;
+    }
+
+/* Nút Apply Filters */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+/* Danh sách sản phẩm */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product-card h5 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.product-card p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+.product-card .price {
+    font-weight: 500;
+    color: #000;
+}
+
+/* Tiêu đề Fashion */
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* Phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+    .pagination a {
+        color: #000;
+        border: 1px solid #000;
+        padding: 8px 12px;
+        margin: 0 5px;
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .pagination a.btn-primary {
+            background-color: #d3d3d3;
+            border-color: #000;
+            color: #000;
+        }
+
+        .pagination a.btn-outline-primary {
+            background-color: #fff;
+            border-color: #000;
+            color: #000;
+        }
+
+        .pagination a:hover {
+            background-color: #e9ecef;
+        }
+
+/* Chọn kích cỡ (dùng chung cho cả Index và Details) */
+.size-selection h5 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.size-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.size-label {
+    display: inline-block;
+}
+
+    .size-label input[type="radio"] {
+        display: none;
+    }
+
+    .size-label .size-option {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid #000;
+        color: #000;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .size-label input[type="radio"]:checked + .size-option {
+        background-color: #d3d3d3;
+        border-color: #000;
+        color: #000;
+    }
+
+    .size-label .size-option:hover {
+        background-color: #e9ecef;
+    }
+
+/* Responsive cho danh sách sản phẩm */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.size-label .size-option {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

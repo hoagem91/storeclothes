@@ -1,18 +1,258 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+﻿/* Áp dụng phông chữ Poppins cho toàn bộ trang */
 body {
-  margin-bottom: 60px;
+    padding-top: 60px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff; /* Nền trắng */
+    padding: 10px 15px;
+    height: 60px;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000; /* Logo màu đen */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.navbar-nav.mx-auto {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.navbar-nav .nav-link {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #333; /* Chữ màu đen */
+    margin: 0 15px;
+    position: relative;
+    transition: color 0.3s;
+    padding: 5px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #000;
+    }
+
+.navbar-nav .nav-item.active .nav-link {
+    color: #000;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #000; /* Gạch dưới màu đen */
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-item.active .nav-link::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar .ms-auto .nav-link {
+    font-size: 1.2rem;
+    color: #333; /* Biểu tượng màu đen */
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+    .navbar .ms-auto .nav-link:hover {
+        color: #000;
+    }
+
+    /* Style cho badge của giỏ hàng */
+    .navbar .ms-auto .nav-link .badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+
+/* Search Form */
+.search-container {
+    margin-right: 10px;
+}
+
+.search-form {
+    width: 200px;
+}
+
+.search-input {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .search-input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0,123,255,0.3);
+    }
+
+    .search-input::placeholder {
+        color: #aaa;
+        font-style: italic;
+    }
+
+/* Style cho nút tìm kiếm */
+.search-form .btn {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    background-color: #000; /* Nền đen */
+    padding: 40px 0;
+    border-top: 1px solid #444; /* Viền trên màu xám đậm */
+    color: #fff; /* Chữ màu trắng */
+}
+
+.footer-brand {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff; /* Logo màu trắng */
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff; /* Chữ màu trắng */
+}
+
+.footer .fa-solid, .footer .fa-brands {
+    margin-right: 8px;
+    color: #fff; /* Biểu tượng màu trắng */
+    font-size: 12px;
+}
+
+.social-media {
+    margin: 15px 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff; /* Chữ màu trắng */
+    text-transform: uppercase;
+}
+
+.social-icons a {
+    color: #fff; /* Biểu tượng màu trắng */
+    font-size: 14px;
+    margin: 0 8px;
+    text-decoration: none;
+}
+
+    .social-icons a:hover {
+        color: #007bff;
+    }
+
+.footer-divider {
+    border-top: 1px solid #444; /* Đường phân cách màu xám đậm */
+    margin: 30px 0;
+}
+
+.footer-links-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding-top: 10px;
+}
+
+.footer-link {
+    color: #fff; /* Chữ màu trắng */
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    margin: 0 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s;
+    line-height: 1;
+    letter-spacing: 1.5px;
+}
+
+    .footer-link:hover {
+        color: #007bff;
+    }
+
+/* Responsive cho navbar và footer */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .search-form {
+        width: 150px;
+    }
+
+    .search-input {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .navbar .ms-auto .nav-link {
+        font-size: 1rem;
+        margin-left: 5px;
+    }
+
+    .footer .row .col-md-6 {
+        text-align: center !important;
+    }
+
+    .footer-links-container {
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .footer-link {
+        margin: 10px 0;
+    }
+
+    .footer-brand {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-form {
+        width: 120px;
+    }
+
+    .search-input {
+        font-size: 10px;
+        padding: 5px 6px;
+    }
+
+    .navbar .ms-auto .nav-link {
+        font-size: 0.9rem;
+        margin-left: 3px;
+    }
 }
