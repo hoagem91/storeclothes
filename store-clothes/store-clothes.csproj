@@ -22,9 +22,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="assests\products\hoddie\" />
-    <Folder Include="assests\products\jacket\" />
-    <Folder Include="assests\products\t-shirts\" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-1.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-2.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-3.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-4.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-5.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-6.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-7.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-8.webp" />
+    <None Include="wwwroot\assests\products\hoddie\hoddie-9.webp" />
+    <None Include="wwwroot\assests\products\jacket\jacket-1.webp" />
+    <None Include="wwwroot\assests\products\jacket\jacket-2.webp" />
+    <None Include="wwwroot\assests\products\jacket\jacket-3.webp" />
+    <None Include="wwwroot\assests\products\jacket\jacket-4.webp" />
+    <None Include="wwwroot\assests\products\jacket\jacket-5.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-1.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-2.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-3.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-4.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-5.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-6.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-7.webp" />
+    <None Include="wwwroot\assests\products\polo-shirt\polo-8.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-1.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-2.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-3.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-4.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-5.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-6.webp" />
+    <None Include="wwwroot\assests\products\shirts\somi-7.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-1.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-10.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-11.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-12.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-2.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-3.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-4.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-5.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-6.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-7.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-8.webp" />
+    <None Include="wwwroot\assests\products\t-shirts\shirt-9.webp" />
   </ItemGroup>
 
 </Project>

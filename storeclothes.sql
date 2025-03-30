@@ -34,9 +34,15 @@ CREATE TABLE storeclothes.products (
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
+
+ALTER TABLE storeclothes.products
+ADD size VARCHAR(50) ;
+
+
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
 
 
+(
 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
 - Chất liệu: Cotton
 - Form: Oversize
@@ -407,6 +413,51 @@ Màu sắc: Đen",299000,5,"/jacket/jacket-4.webp"),
 - Màu sắc: Đen/Be/Xanh Than/Xám Đậm
 - Thiết kế: Thêu.
 Màu sắc: Đen",320000,5,"/jacket/jacket-5.webp");
+
+UPDATE storeclothes.products SET size = 'M, L, XL' WHERE id = 1;
+UPDATE storeclothes.products SET size = 'S, M, L' WHERE id = 2;
+UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 3;
+UPDATE storeclothes.products SET size = 'M, L' WHERE id = 4;
+UPDATE storeclothes.products SET size = 'S, M, L, XL' WHERE id = 5;
+UPDATE storeclothes.products SET size = 'M, L, XL, XXL' WHERE id = 6;
+UPDATE storeclothes.products SET size = 'S, M' WHERE id = 7;
+UPDATE storeclothes.products SET size = 'M, L' WHERE id = 8;
+UPDATE storeclothes.products SET size = 'L, XL' WHERE id = 9;
+UPDATE storeclothes.products SET size = 'M, L, XL, XXL' WHERE id = 10;
+UPDATE storeclothes.products SET size = 'S, M, XL' WHERE id = 11;
+UPDATE storeclothes.products SET size = 'M, L, XXL' WHERE id = 12;
+UPDATE storeclothes.products SET size = 'S, L, XL' WHERE id = 13;
+UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 14;
+UPDATE storeclothes.products SET size = 'S, M' WHERE id = 15;
+UPDATE storeclothes.products SET size = 'M, L' WHERE id = 16;
+UPDATE storeclothes.products SET size = 'S, XL' WHERE id = 17;
+UPDATE storeclothes.products SET size = 'M, XL' WHERE id = 18;
+UPDATE storeclothes.products SET size = 'S, M, L' WHERE id = 19;
+UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 20;
+UPDATE storeclothes.products SET size = 'M, L' WHERE id = 21;
+UPDATE storeclothes.products SET size = 'S, M, L, XL' WHERE id = 22;
+UPDATE storeclothes.products SET size = 'M, XL' WHERE id = 23;
+UPDATE storeclothes.products SET size = 'S, L, XXL' WHERE id = 24;
+UPDATE storeclothes.products SET size = 'M, L, XL' WHERE id = 25;
+UPDATE storeclothes.products SET size = 'L, XL' WHERE id = 26;
+UPDATE storeclothes.products SET size = 'S, M, L' WHERE id = 27;
+UPDATE storeclothes.products SET size = 'M, L, XXL' WHERE id = 28;
+UPDATE storeclothes.products SET size = 'S, XL' WHERE id = 29;
+UPDATE storeclothes.products SET size = 'M, L, XL, XXL' WHERE id = 30;
+UPDATE storeclothes.products SET size = 'S, M' WHERE id = 31;
+UPDATE storeclothes.products SET size = 'L, XL' WHERE id = 32;
+UPDATE storeclothes.products SET size = 'M, L' WHERE id = 33;
+UPDATE storeclothes.products SET size = 'S, M, L' WHERE id = 34;
+UPDATE storeclothes.products SET size = 'L, XXL' WHERE id = 35;
+UPDATE storeclothes.products SET size = 'S, M, XL' WHERE id = 36;
+UPDATE storeclothes.products SET size = 'M, L, XL' WHERE id = 37;
+UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 38;
+UPDATE storeclothes.products SET size = 'S, M, L, XL' WHERE id = 39;
+UPDATE storeclothes.products SET size = 'M, L, XXL' WHERE id = 40;
+UPDATE storeclothes.products SET size = 'S, L, XL' WHERE id = 41;
+UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 42;
+
+
 CREATE TABLE storeclothes.orders (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
