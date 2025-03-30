@@ -1,0 +1,54 @@
+﻿@model store_clothes.Models.Product
+
+@{
+    ViewBag.Title = "Product Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <img src="@(Url.Content("~/assests/products/" + Model.ImageUrl))" alt="@Model.Name" class="img-fluid" style="max-height: 500px; object-fit: contain;" />
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-md-6">
+            <h2>@Model.Name</h2>
+            <p class="price">@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") + " đ" : "N/A")</p>
+            <p>@Model.Description</p>
+
+            <!-- Chọn kích cỡ -->
+            <div class="size-selection mb-3">
+                <h5>Size</h5>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <div class="size-buttons">
+                        @if (!string.IsNullOrEmpty(Model.size))
+                        {
+                            var sizes = Model.size.Split(','); // Giả định kích cỡ được lưu dưới dạng "S,M,L,XL"
+                            foreach (var size in sizes)
+                            {
+                                <label class="size-label">
+                                    <input type="radio" name="selectedSize" value="@size" required />
+                                    <span class="size-option">@size</span>
+                                </label>
+                            }
+                        }
+                        else
+                        {
+                            <p>Không có kích cỡ nào.</p>
+                        }
+                    </div>
+
+                    <!-- Nút Thêm vào giỏ hàng -->
+                    <button type="submit" class="btn btn-primary mt-3">Thêm vào giỏ hàng</button>
+                </form>
+            </div>
+
+            <!-- Thông tin bổ sung -->
+            
+         
+        </div>
+    </div>
+</div>

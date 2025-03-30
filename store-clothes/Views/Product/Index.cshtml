@@ -1,6 +1,111 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-<h1>Product Page</h1>
+﻿@model IEnumerable<store_clothes.Models.Product>
+
 @{
+    ViewBag.Title = "Fashion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="row">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="d-block d-lg-none">
+        <!-- Hiển thị breadcrumbs trên mobile -->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fashion</li>
+        </ol>
+    </nav>
+
+    <!-- Form bộ lọc -->
+    <form method="get" asp-action="Index" class="filter-form">
+        <div class="row">
+            <div class="col-md-3 filter-section">
+                <h3 class="filter-title">Filters</h3>
+
+                <!-- Lọc Size -->
+                <div class="filter-group size-selection">
+                    <h5>Size</h5>
+                    <div class="size-buttons">
+                        @if (ViewBag.Sizes is IList<object> sizes && sizes.Any())
+                        {
+                            foreach (var size in sizes)
+                            {
+                                var sizeObj = (dynamic)size;
+                                var isSelected = ViewBag.SelectedSize == sizeObj.Id ? "checked" : null;
+                                <label class="size-label">
+                                    <input type="radio" name="size" value="@sizeObj.Id" @isSelected onchange="this.form.submit()" />
+                                    <span class="size-option">@sizeObj.Name</span>
+                                </label>
+                            }
+                        }
+                        else
+                        {
+                            <p>Không có kích cỡ nào.</p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Lọc giá với mức tiền Việt Nam -->
+                <div class="filter-group">
+                    <h5>Prices</h5>
+                    @if (ViewBag.PriceRanges is IList<object> priceRanges)
+                    {
+                        @foreach (var range in priceRanges)
+                        {
+                            var rangeObj = (dynamic)range;
+                            var isPriceSelected = ViewBag.SelectedPrice == rangeObj.Id ? "checked" : null;
+                            <div class="form-check">
+                                <input type="radio" name="price" value="@rangeObj.Id"
+                                       class="form-check-input"
+                                       id="price-@rangeObj.Id"
+                                       checked="@isPriceSelected">
+                                <label class="form-check-label" for="price-@rangeObj.Id">
+                                    @rangeObj.Name
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="text-start mb-2">
+                    <button type="submit" class="btn btn-primary btn-sm">Apply Filters</button>
+                </div>
+            </div>
+
+            <!-- Danh sách sản phẩm -->
+            <div class="col-md-9">
+                <h1>Fashion</h1>
+                <div class="product-grid">
+                    @if (Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <div class="product-card">
+                                <a asp-action="Details" asp-route-id="@product.Id" class="product-link">
+                                    <img src="@(Url.Content("~/assests/products/" + product.ImageUrl))" alt="@product.Name" class="img-fluid product-image" />
+                                    <h5 class="product-name">@product.Name</h5>
+                                    <p class="price">@(product.Price.HasValue ? product.Price.Value.ToString("N0") + " đ" : "N/A")</p>
+                                    <p class="product-size">Kích cỡ: @(product.size ?? "Không có")</p>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Không tìm thấy sản phẩm nào.</p>
+                    }
+                </div>
+
+                <!-- Phân trang -->
+                @if (ViewBag.TotalPages > 1)
+                {
+                    <div class="pagination d-flex justify-content-center mt-4">
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <a href="@Url.Action("Index", new { size = ViewBag.SelectedSize, price = ViewBag.SelectedPrice, search = ViewBag.Search, page = i })" class="btn btn-sm @(i == ViewBag.CurrentPage ? "btn-primary" : "btn-outline-primary") mx-1">@i</a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
