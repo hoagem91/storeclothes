@@ -91,3 +91,62 @@ a {
     a:hover {
         color: gray; /* Đổi màu khi hover */
     }
+/* Responsive cho màn hình dưới 768px (Mobile) */
+@media (max-width: 768px) {
+    body {
+        justify-content: center; /* Căn giữa form */
+        align-items: center;
+        background-size: cover;
+        padding: 20px;
+    }
+
+    .login-container {
+        justify-content: center; /* Căn giữa form */
+        padding-right: 0; /* Bỏ padding phải */
+    }
+
+    .form-section {
+        width: 100%; /* Form rộng hơn để vừa màn hình */
+        max-width: 350px; /* Giới hạn tối đa */
+    }
+
+    .form-container {
+        padding: 20px; /* Giảm padding */
+        max-width: 100%; /* Đảm bảo form không bị cắt */
+    }
+
+    .btn-toggle,
+    .btn-login,
+    .btn-register {
+        padding: 12px; /* Giảm kích thước nút */
+        font-size: 16px;
+    }
+
+    .input-field {
+        padding: 12px; /* Giảm kích thước input */
+        font-size: 16px;
+    }
+}
+
+/* Responsive cho màn hình cực nhỏ dưới 480px (iPhone SE, Android nhỏ) */
+@media (max-width: 480px) {
+    .form-section {
+        width: 100%; /* Form chiếm hết màn hình */
+    }
+
+    .form-container {
+        padding: 15px; /* Giảm padding form */
+    }
+
+    .btn-toggle,
+    .btn-login,
+    .btn-register {
+        font-size: 14px; /* Giảm font chữ cho nút */
+        padding: 10px;
+    }
+
+    .input-field {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
