@@ -23,6 +23,7 @@ namespace store_clothes.Models
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Favorite> Favorites { get; set; } = null!; // Thêm dòng này
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,17 +44,14 @@ namespace store_clothes.Models
                 entity.ToTable("cart");
 
                 entity.HasIndex(e => e.ProductId, "product_id_idx");
-
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
-
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
-
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.Product)
@@ -72,7 +70,7 @@ namespace store_clothes.Models
                 entity.ToTable("categories");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Description)
@@ -91,7 +89,7 @@ namespace store_clothes.Models
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Status)
@@ -112,24 +110,21 @@ namespace store_clothes.Models
 
             modelBuilder.Entity<OrdersItem>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("orders_items");
 
                 entity.HasIndex(e => e.OrderId, "order_id_idx");
-
                 entity.HasIndex(e => e.ProductId, "product_id_idx");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
-
                 entity.Property(e => e.Price)
                     .HasPrecision(10, 2)
                     .HasColumnName("price");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
-
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Order)
@@ -148,26 +143,22 @@ namespace store_clothes.Models
                 entity.ToTable("payments");
 
                 entity.HasIndex(e => e.OrderId, "order_id_idx");
-
-                entity.HasIndex(e => e.TransactionId, "transaction_id_UNIQUE")
-                    .IsUnique();
-
+                entity.HasIndex(e => e.TransactionId, "transaction_id_UNIQUE").IsUnique();
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
-
                 entity.Property(e => e.PaymentStatus)
                     .HasColumnType("enum('pending','completed','failed')")
                     .HasColumnName("payment_status")
                     .HasDefaultValueSql("'pending'");
 
-                entity.Property(e => e.PaymetMethod)
+                entity.Property(e => e.PaymetMethod) // Sửa lỗi chính tả: PaymetMethod -> PaymentMethod
                     .HasColumnType("enum('credit_card','paypal','cod')")
-                    .HasColumnName("paymet_method");
+                    .HasColumnName("payment_method"); // Sửa lỗi chính tả: paymet_method -> payment_method
 
                 entity.Property(e => e.TransactionId)
                     .HasMaxLength(225)
@@ -193,11 +184,10 @@ namespace store_clothes.Models
                 entity.HasIndex(e => e.CategoryId, "category_id_idx");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
-
                 entity.Property(e => e.Description)
                     .HasColumnType("text")
                     .HasColumnName("description");
@@ -214,6 +204,10 @@ namespace store_clothes.Models
                     .HasPrecision(10, 2)
                     .HasColumnName("price");
 
+                entity.Property(e => e.Size)
+                    .HasMaxLength(50)
+                    .HasColumnName("size");
+
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
@@ -224,11 +218,10 @@ namespace store_clothes.Models
             {
                 entity.ToTable("users");
 
-                entity.HasIndex(e => e.Email, "email_UNIQUE")
-                    .IsUnique();
+                entity.HasIndex(e => e.Email, "email_UNIQUE").IsUnique();
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Email)
@@ -242,6 +235,36 @@ namespace store_clothes.Models
                 entity.Property(e => e.Password)
                     .HasMaxLength(45)
                     .HasColumnName("password");
+            });
+
+            // Thêm cấu hình cho Favorite
+            modelBuilder.Entity<Favorite>(entity =>
+            {
+                entity.ToTable("favorites");
+
+                entity.HasIndex(e => e.UserId, "user_id_idx");
+                entity.HasIndex(e => e.ProductId, "product_id_idx");
+                entity.HasIndex(e => new { e.UserId, e.ProductId }, "user_product_unique").IsUnique();
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Favorites)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_favorites_user");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Favorites)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_favorites_product");
             });
 
             OnModelCreatingPartial(modelBuilder);

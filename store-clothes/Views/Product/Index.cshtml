@@ -1,14 +1,17 @@
-﻿@model IEnumerable<store_clothes.Models.Product>
+﻿ @model IEnumerable<store_clothes.Models.Product>
 
 @{
     ViewBag.Title = "Fashion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/products/products.css" asp-append-version="true" />
+}
+
 <div class="row">
     <!-- Breadcrumbs -->
     <nav aria-label="breadcrumb" class="d-block d-lg-none">
-        <!-- Hiển thị breadcrumbs trên mobile -->
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Fashion</li>
@@ -20,8 +23,6 @@
         <div class="row">
             <div class="col-md-3 filter-section">
                 <h3 class="filter-title">Filters</h3>
-
-                <!-- Lọc Size -->
                 <div class="filter-group size-selection">
                     <h5>Size</h5>
                     <div class="size-buttons">
@@ -43,8 +44,6 @@
                         }
                     </div>
                 </div>
-
-                <!-- Lọc giá với mức tiền Việt Nam -->
                 <div class="filter-group">
                     <h5>Prices</h5>
                     @if (ViewBag.PriceRanges is IList<object> priceRanges)
@@ -54,10 +53,7 @@
                             var rangeObj = (dynamic)range;
                             var isPriceSelected = ViewBag.SelectedPrice == rangeObj.Id ? "checked" : null;
                             <div class="form-check">
-                                <input type="radio" name="price" value="@rangeObj.Id"
-                                       class="form-check-input"
-                                       id="price-@rangeObj.Id"
-                                       checked="@isPriceSelected">
+                                <input type="radio" name="price" value="@rangeObj.Id" class="form-check-input" id="price-@rangeObj.Id" checked="@isPriceSelected">
                                 <label class="form-check-label" for="price-@rangeObj.Id">
                                     @rangeObj.Name
                                 </label>
@@ -65,7 +61,6 @@
                         }
                     }
                 </div>
-
                 <div class="text-start mb-2">
                     <button type="submit" class="btn btn-primary btn-sm">Apply Filters</button>
                 </div>
@@ -82,10 +77,43 @@
                             <div class="product-card">
                                 <a asp-action="Details" asp-route-id="@product.Id" class="product-link">
                                     <img src="@(Url.Content("~/assests/products/" + product.ImageUrl))" alt="@product.Name" class="img-fluid product-image" />
-                                    <h5 class="product-name">@product.Name</h5>
-                                    <p class="price">@(product.Price.HasValue ? product.Price.Value.ToString("N0") + " đ" : "N/A")</p>
-                                    <p class="product-size">Kích cỡ: @(product.size ?? "Không có")</p>
                                 </a>
+                                <div class="product-info">
+                                    <h5 class="product-name">@product.Name</h5>
+                                    <p class="product-year">2024</p>
+                                    <p class="product-brand">LITA</p>
+                                    <p class="price">@(product.Price.HasValue ? (product.Price.Value % 1 == 0 ? product.Price.Value.ToString("N0") : product.Price.Value.ToString("N2")) + " đ" : "N/A")</p>
+                                </div>
+                                <!-- Phần chọn kích cỡ -->
+                                <div class="size-selection mb-2">
+                                    <div class="size-buttons d-flex gap-2">
+                                        @if (!string.IsNullOrEmpty(product.Size))
+                                        {
+                                            var Sizes = product.Size.Split(','); // Giả định kích cỡ được lưu dưới dạng "S,M,L,XL"
+                                            foreach (var size in Sizes)
+                                            {
+                                                <label class="size-label">
+                                                    <input type="radio" name="selectedSize-@product.Id" value="@size" required />
+                                                    <span class="size-option">@size</span>
+                                                </label>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p class="text-muted small">Không có kích cỡ</p>
+                                        }
+                                    </div>
+                                </div>
+                                <!-- Nút Add to Cart và biểu tượng trái tim -->
+                                <div class="product-actions">
+                                    <a href="#" class="add-to-cart-btn" data-product-id="@product.Id" title="Thêm vào giỏ hàng">
+                                        <i class="fa-solid fa-shopping-cart"></i>
+                                        <span class="add-to-cart-text">Add to Cart</span>
+                                    </a>
+                                    <a href="#" class="favorite-btn @(ViewBag.FavoriteProductIds != null && ViewBag.FavoriteProductIds.Contains(product.Id) ? "favorited" : "")" data-product-id="@product.Id" title="@(ViewBag.FavoriteProductIds != null && ViewBag.FavoriteProductIds.Contains(product.Id) ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích")">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </a>
+                                </div>
                             </div>
                         }
                     }

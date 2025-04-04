@@ -22,23 +22,45 @@ namespace store_clothes.Controllers
             int pageSize = 10; // Số sản phẩm mỗi trang
             var productsQuery = _context.Products.AsQueryable();
 
+            // Log để kiểm tra tham số nhận được
+            Console.WriteLine($"Received parameters: size={size}, price={price}, search={search}, page={page}");
+
+            // Lấy userId từ session
+            int userId = HttpContext.Session.GetInt32("UserId") ?? 1;
+
+            // Lấy danh sách productId đã được yêu thích
+            var favoriteProductIds = await _context.Favorites
+                .Where(f => f.UserId == userId)
+                .Select(f => f.ProductId)
+                .ToListAsync();
+
             // Lọc theo từ khóa tìm kiếm (nếu có)
             if (!string.IsNullOrEmpty(search))
             {
                 productsQuery = productsQuery.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower()));
+                ViewBag.Search = search;
+                Console.WriteLine("Applied search filter: " + search);
             }
 
-            // Lọc theo kích cỡ
+            // Lọc theo kích cỡ (nếu có)
             if (!string.IsNullOrEmpty(size))
             {
-                productsQuery = productsQuery.Where(p => p.size != null && p.size.Contains(size));
+                productsQuery = productsQuery.Where(p => p.Size != null && p.Size.Contains(size));
+                ViewBag.SelectedSize = size;
+                Console.WriteLine("Applied size filter: " + size);
             }
 
-            // Lọc theo giá
+            // Lọc theo giá (nếu có)
             productsQuery = FilterByPrice(productsQuery, price);
+            if (!string.IsNullOrEmpty(price))
+            {
+                ViewBag.SelectedPrice = price;
+                Console.WriteLine("Applied price filter: " + price);
+            }
 
             // Phân trang
             int totalItems = await productsQuery.CountAsync();
+            Console.WriteLine($"Total items after filtering: {totalItems}");
             var products = await productsQuery
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -46,8 +68,8 @@ namespace store_clothes.Controllers
 
             // Lấy danh sách kích cỡ
             var sizes = await _context.Products
-                .Where(p => !string.IsNullOrEmpty(p.size))
-                .Select(p => p.size)
+                .Where(p => !string.IsNullOrEmpty(p.Size))
+                .Select(p => p.Size)
                 .ToListAsync();
 
             // Tách các kích cỡ thành danh sách riêng lẻ (S, M, L, XL, XXL)
@@ -72,11 +94,9 @@ namespace store_clothes.Controllers
             // Truyền dữ liệu vào ViewBag
             ViewBag.Sizes = sizeOptionsAsObjects ?? new List<object>();
             ViewBag.PriceRanges = priceRanges;
-            ViewBag.SelectedSize = size;
-            ViewBag.SelectedPrice = price;
-            ViewBag.Search = search;
             ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
             ViewBag.CurrentPage = page;
+            ViewBag.FavoriteProductIds = favoriteProductIds; // Truyền danh sách productId đã yêu thích
 
             // Lấy số lượng sản phẩm trong giỏ hàng từ session
             ViewBag.CartCount = HttpContext.Session.GetInt32("CartCount") ?? 0;
@@ -103,8 +123,8 @@ namespace store_clothes.Controllers
         public async Task<IActionResult> GetFilterData()
         {
             var sizes = await _context.Products
-                .Where(p => !string.IsNullOrEmpty(p.size))
-                .Select(p => p.size)
+                .Where(p => !string.IsNullOrEmpty(p.Size))
+                .Select(p => p.Size)
                 .ToListAsync();
 
             // Tách các kích cỡ thành danh sách riêng lẻ (S, M, L, XL, XXL)

@@ -11,6 +11,7 @@ namespace store_clothes.Models
             Carts = new HashSet<Cart>();
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
+            Favorites = new HashSet<Favorite>(); // Thêm khởi tạo cho Favorites
         }
 
         public int Id { get; set; }
@@ -30,5 +31,6 @@ namespace store_clothes.Models
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Favorite> Favorites { get; set; }
     }
 }
