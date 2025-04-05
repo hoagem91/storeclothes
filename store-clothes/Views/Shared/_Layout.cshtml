@@ -29,12 +29,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-
                         <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")"
                            href="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "#" : "/Home/Index")">
                             Home
                         </a>
-
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Product" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Product" asp-action="Index">Products</a>
