@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace store_clothes.Models
+﻿namespace store_clothes.Models
 {
     public partial class Product
     {
@@ -16,10 +13,10 @@ namespace store_clothes.Models
         public decimal? Price { get; set; }
         public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }
-        public string? size { get; set; }
+        public string? Size { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
-     
+        public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
