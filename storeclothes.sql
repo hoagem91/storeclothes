@@ -1,10 +1,32 @@
 CREATE DATABASE storeclothes;
+<<<<<<< HEAD
 CREATE TABLE storeclothestest.users (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
+=======
+ALTER TABLE storeclothes.users MODIFY id INT AUTO_INCREMENT;
+ALTER TABLE storeclothes.orders DROP FOREIGN KEY user_id;
+ALTER TABLE storeclothes.cart DROP FOREIGN KEY fk_cart_user;
+ALTER TABLE storeclothes.payments DROP FOREIGN KEY payments_user_id;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 2;
+SELECT MAX(id) FROM storeclothes.users;
+DELETE FROM storeclothes.users;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 1;
+SET SQL_SAFE_UPDATES = 1;
+ALTER TABLE storeclothes.payments ADD CONSTRAINT payments_user_id FOREIGN KEY (user_id) REFERENCES storeclothes.users(id);
+
+
+CREATE TABLE storeclothes.users (
+  `id` int NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+>>>>>>> de72807d56e91adcf2d617bc27c6d5ad79de26d4
 );
 ALTER TABLE storeclothes.users 
 CHANGE COLUMN username name VARCHAR(100) NOT NULL;

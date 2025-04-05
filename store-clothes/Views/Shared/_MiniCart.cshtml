@@ -1,0 +1,21 @@
+﻿<div class="offcanvas-minicart_wrapper" id="miniCart" style="display: none;">
+    <div class="harmic-offcanvas-body">
+        <div class="minicart-content">
+            <div class="minicart-heading">
+                <h4 class="mb-0">Shopping Cart</h4>
+                <a href="#" class="button-close" id="close-cart"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+            <ul class="minicart-list" id="cart-items">
+                <!-- Dữ liệu động sẽ được thêm bằng JavaScript -->
+            </ul>
+        </div>
+        <div class="minicart-item_total">
+            <span>Subtotal</span>
+            <span class="ammount" id="cart-subtotal"></span>
+        </div>
+        <div class="group-btn_wrap d-grid gap-2">
+            <a href="@Url.Action("Index", "Cart")" class="btn btn-cart">View Cart</a>
+            <a href="@Url.Action("Checkout", "Cart")" class="btn btn-checkout">Checkout</a>
+        </div>
+    </div>
+</div>

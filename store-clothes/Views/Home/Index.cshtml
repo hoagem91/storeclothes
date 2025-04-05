@@ -52,10 +52,16 @@
                         @foreach (var product in products)
                         {
                             <div class="product-item">
-                                <img src="~/assests/products/@product.ImageUrl" alt="@product.Name" class="product-image">
+                                <!-- Thêm đường dẫn vào ảnh sản phẩm -->
+                                <a href="@Url.Action("Details", "Product", new { id = product.Id })">
+                                    <img src="~/assests/products/@product.ImageUrl" alt="@product.Name" class="product-image">
+                                </a>
 
                                 <div class="product-info">
-                                    <h3 class="product-name">@product.Name</h3>
+                                    <!-- Thêm đường dẫn vào tên sản phẩm -->
+                                    <h3 class="product-name">
+                                        <a href="@Url.Action("Details", "Product", new { id = product.Id })">@product.Name</a>
+                                    </h3>
                                     <p class="new-price">
                                         @(product.Price.HasValue ? product.Price.Value.ToString("#,##0") + "đ" : "0đ")
                                     </p>

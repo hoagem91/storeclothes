@@ -11,24 +11,39 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/products/products.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">LITA</a>
+
+            <a class="navbar-brand"
+               href="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "#" : "/Home/Index")">
+                LITA
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")"
+                           href="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "#" : "/Home/Index")">
+                            Home
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Product" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Product" asp-action="Index">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Cart" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Cart" asp-action="Index">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Favorites" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Favorites" asp-action="Index">Favorites
+
+                        </a>
                     </li>
                 </ul>
                 <div class="ms-auto d-flex align-items-center">
@@ -39,20 +54,26 @@
                         </form>
                     </div>
                     <a href="@Url.Action("Login", "Account")" class="nav-link"><i class="fa-solid fa-user"></i></a>
-                    <a href="#" class="nav-link"><i class="fa-solid fa-heart"></i></a>
-                    <!-- Thêm lại giỏ hàng -->
-                    <a href="@Url.Action("Index", "Cart")" class="nav-link position-relative">
+                    <a class="nav-link" asp-controller="Favorites" asp-action="Index"><i class="fa-solid fa-heart"></i></a>
+                    <!-- Logo giỏ hàng với Mini Cart -->
+                    <a href="#" class="nav-link position-relative" id="cart-toggle">
                         <i class="fa-solid fa-shopping-cart"></i>
                         @if (ViewBag.CartCount != null && ViewBag.CartCount > 0)
                         {
-                            <span class="badge bg-primary position-absolute top-0 start-100 translate-middle">@ViewBag.CartCount</span>
+                            <span class="badge bg-primary position-absolute top-0 start-100 translate-middle" id="cart-count">@ViewBag.CartCount</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary position-absolute top-0 start-100 translate-middle" id="cart-count">0</span>
                         }
                     </a>
-
                 </div>
             </div>
+            <!-- Chèn Mini Cart -->
+            @Html.Partial("_MiniCart")
         </div>
     </nav>
+
 
 
     <!-- Page Content -->
