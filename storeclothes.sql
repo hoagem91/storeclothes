@@ -18,7 +18,7 @@ SET SQL_SAFE_UPDATES = 1;
 ALTER TABLE storeclothes.payments ADD CONSTRAINT payments_user_id FOREIGN KEY (user_id) REFERENCES storeclothes.users(id);
 
 
-INSERT INTO storeclothes.users (id,username, email,password) 
+INSERT INTO storeclothes.users (id,name, email,password) 
 VALUES (1,'Vu Hoang Anh', 'vana@example.com', "12345");
 
 CREATE TABLE storeclothes.categories (
