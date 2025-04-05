@@ -1,17 +1,19 @@
 CREATE DATABASE storeclothes;
-CREATE TABLE storeclothes.users (
-  `id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+CREATE TABLE storeclothestest.users (
+  id INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
 );
-INSERT INTO storeclothes.users (id,name, email,password) 
+ALTER TABLE storeclothes.users 
+CHANGE COLUMN username name VARCHAR(100) NOT NULL;
+
+INSERT INTO storeclothes.users (id,username, email,password) 
 VALUES (1,'Vu Hoang Anh', 'vana@example.com', "12345");
 
 CREATE TABLE storeclothes.categories (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -24,7 +26,7 @@ INSERT INTO storeclothes.categories (id, name, description) VALUES
 (5, 'Jacket', 'Outerwear for warmth and style');
 
 CREATE TABLE storeclothes.products (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` varchar(225) NOT NULL,
   `description` text,
   `price` decimal(10,2) DEFAULT NULL,
@@ -35,14 +37,7 @@ CREATE TABLE storeclothes.products (
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
 
-ALTER TABLE storeclothes.products
-ADD size VARCHAR(50) ;
-
-
 INSERT INTO storeclothes.products (id, name, description,price,category_id,image_url) VALUES
-
-
-
 (
 1,"Áo Thun Local Brand Unisex Teelab Seasonal Tshirt TS295","Thông tin sản phẩm:
 
@@ -415,6 +410,8 @@ Màu sắc: Đen",299000,5,"/jacket/jacket-4.webp"),
 - Thiết kế: Thêu.
 Màu sắc: Đen",320000,5,"/jacket/jacket-5.webp");
 
+ALTER TABLE storeclothes.products
+ADD size VARCHAR(50);
 UPDATE storeclothes.products SET size = 'M, L, XL' WHERE id = 1;
 UPDATE storeclothes.products SET size = 'S, M, L' WHERE id = 2;
 UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 3;
@@ -460,7 +457,7 @@ UPDATE storeclothes.products SET size = 'L, XL, XXL' WHERE id = 42;
 
 
 CREATE TABLE storeclothes.orders (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `status` varchar(45) DEFAULT NULL,
@@ -470,11 +467,12 @@ CREATE TABLE storeclothes.orders (
 );
 
 CREATE TABLE storeclothes.orders_items (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `order_id` int DEFAULT NULL,
   `product_id` int DEFAULT NULL,
   `quantity` int NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `order_id_idx` (`order_id`),
   KEY `product_id_idx` (`product_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
@@ -482,7 +480,7 @@ CREATE TABLE storeclothes.orders_items (
 );
 
 CREATE TABLE storeclothes.cart (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `product_id` int DEFAULT NULL,
   `quantity` int NOT NULL,
@@ -492,9 +490,28 @@ CREATE TABLE storeclothes.cart (
   CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
+-- cart-item để tạm lưu trữ đơn hàng được thanh toán 
+CREATE TABLE CartItem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+-- cách join bảng payment với cart để lấy thông tin sản phẩm trong giỏ hàng
+SELECT 
+    c.id AS cartID, 
+    p.name AS ProductName, 
+    p.price, 
+    c.quantity
+FROM storeclothes.cart c
+JOIN storeclothes.products p ON c.product_id = p.id
+WHERE c.user_id = 1;
 
 CREATE TABLE storeclothes.payments (
-  `id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `order_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `paymet_method` enum('credit_card','paypal','cod') NOT NULL,
