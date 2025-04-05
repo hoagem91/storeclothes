@@ -1,4 +1,16 @@
 CREATE DATABASE storeclothes;
+ALTER TABLE storeclothes.users MODIFY id INT AUTO_INCREMENT;
+ALTER TABLE storeclothes.orders DROP FOREIGN KEY user_id;
+ALTER TABLE storeclothes.cart DROP FOREIGN KEY fk_cart_user;
+ALTER TABLE storeclothes.payments DROP FOREIGN KEY payments_user_id;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 2;
+SELECT MAX(id) FROM storeclothes.users;
+DELETE FROM storeclothes.users;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 1;
+SET SQL_SAFE_UPDATES = 1;
+ALTER TABLE storeclothes.payments ADD CONSTRAINT payments_user_id FOREIGN KEY (user_id) REFERENCES storeclothes.users(id);
+
+
 CREATE TABLE storeclothes.users (
   `id` int NOT NULL,
   `name` varchar(45) NOT NULL,
