@@ -1,0 +1,27 @@
+﻿@model store_clothes.Models.Product
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+<link href="~/css/admin/product/productDelete.css" rel="stylesheet" />
+<div class="delete-container">
+    <h2>Bạn có chắc chắn muốn xóa sản phẩm này không?</h2>
+    <div class="product-details">
+        <p><strong>Tên sản phẩm:</strong> @Model.Name</p>
+        <p><strong>Giá:</strong> @Model.Price</p>
+        <p><strong>Mô tả:</strong> @Model.Description</p>
+        <p><strong>Ảnh:</strong></p>
+        <div class="product-image">
+            <img src="~/assests/products/@Model.ImageUrl" alt="@Model.Name" />
+        </div>
+        <div class="delete-warning">
+            Lưu ý: Thao tác này không thể hoàn tác. Dữ liệu sản phẩm sẽ bị xóa vĩnh viễn.
+        </div>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="ProductAdmin" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

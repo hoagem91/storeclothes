@@ -1,0 +1,12 @@
+﻿@model List<Category>
+
+<link href="~/css/admin/categoryCard.css" rel="stylesheet" />
+<div class="trending-container">
+    @foreach (var category in Model)
+    {
+        <div class="trending-card">
+            <img src="~/assests/admin/images.png" alt="@category.Name">
+            <div class="trending-title">@category.Name</div>
+        </div>
+    }
+</div>

@@ -1,0 +1,177 @@
+﻿/* Thiết lập container chính */
+.trending-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 30px 0;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Card danh mục */
+.trending-card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px solid #eaeaea;
+}
+
+    .trending-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-color: #d1d1d1;
+    }
+
+    /* Hiệu ứng hover cho ảnh */
+    .trending-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .trending-card:hover img {
+        transform: scale(1.05);
+    }
+
+/* Tiêu đề danh mục */
+.trending-title {
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    background: linear-gradient(to right, #ffffff, #f8f9fa);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Số lượng sản phẩm (nếu cần) */
+.product-count {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Badge trang trí (tùy chọn) */
+.trending-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.trending-card:hover::before {
+    opacity: 1;
+}
+
+/* Animation cho các card */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.trending-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+    /* Tạo hiệu ứng staggered cho các card */
+    .trending-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .trending-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .trending-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .trending-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .trending-card:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .trending-card:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trending-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .trending-card img {
+        height: 180px;
+    }
+
+    .trending-title {
+        padding: 12px 15px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trending-container {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+    }
+
+    .trending-card img {
+        height: 150px;
+    }
+
+    .trending-title {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Dark mode (nếu cần) */
+@media (prefers-color-scheme: dark) {
+    .trending-card {
+        background-color: #2d2d2d;
+        border-color: #3d3d3d;
+    }
+
+    .trending-title {
+        color: #e4e4e4;
+        background: linear-gradient(to right, #2d2d2d, #333333);
+        border-top-color: #3d3d3d;
+    }
+}

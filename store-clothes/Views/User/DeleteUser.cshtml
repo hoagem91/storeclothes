@@ -1,0 +1,34 @@
+﻿@model store_clothes.Models.User
+<link href="~/css/admin/user/deleteUser.css" rel="stylesheet" />
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="delete-header">
+            <i class="fa fa-exclamation-triangle warning-icon"></i>
+            <h2 class="delete-title">Xóa Người Dùng</h2>
+        </div>
+
+        <div class="delete-content">
+            <p class="delete-message">
+                Bạn có chắc chắn muốn xóa người dùng <strong>@Model.Name</strong>?
+            </p>
+            <p class="delete-warning">
+                Hành động này không thể hoàn tác. Tất cả dữ liệu liên quan đến người dùng này sẽ bị xóa vĩnh viễn.
+            </p>
+
+            @using (Html.BeginForm("Delete", "User", FormMethod.Post, new { @class = "delete-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="button-group">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fa fa-times"></i> Hủy
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Xóa
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

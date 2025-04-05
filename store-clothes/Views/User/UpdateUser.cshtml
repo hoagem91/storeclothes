@@ -1,0 +1,59 @@
+﻿@model store_clothes.Models.User
+<link href="~/css/admin/user/updateUser.css" rel="stylesheet" />
+<div class="user-update-container">
+    <h2 class="user-update-title">Cập Nhật Người Dùng</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger fade show" role="alert">
+            <i class="fa fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success fade show" role="alert">
+            <i class="fa fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            @using (Html.BeginForm("UpdateUser", "User", FormMethod.Post, new { @class = "user-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group mb-3">
+                    <label class="form-label">Tên:</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Nhập họ và tên của bạn" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label">Email:</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập địa chỉ email của bạn" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label">Mật khẩu mới:</label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu mới" })
+                    <div class="form-text text-muted">(để trống nếu không muốn đổi)</div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="d-flex justify-content-around gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save me-1"></i>Lưu
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fa fa-times me-1"></i>Hủy
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

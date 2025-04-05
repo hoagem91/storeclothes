@@ -33,7 +33,25 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+// Seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<storeclothesContext>();
+    context.Database.Migrate(); // Apply any pending migrations
 
+    // Seed categories if they don't exist
+    if (!context.Categories.Any())
+    {
+        context.Categories.AddRange(
+            new Category { Name = "hoodie" },
+            new Category { Name = "jacket" },
+            new Category { Name = "polo-shirt" },
+            new Category { Name = "shirts" },
+            new Category { Name = "t-shirts" }
+        );
+        context.SaveChanges();
+    }
+}
 app.UseStaticFiles(); // Hỗ trợ file tĩnh (CSS, JS, Images)
 
 // Thêm middleware session
@@ -57,8 +75,6 @@ app.MapControllerRoute(
     pattern: "home/{action=Index}/{id?}",
     defaults: new { controller = "Home" }
 );
-
-
 app.MapControllerRoute(
     name: "main",
     pattern: "main/{action=Index}/{id?}",
@@ -70,7 +86,24 @@ app.MapControllerRoute(
     pattern: "product/{action=Index}/{id?}",
     defaults: new { controller = "Product" }
 );
-
+app.MapControllerRoute(
+    name: "product",
+    pattern: "product/{action=ProductAdmin}/{id?}",
+    defaults: new { controller = "product" }
+);
+app.MapControllerRoute(
+    name: "product",
+    pattern: "product/{action=CreateProduct}/{id?}",
+    defaults: new { controller = "product" }
+); app.MapControllerRoute(
+    name: "product",
+    pattern: "product/{action=DeleteProduct}/{id?}",
+    defaults: new { controller = "product" }
+); app.MapControllerRoute(
+    name: "product",
+    pattern: "product/{action=UpdateProduct}/{id?}",
+    defaults: new { controller = "product" }
+);
 app.MapControllerRoute(
     name: "cart",
     pattern: "cart/{action=Index}/{id?}",
@@ -94,5 +127,29 @@ app.MapControllerRoute(
     pattern: "register/{action=Index}/{id?}",
     defaults: new { controller = "Register" }
 );
-
+app.MapControllerRoute(
+    name: "Admin",
+    pattern: "Admin/{action=Admin}/{id?}",
+    defaults: new { controller = "Admin" }
+);
+app.MapControllerRoute(
+    name: "user",
+    pattern: "user/{action=Index}/{id?}",
+    defaults: new { controller = "User" }
+);
+app.MapControllerRoute(
+    name: "category",
+    pattern: "category/{action=Index}/{id?}",
+    defaults: new { controller = "category" }
+);
+app.MapControllerRoute(
+    name: "createuser",
+    pattern: "user/{action=CreateUser}/{id?}",
+    defaults: new { controller = "user" }
+);
+app.MapControllerRoute(
+    name: "updateuser",
+    pattern: "user/{action=UpdateUser}/{id?}",
+    defaults: new { controller = "user" }
+);
 app.Run();

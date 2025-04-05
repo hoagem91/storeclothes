@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="~/css/admin/admin.css" rel="stylesheet" type="text/css" />
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <img src="~/assests/admin/security.png" alt="CORE UI PRO" />
+                <span>Administrator</span>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-category">
+                    <ul style="padding-left:0">
+                        <li>
+                            <a asp-controller="User" asp-action="Index" class="@(ViewData["ActiveMenu"]?.ToString() == "User" ? "active" : "")">
+                                <i class="fa-solid fa-user"></i>
+                                <span>User</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Product" asp-action="ProductAdmin" class="@(ViewData["ActiveMenu"]?.ToString() == "Product" ? "active" : "")">
+                                <i class="fa-solid fa-shirt"></i>
+                                <span>Product</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Category" asp-action="Index" class="@(ViewData["ActiveMenu"]?.ToString() == "Category" ? "active" : "")">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Category</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <nav class="top-navbar"></nav>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
