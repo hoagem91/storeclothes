@@ -1,3 +1,4 @@
+
 USE storeclothes;
 
 -- Tạo bảng users
@@ -14,11 +15,21 @@ CREATE TABLE users (
 INSERT INTO users (id, name, email, password) 
 VALUES (1, 'Vu Hoang Anh', 'vana@example.com', '12345');
 
--- Tạo bảng categories
-CREATE TABLE categories (
+ALTER TABLE storeclothes.users MODIFY id INT AUTO_INCREMENT;
+ALTER TABLE storeclothes.orders DROP FOREIGN KEY user_id;
+ALTER TABLE storeclothes.cart DROP FOREIGN KEY fk_cart_user;
+ALTER TABLE storeclothes.payments DROP FOREIGN KEY payments_user_id;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 2;
+SELECT MAX(id) FROM storeclothes.users;
+DELETE FROM storeclothes.users;
+ALTER TABLE storeclothes.users AUTO_INCREMENT = 1;
+SET SQL_SAFE_UPDATES = 1;
+ALTER TABLE storeclothes.payments ADD CONSTRAINT payments_user_id FOREIGN KEY (user_id) REFERENCES storeclothes.users(id);
+
+CREATE TABLE storeclothes.categories (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(100) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -29,6 +40,7 @@ INSERT INTO categories (id, name, description) VALUES
 (3, 'Shirt', 'Formal or casual button-up shirt'),
 (4, 'Hoodie', 'Warm and cozy hooded sweatshirt'),
 (5, 'Jacket', 'Outerwear for warmth and style');
+
 
 -- Tạo bảng products
 CREATE TABLE products (
@@ -43,6 +55,7 @@ CREATE TABLE products (
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
+
 
 -- Chèn dữ liệu vào bảng products
 INSERT INTO products (id, name, description, price, category_id, image_url, size) VALUES
@@ -113,6 +126,7 @@ CREATE TABLE orders_items (
   CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );
 
+
 -- Tạo bảng cart
 CREATE TABLE cart (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -125,6 +139,25 @@ CREATE TABLE cart (
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );
+-- cart-item để tạm lưu trữ đơn hàng được thanh toán 
+CREATE TABLE CartItem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+-- cách join bảng payment với cart để lấy thông tin sản phẩm trong giỏ hàng
+SELECT 
+    c.id AS cartID, 
+    p.name AS ProductName, 
+    p.price, 
+    c.quantity
+FROM storeclothes.cart c
+JOIN storeclothes.products p ON c.product_id = p.id
+WHERE c.user_id = 1;
 
 -- Tạo bảng payments
 CREATE TABLE payments (
