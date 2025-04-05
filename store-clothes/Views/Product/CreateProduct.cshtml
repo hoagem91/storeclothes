@@ -1,0 +1,71 @@
+﻿@model store_clothes.Models.Product
+<link href="~/css/admin/product/productCreate.css" rel="stylesheet" />
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<form asp-action="CreateProduct" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+            <option value="">Chọn danh mục</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Chọn ảnh sản phẩm</label>
+        <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Thêm sản phẩm" class="btn btn-primary" />
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (e) {
+                var fileInput = $('input[name="ImageFile"]')[0];
+                var maxSizeInMB = 5; // Giới hạn kích thước file: 5MB
+                var maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+                if (fileInput.files.length > 0) {
+                    var file = fileInput.files[0];
+
+                    // Kiểm tra loại file
+                    if (!file.type.startsWith('image/')) {
+                        alert('Vui lòng chọn một file ảnh (jpg, png, v.v.)!');
+                        e.preventDefault();
+                        return false;
+                    }
+
+                    // Kiểm tra kích thước file
+                    if (file.size > maxSizeInBytes) {
+                        alert('Kích thước file quá lớn! Vui lòng chọn file nhỏ hơn ' + maxSizeInMB + 'MB.');
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

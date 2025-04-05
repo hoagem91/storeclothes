@@ -1,0 +1,56 @@
+﻿@model store_clothes.Models.Product
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+}
+<link href="~/css/admin/product/productUpdate.css" rel="stylesheet" />
+<div class="edit-product-container">
+    <h2>Chỉnh sửa sản phẩm</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form asp-action="UpdateProduct" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Name" class="required-field">Tên sản phẩm</label>
+            <input asp-for="Name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price" class="required-field">Giá</label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" required />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Mô tả</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId">Mã danh mục</label>
+            <input asp-for="CategoryId" class="form-control" type="number" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageUrl">Đường dẫn ảnh</label>
+            <input asp-for="ImageUrl" class="form-control" />
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu thay đổi</button>
+            <a asp-action="ProductAdmin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Hủy</a>
+        </div>
+    </form>
+</div>

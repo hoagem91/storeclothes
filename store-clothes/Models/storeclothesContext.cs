@@ -24,13 +24,14 @@ namespace store_clothes.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Favorite> Favorites { get; set; } = null!; // Thêm dòng này
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=127.0.0.1;port=3306;database=storeclothes;user=root;password=30082004", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.2.0-mysql"));
+                optionsBuilder.UseMySql("server=127.0.0.1;port=3306;database=storeclothes;user=root;password=09012004", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.2.0-mysql"));
             }
         }
 
@@ -156,7 +157,7 @@ namespace store_clothes.Models
                     .HasColumnName("payment_status")
                     .HasDefaultValueSql("'pending'");
 
-                entity.Property(e => e.PaymetMethod) // Sửa lỗi chính tả: PaymetMethod -> PaymentMethod
+                entity.Property(e => e.PaymentMethod) // Sửa lỗi chính tả: PaymetMethod -> PaymentMethod
                     .HasColumnType("enum('credit_card','paypal','cod')")
                     .HasColumnName("payment_method"); // Sửa lỗi chính tả: paymet_method -> payment_method
 

@@ -8,7 +8,7 @@ namespace store_clothes.Models
         public int Id { get; set; }
         public int? OrderId { get; set; }
         public int? UserId { get; set; }
-        public string PaymetMethod { get; set; } = null!;
+        public string PaymentMethod { get; set; } = null!;
         public string? PaymentStatus { get; set; }
         public string? TransactionId { get; set; }
 
