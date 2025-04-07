@@ -21,6 +21,11 @@
         <div class="form-section">
             <div class="form-container">
                 <h3 class="text-center">Admin Login - LITA</h3>
+                <div class="d-flex justify-content-center my-3">
+                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Login</a>
+                    <a href="@Url.Action("Index", "Register")" class="btn-toggle" style="margin-right:8px">Register</a>
+                    <button class="btn-toggle me-2 active" >Admin</button>
+                </div>
                 <p class="text-center text-muted">Admin Portal for managing the LITA platform.</p>
 
                 <form method="post" action="@Url.Action("AuthenticateAdmin", "Login")">
