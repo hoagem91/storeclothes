@@ -3,221 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: #fff; /* Màu nền trắng giống hình mẫu */
-}
-
-/* Cart Container */
-.cart-container {
-    max-width: 1200px;
-    margin: 62px auto;
-    margin-top: 90px;
-    text-align: center;
-    padding: 20px 0; /* Bỏ padding ngang để giống hình mẫu */
-    background-color: transparent; /* Bỏ nền trắng và viền bao quanh */
-    border: none;
-}
- .empty-cart {
-        text-align: center;
-        margin-top: 50px;
-        margin-top: 28px;
-    }
-
-.empty-cart-image {
-    width: 120px;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.empty-cart-message {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-
-
-/* Cart Table */
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-    .cart-table th,
-    .cart-table td {
-        padding: 15px;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .cart-table th {
-        font-weight: bold;
-        font-size: 16px;
-        color: #333;
-        text-transform: uppercase; /* Chữ in hoa giống hình mẫu */
-        border-bottom: 1px solid #e5e5e5; /* Đường kẻ dưới tiêu đề */
-    }
-
-    .cart-table .product-view__cart {
-        border-bottom: 1px solid #e5e5e5; /* Đường kẻ dưới hàng sản phẩm */
-    }
-
-        .cart-table .product-view__cart td {
-            height: 120px; /* Tăng chiều cao ô để chứa hình ảnh lớn hơn */
-            align-items: center;
-        }
-
-.product-info {
-    display: flex;
-    align-items: center;
-    position: relative;
-    top: 20px;
-    gap: 20px; /* Khoảng cách lớn hơn giữa hình ảnh và thông tin */
-}
-
-.product-image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius:10px;
-    border: 1px solid #e5e5e5; /* Viền xanh nhạt quanh hình ảnh */
-}
-
-.product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.product-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-}
-
-.product-color {
-    font-size: 14px;
-    color: #666;
-}
-
-.remove-link {
-    font-size: 14px;
-    color: #007bff; /* Màu xanh giống liên kết "REMOVE" */
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-    .remove-link:hover {
-        color: #0056b3;
-    }
-
-.price,
-.total-price {
-    font-size: 16px;
-    color: #333;
-}
-
-/* Quantity Buttons */
-.quantity {
-    display:flex;
-    position: relative;
-    /* top: 0; */
-    justify-content: center;
-    padding: 0;
-    bottom: 20px;
-}
-
-.qty-btn {
-    width: 30px;
-    height: 30px;
-    background-color: #f5f5f5; /* Màu xám nhạt giống hình mẫu */
-    border: 1px solid #e5e5e5;
-    border-radius: 50%; /* Nút tròn */
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-    .qty-btn:hover {
-        background-color: #e0e0e0;
-    }
-
-.qty-input {
-    width: 30px; /* Thu nhỏ ô input */
-    text-align: center;
-    border: none; /* Bỏ viền */
-    font-size: 16px;
-    background: transparent; /* Bỏ nền */
-}
-
-/* Cart Summary */
-.cart-active {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px 0;
-    position: relative;
-}
-
-.cart-summary {
-    width: 415px;
-    position: absolute;
-    right: 0;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content:space-between;
-    gap: 10px;
-}
-
-    .cart-summary span:first-child {
-        color: #333;
-    }
-.pay-btn {
-    background-color: #000;
-    font-weight: bold;
-    position: absolute;
-    width: 415px;
-    height: 50px;
-    right: 0;
-    top: 66px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: white;
-    border-radius: 10px;
-}
-Để làm lại phần responsive cho đoạn CSS trên sao cho bảng giỏ hàng hiển thị đẹp và phù hợp trên các kích thước màn hình khác nhau (đặc biệt là trên thiết bị di động), chúng ta cần điều chỉnh các media queries (@media) để đảm bảo:
-
-Tính dễ đọc: Nội dung không bị quá nhỏ hoặc quá chật trên màn hình nhỏ.
-Bố cục hợp lý: Ẩn bớt các cột không cần thiết (như "Price") và điều chỉnh kích thước các phần tử (hình ảnh, nút, chữ) để phù hợp với màn hình nhỏ.
-Tính thẩm mỹ: Giữ giao diện gọn gàng, các phần tử không bị chồng chéo hoặc lệch lạc.
-Hỗ trợ tương tác: Đảm bảo các nút (như tăng/giảm số lượng, "REMOVE", và "Pay Now") vẫn dễ nhấn trên màn hình cảm ứng.
-Dựa trên CSS hiện tại, tôi sẽ viết lại phần responsive trong các media queries (@media (max-width: 768px) và @media (max-width: 480px)) để cải thiện trải nghiệm trên thiết bị di động, đồng thời giữ nguyên các yếu tố thiết kế chính (như trong hình mẫu trước đó).
-
-CSS Responsive đã điều chỉnh
-Dưới đây là phần CSS đã được cập nhật, với các media queries được viết lại để tối ưu hóa giao diện trên màn hình nhỏ:
-
-css
-
-Collapse
-
-Wrap
-
-Copy
-/* General Reset and Styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI";
 }
 
 body {
@@ -373,7 +159,7 @@ body {
     }
 
 .pay-btn {
-    background-color: #000;
+    background-color: #f05a28;
     font-weight: bold;
     position: absolute;
     width: 415px;
@@ -385,7 +171,8 @@ body {
     align-items: center;
     font-size: 16px;
     color: white;
-    border-radius: 10px;
+    border-color:none;
+    border-radius: 30px;
 }
 
 /* Responsive Design */

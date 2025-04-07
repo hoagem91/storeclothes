@@ -36,6 +36,7 @@ namespace store_clothes.Controllers
             {
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserName", user.Name);
+                HttpContext.Session.SetInt32("UserId", user.Id);
                 return RedirectToAction("Index", "Home"); // Đăng nhập thành công
             }
 
