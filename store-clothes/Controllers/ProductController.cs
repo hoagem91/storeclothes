@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using store_clothes.Attribute;
 using store_clothes.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,60 @@ namespace store_clothes.Controllers
     public class ProductController : Controller
     {
         private readonly storeclothesContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(storeclothesContext context)
+        public ProductController(storeclothesContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        [ViewLayout("_AdminLayout")]
+        public IActionResult ProductAdmin()
+        {
+            var products = _context.Products.ToList(); // Lấy danh sách sản phẩm từ database
+            return View(products); // Trả về view Index.cshtml trong /Views/Product/
+        }
+
+        [HttpGet]
+        [ViewLayout("_AdminLayout")]
+        public IActionResult CreateProduct()
+        {
+            // Populate the categories for the dropdown
+            ViewBag.Categories = _context.Categories.ToList();
+            return View();
+        }
+        // hiển thị form UpdateProduct
+        [HttpGet]
+        [ViewLayout("_AdminLayout")]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                TempData["ErrorMessage"] = "Sản phẩm không tồn tại!";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
+        }
+
+        [HttpGet]
+        [ViewLayout("_AdminLayout")]
+        public async Task<IActionResult> DeleteProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
 
         public async Task<IActionResult> Index(string size = null, string price = null, string search = null, int page = 1)
@@ -164,6 +216,165 @@ namespace store_clothes.Controllers
                 default:
                     return query;
             }
+        }
+
+        // phần thêm sửa xóa Admin
+        // POST: Xử lý thêm sản phẩm với ảnh
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ViewLayout("_AdminLayout")]
+        public async Task<IActionResult> CreateProduct(Product product, IFormFile ImageFile)
+        {
+            Console.WriteLine("Received Product: " + System.Text.Json.JsonSerializer.Serialize(product));
+            Console.WriteLine("ImageFile: " + (ImageFile != null ? ImageFile.FileName : "null"));
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine("ModelState Error: " + error.ErrorMessage);
+                }
+                ViewBag.Categories = _context.Categories.ToList();
+                return View(product);
+            }
+
+            // Kiểm tra trùng lặp sản phẩm
+            var existingProduct = await _context.Products
+                .FirstOrDefaultAsync(p => p.Name.ToLower() == product.Name.ToLower());
+
+            if (existingProduct != null)
+            {
+                Console.WriteLine("Duplicate product found: " + existingProduct.Name);
+                ModelState.AddModelError("Name", "Sản phẩm đã tồn tại!");
+                ViewBag.Categories = _context.Categories.ToList();
+                return View(product);
+            }
+
+            // Xử lý lưu ảnh nếu có
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                // Đảm bảo rằng CategoryId không null
+                if (!product.CategoryId.HasValue)
+                {
+                    Console.WriteLine("CategoryId is null");
+                    ModelState.AddModelError("CategoryId", "Vui lòng chọn danh mục cho sản phẩm!");
+                    ViewBag.Categories = _context.Categories.ToList();
+                    return View(product);
+                }
+
+                // Lấy thông tin danh mục từ CategoryId
+                var category = await _context.Categories
+                    .FirstOrDefaultAsync(c => c.Id == product.CategoryId);
+
+                if (category == null)
+                {
+                    Console.WriteLine($"Category not found for CategoryId: {product.CategoryId}");
+                    ModelState.AddModelError("CategoryId", "Danh mục không hợp lệ!");
+                    ViewBag.Categories = _context.Categories.ToList();
+                    return View(product);
+                }
+
+                // Chuẩn hóa tên danh mục để khớp với tên thư mục
+                string categoryFolder = category.Name.ToLower().Trim();
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "assests", "products", categoryFolder);
+
+                try
+                {
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    string uniqueFileName = $"{Path.GetFileNameWithoutExtension(ImageFile.FileName)}{Path.GetExtension(ImageFile.FileName)}";
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    product.ImageUrl = $"{categoryFolder}/{uniqueFileName}";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("File save error: " + ex.Message);
+                    ModelState.AddModelError("ImageFile", $"Lỗi khi lưu ảnh: {ex.Message}");
+                    ViewBag.Categories = _context.Categories.ToList();
+                    return View(product);
+                }
+            }
+
+            try
+            {
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Thêm sản phẩm thành công!";
+                return RedirectToAction(nameof(ProductAdmin));
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("Database error: " + (ex.InnerException?.Message ?? ex.Message));
+                ModelState.AddModelError("", $"Lỗi khi lưu sản phẩm: {ex.InnerException?.Message ?? ex.Message}");
+                ViewBag.Categories = _context.Categories.ToList();
+                return View(product);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ViewLayout("_AdminLayout")]
+        public async Task<IActionResult> UpdateProduct(int id, Product product)
+        {
+            if (id != product.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingProduct = await _context.Products
+                           .Where(p => p.Id != id)
+                           .FirstOrDefaultAsync(p => p.Name == product.Name);
+                    if (existingProduct != null)
+                    {
+                        ModelState.AddModelError("Name", "Sản phẩm này đã tồn tại !");
+                        return View(product);
+                    }
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Sửa sản phẩm thành công";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductExists(product.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(ProductAdmin));
+            }
+            return View(product);
+        }
+
+        private bool ProductExists(int id)
+        {
+            return _context.Products.Any(e => e.Id == id);
+        }
+        // Xóa sản phẩm
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [ViewLayout("_AdminLayout")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Xóa sản phẩm thành công!";
+            return RedirectToAction(nameof(ProductAdmin));
         }
     }
 }

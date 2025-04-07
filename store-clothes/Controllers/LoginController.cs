@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using store_clothes.Models;
 using System.Linq;
 using Org.BouncyCastle.Crypto.Generators;
+using store_clothes.Attribute;
 
 namespace store_clothes.Controllers
 {
@@ -59,6 +60,7 @@ namespace store_clothes.Controllers
         }
 
         [HttpPost]
+        [ViewLayout("_AdminLayout")]
         public IActionResult AuthenticateAdmin(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -81,7 +83,7 @@ namespace store_clothes.Controllers
             HttpContext.Session.SetInt32("AdminId", admin.id);
             HttpContext.Session.SetString("UserRole", "Admin");
 
-            return RedirectToAction("Admin", "Admin");
+            return RedirectToAction("Index", "User");
         }
 
         // Xử lý đăng xuất (GET: /Login/Logout)
