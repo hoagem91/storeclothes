@@ -30,29 +30,13 @@ namespace store_clothes.Controllers
         [HttpPost]
         public IActionResult Authenticate(string email, string password)
         {
-            // Kiểm tra trong bảng Users
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password); // Không băm mật khẩu
 
-            if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+            if (user != null)
             {
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserName", user.Name);
-                HttpContext.Session.SetInt32("UserId", user.Id);
-                HttpContext.Session.SetString("UserRole", "User");
-
-                return RedirectToAction("Index", "Home"); // Điều hướng User về Home
-            }
-
-            // Kiểm tra trong bảng Admins
-            var admin = _context.Admins.FirstOrDefault(a => a.name == email); // Đổi name thành Email
-
-            if (admin != null && BCrypt.Net.BCrypt.Verify(password, admin.password))
-            {
-                HttpContext.Session.SetString("AdminName", admin.name);
-                HttpContext.Session.SetInt32("AdminId", admin.id);
-                HttpContext.Session.SetString("UserRole", "Admin");
-
-                return RedirectToAction("Admin", "Admin"); // Điều hướng Admin về Admin Panel
+                return RedirectToAction("Index", "Home"); // Đăng nhập thành công
             }
 
             ViewBag.Error = "Invalid email or password!";
