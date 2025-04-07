@@ -24,9 +24,11 @@
                 <div class="d-flex justify-content-center my-3">
                     <button class="btn-toggle me-2 active">Login</button>
                     <a href="@Url.Action("Index", "Register")" class="btn-toggle">Register</a>
+                    <a href="@Url.Action("LoginAdmin", "Login")" class="btn-toggle">Admin</a>
                 </div>
                 <p class="text-center text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
+                <!-- Form đăng nhập -->
                 <form method="post" action="@Url.Action("Authenticate", "Login")">
                     <input type="email" class="input-field" name="email" placeholder="Enter your Email" required>
                     <input type="password" class="input-field" name="password" placeholder="Enter your Password" required>
@@ -40,9 +42,26 @@
                     <button type="submit" class="btn-login">Login</button>
                 </form>
 
+                <!-- Hiển thị thông báo lỗi nếu có -->
                 @if (!string.IsNullOrEmpty(ViewBag.Error))
                 {
                     <div class="alert alert-danger text-center mt-3">@ViewBag.Error</div>
+                }
+
+                <!-- Hiển thị thông báo thành công nếu có -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success text-center mt-3">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <!-- Hiển thị thông báo lỗi nếu có -->
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger text-center mt-3">
+                        @TempData["ErrorMessage"]
+                    </div>
                 }
             </div>
         </div>
@@ -50,23 +69,3 @@
 
 </body>
 </html>
-<script>
-    <script>
-        document.querySelector(".btn-login").addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "/Home/Index";
-        });
-</script>
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success text-center">
-        @TempData["SuccessMessage"]
-    </div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger text-center">
-        @TempData["ErrorMessage"]
-    </div>
-}

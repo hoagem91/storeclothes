@@ -110,6 +110,9 @@ ul {
     position: relative;
     transition: all 0.3s;
 }
+.sidebar-menu .menu-category .active {
+    background-color: #f8f9fa;
+}
 
     .sidebar-menu ul li a:hover,
     .sidebar-menu ul li a.active {

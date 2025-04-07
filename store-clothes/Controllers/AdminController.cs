@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace store_clothes.Controllers
 {
     public class AdminController : Controller
     {
-        public ActionResult Admin()
+        public ActionResult LoginAdmin()
         {
             return View();
         }
@@ -15,7 +16,7 @@ namespace store_clothes.Controllers
             return View();
         }
 
-        public ActionResult Settings()
+        public ActionResult Admin()
         {
             return View();
         }

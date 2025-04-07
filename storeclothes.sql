@@ -1,6 +1,14 @@
 
 USE storeclothes;
 
+-- tạo namgr admin 
+CREATE TABLE Admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50) not null,
+    password varchar(50) not null
+);
+insert into Admins (id,name,password) 
+values (1,"Adminstractor","tamsotam");
 -- Tạo bảng users
 CREATE TABLE users (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -10,7 +18,7 @@ CREATE TABLE users (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
-
+ 
 -- Chèn dữ liệu vào bảng users
 INSERT INTO users (id, name, email, password) 
 VALUES (1, 'Vu Hoang Anh', 'vana@example.com', '12345');
@@ -139,6 +147,8 @@ CREATE TABLE cart (
   CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );
+ALTER TABLE cart ADD COLUMN Size VARCHAR(20);
+
 -- cart-item để tạm lưu trữ đơn hàng được thanh toán 
 CREATE TABLE CartItem (
     id INT AUTO_INCREMENT PRIMARY KEY,
