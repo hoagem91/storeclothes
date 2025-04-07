@@ -25,7 +25,7 @@ namespace store_clothes.Models
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Favorite> Favorites { get; set; } = null!; // Thêm dòng này
         public DbSet<CartItem> CartItems { get; set; }
-
+        public DbSet<Admins> Admins { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

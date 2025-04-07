@@ -1,3 +1,10 @@
 ﻿@{
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Mặc định là layout chính
+
+    var userRole = Context.Session.GetString("UserRole");
+
+    if (!string.IsNullOrEmpty(userRole) && userRole == "Admin")
+    {
+        Layout = "~/Views/Admin/_AdminLayout.cshtml"; // Nếu là Admin thì dùng layout admin
+    }
 }
