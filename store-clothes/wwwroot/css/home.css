@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿/* Font chữ */
 body {
     font-family: 'Poppins', sans-serif;
@@ -222,12 +223,27 @@ body {
     }
 
 /* Bố cục chính */
+=======
+﻿/* Bố cục chính */
+* {
+    font-family: 'Poppins', sans-serif;
+
+}
+>>>>>>> a371ac808afb79f9a5095d015c2065a7667a445e
 .main-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
+h2.section-title {
+    font-size: 32px;
+}
+
+p.section-subtitle {
+    font-size: 20px;
+}
+
 
 /* Tiêu đề danh mục */
 .category-title {
@@ -326,7 +342,6 @@ body {
 .new-price {
     display: block;
     font-size: 18px;
-    font-weight: bold;
     color: black;
 }
 
@@ -345,15 +360,76 @@ body {
     border: 1px solid #ccc;
 }
 
+<<<<<<< HEAD
 #bannerCarousel img {
     height: 100%;
     object-fit: cover;
     width: 100%;
     margin-top: 70px;
+=======
+/* Banner Carousel */
+#bannerCarousel {
+    width: 80%;
+    margin: auto;
+>>>>>>> a371ac808afb79f9a5095d015c2065a7667a445e
 }
 
-/* View More Link */
-.view-more {
+    #bannerCarousel img {
+        height: 100%;
+        object-fit: cover;
+        width: 70%;
+    }
+/* Wrapper tổng cho Swiper */
+.banner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin: 40px auto;
+    height: 600px !important;
+}
+
+/* Swiper chính (hình ảnh) */
+.mySwiper {
+    width: 70%;
+    height: 600px;
+}
+
+    .mySwiper .swiper-slide {
+        height: 100%; /* Đảm bảo slide chiếm toàn bộ chiều cao của Swiper */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mySwiper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+.invisible-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15%;
+    z-index: 10;
+    cursor: pointer;
+    background: #f8f8ff;
+}
+
+.left-zone {
+    left: 0;
+}
+
+.right-zone {
+    right: 0;
+}
+
+    /* View More Link */
+    .view-more {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -513,3 +589,53 @@ body {
     .product-name-link:hover {
         color: #007bff;
     }
+<<<<<<< HEAD
+=======
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 5%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+#swiper-prev {
+    left: 10px;
+}
+
+#swiper-next {
+    right: 10px;
+}
+
+/* Pagination styling */
+.swiper-pagination {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    height: 20px;
+}
+
+.swiper-pagination-bullet {
+    width: 40px !important;
+    height: 9px !important;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 10px;
+    border-radius: 0 !important;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+    background: #b7b7b7 !important;
+    width: 60px !important;
+    height: 10px !important;
+    color: black !important;
+}
+>>>>>>> a371ac808afb79f9a5095d015c2065a7667a445e

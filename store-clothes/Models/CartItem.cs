@@ -9,7 +9,9 @@ namespace store_clothes.Models
         [Key]
         public int Id { get; set; }
         [Column("user_id")]
-        public int UserId { get; set; }
+        public virtual User? User { get; set; }
+
+        public int? UserId { get; set; }
 
         [Column("product_id")]
         public int ProductId { get; set; }

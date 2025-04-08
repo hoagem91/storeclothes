@@ -4,7 +4,8 @@
     ViewData["Title"] = "Shopping Cart";
 }
 <link rel="stylesheet" href="~/css/cart_style/cart.css" />
-
+<link href="~/js/products/products.js" rel="stylesheet" />
+<script src="~/js/cart_shop/cart.js"></script>
 <!-- Content -->
 <div class="cart-container">
     <h2 class="cart-title">Shopping Cart</h2>
@@ -42,7 +43,7 @@
                         <input type="text" value="@item.Quantity" class="qty-input" data-id="@item.Id" />
                         <button class="qty-btn plus" data-id="@item.Id">+</button>
                     </td>
-                    <td class="total-price" data-id="@item.Id">
+                    <td class="total-price" data-id="@item.Id" data-price="@item.Product.Price">
                         @(String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0} ₫", item.Product.Price * item.Quantity))
                     </td>
                 </tr>
@@ -62,4 +63,3 @@
         </div>
     }
 </div>
-<script src="~/js/cart_shop/cart.js"></script>
