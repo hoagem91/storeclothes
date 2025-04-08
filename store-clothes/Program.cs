@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("storeclothes")
 
 // Đăng ký DbContext với MySQL
 builder.Services.AddDbContext<storeclothesContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
 
 // Thêm dịch vụ session

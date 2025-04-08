@@ -53,8 +53,13 @@
                     <input asp-for="Password" type="password" class="input-field" placeholder="Enter your Password" required>
                     <span asp-validation-for="Password" class="text-danger"></span>
 
+                    <!-- Xác nhận mật khẩu -->
+                    <input id="ConfirmPassword" type="password" class="input-field" placeholder="Confirm your Password" required>
+                    <span id="ConfirmPasswordError" class="text-danger" style="display:none;">Passwords do not match</span>
+
                     <button type="submit" class="btn-register">Register</button>
                 </form>
+
             </div>
         </div>
     </div>
@@ -63,6 +68,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordField = document.querySelector("input[name='Password']");
+        const confirmPasswordField = document.getElementById("ConfirmPassword");
+        const errorMessage = document.getElementById("ConfirmPasswordError");
+        
+        confirmPasswordField.addEventListener("input", function () {
+            if (confirmPasswordField.value !== passwordField.value) {
+                errorMessage.style.display = "block"; // Hiển thị lỗi nếu không khớp
+            } else {
+                errorMessage.style.display = "none"; // Ẩn lỗi nếu mật khẩu khớp
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
