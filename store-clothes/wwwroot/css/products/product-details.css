@@ -3,30 +3,53 @@
     padding: 40px 0;
 }
 
+.product-details .col-md-6:nth-child(2) {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
 /* Hình ảnh sản phẩm */
 .product-image {
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f8f9fa;
+    border-radius: 20px; 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+    background-color: #fff; 
+    border: 1px solid #eee; 
     text-align: center;
-    width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng */
-    padding-top: 100%; /* Tạo tỷ lệ 1:1 để ảnh không bị méo */
-}
-
-.product-image img {
-    position: absolute;
-    top: 0;
-    left: 0;
+    max-width: 400px;
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* Đảm bảo ảnh hiển thị đầy đủ và giữ tỷ lệ */
-    transition: transform 0.3s ease;
+    margin: 0 auto;
+    padding-top: 75%; 
 }
 
-.product-image img:hover {
-    transform: scale(1.05);
+    .product-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 /* Tiêu đề sản phẩm */
@@ -41,15 +64,45 @@
 /* Giá sản phẩm */
 .product-price {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #e74c3c;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-family: 'Poppins', sans-serif;
+}
+
+/* Đánh giá sản phẩm */
+.product-rating {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #e74c3c;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .product-rating i {
+        font-size: 1rem;
+    }
+
+    .product-rating i:hover {
+        animation: starGlow 0.5s ease infinite;
+    }
+
+    .product-rating .rating-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+    }
+
+@keyframes starGlow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
 /* Mô tả sản phẩm */
 .product-description {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 300;
     color: #666;
     line-height: 1.6;
     margin-bottom: 30px;
@@ -67,21 +120,21 @@
 
 /* Chọn kích cỡ */
 .size-selection {
-    margin-bottom: 30px; /* Tăng khoảng cách để thoáng hơn */
+    margin-bottom: 30px;
 }
 
-.size-selection h5 {
-    margin-bottom: 15px; /* Tăng khoảng cách với các nút kích cỡ */
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    text-transform: uppercase;
-}
+    .size-selection h5 {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+    }
 
 .size-buttons {
     display: flex;
-    gap: 12px; /* Tăng khoảng cách giữa các nút */
+    gap: 12px;
     flex-wrap: wrap;
 }
 
@@ -90,39 +143,39 @@
     cursor: pointer;
 }
 
-.size-label input[type="radio"] {
-    display: none;
-}
+    .size-label input[type="radio"] {
+        display: none;
+    }
 
-.size-label .size-option {
-    display: flex; /* Sử dụng flex để căn giữa nội dung */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    width: 40px; /* Kích thước lớn hơn để dễ nhìn */
-    height: 40px;
-    border: 2px solid #ddd; /* Viền nhẹ hơn */
-    border-radius: 50%; /* Hình tròn */
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    background-color: #fff; /* Nền trắng */
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ */
-}
+    .size-label .size-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        background-color: #fff;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-.size-label input[type="radio"]:checked + .size-option {
-    background-color: #000; /* Nền đen khi được chọn */
-    color: #fff; /* Chữ trắng khi được chọn */
-    border-color: #000; /* Viền đen khi được chọn */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ đậm hơn khi chọn */
-}
+    .size-label input[type="radio"]:checked + .size-option {
+        background-color: #000;
+        color: #fff;
+        border-color: #000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.size-label .size-option:hover {
-    border-color: #000; /* Viền đen khi hover */
-    background-color: #f8f9fa; /* Nền nhạt khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ khi hover */
-}
+    .size-label .size-option:hover {
+        border-color: #000;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
 /* Nút Thêm vào giỏ hàng */
 .btn-add-to-cart {
@@ -131,19 +184,53 @@
     font-weight: 600;
     text-transform: uppercase;
     border-radius: 5px;
-    background-color: #007bff;
-    border-color: #007bff;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    background: linear-gradient(90deg, #007bff, #00b4db);
+    border: none;
+    transition: background 0.3s ease, transform 0.1s ease;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .btn-add-to-cart:hover {
+        background: linear-gradient(90deg, #0056b3, #0086b3);
+    }
+
+    .btn-add-to-cart:active {
+        transform: scale(0.98);
+    }
+
+/* Thông tin giao hàng */
+.delivery-info {
+    margin-top: 15px;
+}
+
+.delivery-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
     font-family: 'Poppins', sans-serif;
 }
 
-.btn-add-to-cart:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
+    .delivery-item i {
+        font-size: 1rem;
+        color: #333;
+    }
 
-.btn-add-to-cart:active {
-    transform: scale(0.98); /* Hiệu ứng thu nhỏ nhẹ khi bấm */
+.delivery-badge {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 8px;
+    text-transform: uppercase;
 }
 
 /* Thông tin bổ sung */
@@ -151,32 +238,43 @@
     margin-top: 30px;
 }
 
-.additional-info ul {
-    padding-left: 0;
-    list-style: none;
-}
+    .additional-info ul {
+        padding-left: 0;
+        list-style: none;
+    }
 
-.additional-info li {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 10px;
-    font-family: 'Poppins', sans-serif;
-}
+    .additional-info li {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 10px;
+        font-family: 'Poppins', sans-serif;
+    }
 
-.additional-info li strong {
-    color: #333;
-    font-weight: 600;
-}
+        .additional-info li strong {
+            color: #333;
+            font-weight: 600;
+        }
 
 /* Responsive cho product details */
 @media (max-width: 768px) {
-    /* Product Details */
     .product-title {
         font-size: 1.5rem;
     }
 
     .product-price {
         font-size: 1.2rem;
+    }
+
+    .product-rating {
+        font-size: 0.9rem;
+    }
+
+    .product-rating i {
+        font-size: 0.9rem;
+    }
+
+    .product-rating .rating-text {
+        font-size: 0.8rem;
     }
 
     .product-description {
@@ -188,19 +286,32 @@
         font-size: 0.9rem;
     }
 
+    .delivery-item {
+        font-size: 0.85rem;
+    }
+
+    .delivery-item i {
+        font-size: 0.9rem;
+    }
+
+    .delivery-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+
     .product-image {
-        padding-top: 100%; /* Giữ tỷ lệ 1:1 trên thiết bị nhỏ */
+        max-width: 300px;
+        padding-top: 75%;
     }
 
     .size-label .size-option {
-        width: 36px; /* Giảm kích thước trên màn hình nhỏ */
+        width: 36px;
         height: 36px;
         font-size: 13px;
     }
 }
 
 @media (max-width: 480px) {
-    /* Product Details */
     .product-title {
         font-size: 1.3rem;
     }
@@ -209,17 +320,47 @@
         font-size: 1rem;
     }
 
+    .product-rating {
+        font-size: 0.8rem;
+    }
+
+    .product-rating i {
+        font-size: 0.8rem;
+    }
+
+    .product-rating .rating-text {
+        font-size: 0.7rem;
+    }
+
+    .product-description {
+        font-size: 0.8rem;
+    }
+
     .btn-add-to-cart {
         padding: 8px 15px;
         font-size: 0.8rem;
     }
 
+    .delivery-item {
+        font-size: 0.8rem;
+    }
+
+    .delivery-item i {
+        font-size: 0.85rem;
+    }
+
+    .delivery-badge {
+        font-size: 0.65rem;
+        padding: 1px 5px;
+    }
+
     .product-image {
-        padding-top: 100%; /* Giữ tỷ lệ 1:1 trên thiết bị nhỏ */
+        max-width: 250px;
+        padding-top: 75%;
     }
 
     .size-label .size-option {
-        width: 32px; /* Giảm kích thước trên màn hình rất nhỏ */
+        width: 32px;
         height: 32px;
         font-size: 12px;
     }
