@@ -235,7 +235,6 @@ body {
     .footer-link:hover {
         color: #007bff;
     }
-
 /* Mini Cart */
 .offcanvas-minicart_wrapper {
     position: absolute;
@@ -325,7 +324,7 @@ body {
 
 .product-item_remove {
     font-size: 16px;
-    color: #f05a28; /* Icon xóa màu #f05a28 */
+    color: #f05a28; /* Icon thùng rác màu #f05a28 */
     text-decoration: none;
     margin-left: 10px;
 }
@@ -333,7 +332,12 @@ body {
     .product-item_remove:hover {
         color: #e74c3c; /* Màu đỏ khi hover nút xóa */
     }
-
+.btn-cart i, .btn-checkout i {
+    margin-right: 8px;
+}
+.btn-cart i, .btn-checkout i {
+    font-size: 14px;
+}
 .minicart-item_total {
     display: flex;
     justify-content: space-between;
@@ -362,24 +366,24 @@ body {
 }
 
 .btn-cart {
-    background-color: #000;
+    background-color: #f05a28; /* Màu giống nút Apply */
     color: #fff;
     border: none;
 }
 
     .btn-cart:hover {
-        background-color: #333;
+        background-color: #e03e00; /* Màu đậm hơn khi hover, giống nút Apply */
         transform: translateY(-2px);
     }
 
 .btn-checkout {
-    background-color: #000;
+    background-color: #f05a28; /* Màu giống nút Apply */
     color: #fff;
     border: none;
 }
 
     .btn-checkout:hover {
-        background-color: #333;
+        background-color: #e03e00; /* Màu đậm hơn khi hover, giống nút Apply */
         transform: translateY(-2px);
     }
 
