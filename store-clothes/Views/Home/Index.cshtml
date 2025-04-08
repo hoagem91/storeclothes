@@ -1,46 +1,82 @@
-﻿@model Tuple<IEnumerable<store_clothes.Models.Category>, IEnumerable<store_clothes.Models.Product>>
+﻿
+@model Tuple<IEnumerable<store_clothes.Models.Category>, IEnumerable<store_clothes.Models.Product>>
 
+@{
+    ViewData["Title"] = "LITA Store";
+}
+<title>LITA Store</title>
+
+<!-- Styles -->
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/js/main.js" defer></script>
 
-<!-- Bootstrap Carousel -->
-<div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/assests/Home/banner1.jpg" class="d-block w-100" alt="Banner 1">
+
+<!-- Swiper Carousel -->
+<div class="position-relative">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/assests/Home/banner3.jpg" class="d-block w-100" alt="Banner 1">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assests/Home/banner2.jpg" class="d-block w-100" alt="Banner 2">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assests/Home/banner1.jpg" class="d-block w-100" alt="Banner 3">
+            </div>
         </div>
-        <div class="carousel-item">
-            <img src="/assests/Home/banner2.jpg" class="d-block w-100" alt="Banner 2">
-        </div>
-        <div class="carousel-item">
-            <img src="/assests/Home/banner3.jpg" class="d-block w-100" alt="Banner 3">
-        </div>
+        <!-- Pagination dots -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation buttons (hidden) -->
+        <div class="swiper-button-prev" style="display: none;"></div>
+        <div class="swiper-button-next" style="display: none;"></div>
     </div>
 
-    <!-- Nút điều hướng -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
+    <!-- Click zones for navigation -->
+    <div class="invisible-zone left-zone"></div>
+    <div class="invisible-zone right-zone"></div>
 </div>
 
-<!-- Thêm Bootstrap -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Swiper initialization script -->
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        speed: 1000,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        }
+    });
+
+    document.querySelector(".left-zone").addEventListener("click", () => {
+        swiper.slidePrev();
+    });
+
+    document.querySelector(".right-zone").addEventListener("click", () => {
+        swiper.slideNext();
+    });
+</script>
 
 <!-- New Arrivals Section -->
 <section class="container mt-5">
-    <h2 class="section-title text-center">New Arrivals</h2>
-    <p class="section-subtitle text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <h2 class="section-title text-center">LITA STORE</h2>
+    <p class="section-subtitle text-center">-Khám phá vẻ đẹp trong sự đơn giản, nơi mỗi chi tiết nhỏ đều toát lên sự tinh tế và hoàn hảo.-</p>
 
     <!-- Danh sách sản phẩm -->
     <section class="container">
         @foreach (var category in Model.Item1) // Duyệt danh sách Category
         {
             var products = Model.Item2.Where(p => p.CategoryId == category.Id).Take(5).ToList(); // Lọc tối đa 5 sản phẩm theo CategoryId
-
             @if (products.Any()) // Chỉ hiển thị nếu có sản phẩm trong danh mục này
             {
                 <div class="product-section">
@@ -56,7 +92,6 @@
                                 <a href="@Url.Action("Details", "Product", new { id = product.Id })">
                                     <img src="~/assests/products/@product.ImageUrl" alt="@product.Name" class="product-image">
                                 </a>
-
                                 <div class="product-info">
                                     <!-- Thêm đường dẫn vào tên sản phẩm -->
                                     <h3 class="product-name">
@@ -65,6 +100,36 @@
                                     <p class="new-price">
                                         @(product.Price.HasValue ? product.Price.Value.ToString("#,##0") + "đ" : "0đ")
                                     </p>
+                                    <!-- Phần chọn kích cỡ -->
+                                    <div class="size-selection mb-2">
+                                        <div class="size-buttons d-flex gap-2">
+                                            @if (!string.IsNullOrEmpty(product.Size))
+                                            {
+                                                var Sizes = product.Size.Split(','); // Giả định kích cỡ được lưu dưới dạng "S,M,L,XL"
+                                                foreach (var size in Sizes)
+                                                {
+                                                    <label class="size-label">
+                                                        <input type="radio" name="selectedSize-@product.Id" value="@size" required />
+                                                        <span class="size-option">@size</span>
+                                                    </label>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <p class="text-muted small">Không có kích cỡ</p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- Nút Add to Cart và biểu tượng trái tim -->
+                                    <div class="product-actions">
+                                        <a href="#" class="add-to-cart-btn" data-product-id="@product.Id" title="Thêm vào giỏ hàng">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                            <span class="add-to-cart-text">Add to Cart</span>
+                                        </a>
+                                        <a href="#" class="favorite-btn @(ViewBag.FavoriteProductIds != null && ViewBag.FavoriteProductIds.Contains(product.Id) ? "favorited" : "")" data-product-id="@product.Id" title="@(ViewBag.FavoriteProductIds != null && ViewBag.FavoriteProductIds.Contains(product.Id) ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích")">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         }
