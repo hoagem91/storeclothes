@@ -349,6 +349,18 @@ h1 {
         border-color: #e03e00;
     }
 
+.btn-secondary {
+    background-color: #6c757d; /* Màu xám mặc định của Bootstrap */
+    border-color: #6c757d;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268; /* Màu xám đậm hơn khi hover */
+        border-color: #5a6268;
+    }
+
 /* Pagination */
 .pagination {
     display: flex;

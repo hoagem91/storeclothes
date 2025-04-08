@@ -1,8 +1,10 @@
 ﻿@model Tuple<IEnumerable<store_clothes.Models.Category>, IEnumerable<store_clothes.Models.Product>>
 
-<link rel="stylesheet" href="/css/home.css">
-<script src="/js/main.js" defer></script>
 
+<script src="/js/main.js" defer></script>
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
 <!-- Bootstrap Carousel -->
 <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
