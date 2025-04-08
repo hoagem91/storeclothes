@@ -24,8 +24,8 @@ namespace store_clothes.Models
         public virtual DbSet<OrdersItem> OrdersItems { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
-
+        public virtual DbSet<User> Users { get; set; } = null;
+        public DbSet<Admins> Admins { get; set; } = null;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

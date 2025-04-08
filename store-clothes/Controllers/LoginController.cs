@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using store_clothes.Models;
 using System.Linq;
+using Org.BouncyCastle.Crypto.Generators;
+using store_clothes.Attribute;
 
 namespace store_clothes.Controllers
 {
@@ -20,28 +22,53 @@ namespace store_clothes.Controllers
         {
             return View();
         }
-
+        public IActionResult LoginAdmin()
+        {
+            return View();
+        }
         // Xử lý đăng nhập (POST: /Login/Authenticate)
         [HttpPost]
         public IActionResult Authenticate(string email, string password)
         {
-            // Tìm user trong database dựa trên email và password
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password); // Chưa băm mật khẩu
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password); // Không băm mật khẩu
 
             if (user != null)
             {
-                // Lưu thông tin user vào session
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserName", user.Name);
-                HttpContext.Session.SetInt32("UserId", user.Id); // Lưu UserId để dùng trong Cart/Favorites
-
-                // Chuyển hướng về trang chủ sau khi đăng nhập thành công
-                return RedirectToAction("Index", "Home");
+                HttpContext.Session.SetInt32("UserId", user.Id);
+                return RedirectToAction("Index", "Home"); // Đăng nhập thành công
             }
 
-            // Nếu đăng nhập thất bại, hiển thị thông báo lỗi
             ViewBag.Error = "Invalid email or password!";
             return View("Index");
+        }
+
+        [HttpPost]
+        [ViewLayout("_AdminLayout")]
+        public IActionResult AuthenticateAdmin(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Username and Password are required!";
+                return View("LoginAdmin");
+            }
+
+            // Tìm admin theo username
+            var admin = _context.Admins.FirstOrDefault(a => a.name == username);
+
+            if (admin == null || admin.password != password)  // So sánh trực tiếp
+            {
+                ViewBag.Error = "Invalid username or password!";
+                return View("LoginAdmin");
+            }
+
+            // Lưu thông tin vào session
+            HttpContext.Session.SetString("AdminName", admin.name);
+            HttpContext.Session.SetInt32("AdminId", admin.id);
+            HttpContext.Session.SetString("UserRole", "Admin");
+
+            return RedirectToAction("Index", "User");
         }
 
         // Xử lý đăng xuất (GET: /Login/Logout)

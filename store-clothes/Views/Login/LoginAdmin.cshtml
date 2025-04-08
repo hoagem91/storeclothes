@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LITA</title>
+    <title>Admin Login - LITA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/login.css" />
 </head>
@@ -20,18 +20,17 @@
         <!-- Form đăng nhập bên phải -->
         <div class="form-section">
             <div class="form-container">
-                <h3 class="text-center">Welcome to LITA</h3>
+                <h3 class="text-center">Admin Login - LITA</h3>
                 <div class="d-flex justify-content-center my-3">
-                    <button class="btn-toggle me-2 active">Login</button>
+                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Login</a>
                     <a href="@Url.Action("Index", "Register")" class="btn-toggle" style="margin-right:8px">Register</a>
-                    <a href="@Url.Action("LoginAdmin", "Login")" class="btn-toggle">Admin</a>
+                    <button class="btn-toggle me-2 active" >Admin</button>
                 </div>
-                <p class="text-center text-muted">Khám phá vẻ đẹp trong sự đơn giản, nơi mỗi chi tiết nhỏ đều toát lên sự tinh tế và hoàn hảo</p>
+                <p class="text-center text-muted">Admin Portal for managing the LITA platform.</p>
 
-                <!-- Form đăng nhập -->
-                <form method="post" action="@Url.Action("Authenticate", "Login")">
-                    <input type="email" class="input-field" name="email" placeholder="Enter your Email" required>
-                    <input type="password" class="input-field" name="password" placeholder="Enter your Password" required>
+                <form method="post" action="@Url.Action("AuthenticateAdmin", "Login")">
+                    <input type="text" class="input-field" name="username" placeholder="Enter your Admin Username" required>
+                    <input type="password" class="input-field" name="password" placeholder="Enter your Admin Password" required>
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                             <input type="checkbox" id="rememberMe">
@@ -42,26 +41,9 @@
                     <button type="submit" class="btn-login">Login</button>
                 </form>
 
-                <!-- Hiển thị thông báo lỗi nếu có -->
                 @if (!string.IsNullOrEmpty(ViewBag.Error))
                 {
                     <div class="alert alert-danger text-center mt-3">@ViewBag.Error</div>
-                }
-
-                <!-- Hiển thị thông báo thành công nếu có -->
-                @if (TempData["SuccessMessage"] != null)
-                {
-                    <div class="alert alert-success text-center mt-3">
-                        @TempData["SuccessMessage"]
-                    </div>
-                }
-
-                <!-- Hiển thị thông báo lỗi nếu có -->
-                @if (TempData["ErrorMessage"] != null)
-                {
-                    <div class="alert alert-danger text-center mt-3">
-                        @TempData["ErrorMessage"]
-                    </div>
                 }
             </div>
         </div>

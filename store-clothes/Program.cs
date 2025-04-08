@@ -121,7 +121,11 @@ app.MapControllerRoute(
     pattern: "login/{action=Index}/{id?}",
     defaults: new { controller = "Login" }
 );
-
+app.MapControllerRoute(
+    name: "login",
+    pattern: "login/{action=LoginAdmin}/{id?}",
+    defaults: new { controller = "login" }
+);
 app.MapControllerRoute(
     name: "register",
     pattern: "register/{action=Index}/{id?}",

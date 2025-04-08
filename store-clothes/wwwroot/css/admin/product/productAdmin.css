@@ -24,7 +24,7 @@
 }
 /* Styles cho Category Cards */
 .category-card {
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
@@ -44,6 +44,7 @@
     background-position: center;
     background-size: cover;
     position: relative;
+    border-radius: 15px;
 }
 
 .category-card-overlay {
@@ -112,9 +113,9 @@
             /* Responsive adjustments */
             @media (max-width: 768px) {
                 .category-card-body {
-        padding: 15px;
-    }
-}
+                    padding: 15px;
+                }
+            }
 @media (min-width : 1025px){
     .col-md-4 {
         flex: 0 0 auto;

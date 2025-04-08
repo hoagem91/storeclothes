@@ -1,5 +1,7 @@
 ﻿@model List<Category>
-
+@{
+    Layout = "_AdminLayout";
+}
 <link href="~/css/admin/categoryCard.css" rel="stylesheet" />
 <div class="trending-container">
     @foreach (var category in Model)
