@@ -24,6 +24,7 @@ body {
 .logo {
     font-size: 40px;
     font-weight: bold;
+    color: #F05A28;
 }
 
 .auth-buttons {
@@ -35,23 +36,24 @@ body {
         text-decoration: none;
         font-weight: bold;
         padding: 8px 15px;
-        border-radius: 5px;
+        border-radius: 20px;
         transition: 0.3s;
     }
 
 .signup {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: #F05A28;
+    border: 1px solid #F05A28;
 }
 
 .login {
     background-color: white;
-    color: black;
-    border: 1px solid black;
+    color: #F05A28;
+    border: 1px solid #F05A28;
 }
 
 .auth-buttons a:hover {
-    background-color: gray;
+    background-color: #F05A28;
     color: white;
 }
 
