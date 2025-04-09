@@ -1,0 +1,51 @@
+﻿.account-container {
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+}
+
+.account-card {
+    padding: 2rem;
+    min-width: 350px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: none;
+    text-align: left;
+}
+
+.account-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+/* Avatar styles */
+.avatar-wrapper {
+    margin-bottom: 1rem;
+}
+
+.avatar-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+}
+/* Nút đăng xuất */
+.logout-btn {
+    background-color: #fff;
+    color: #F05A28;
+    border: 1px solid #F05A28;
+    padding: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .logout-btn:hover {
+        background-color: #F05A28;
+        transform: scale(1.02);
+        color:#fff;
+    }
+
+    .logout-btn:active {
+        transform: scale(0.98);
+    }

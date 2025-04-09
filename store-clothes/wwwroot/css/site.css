@@ -18,9 +18,9 @@ body {
 }
 
 .navbar-brand {
-    font-size: 2rem;
+    font-size: 2rem !important;
     font-weight: 700;
-    color: #f05a28; /* Logo navbar màu #f05a28 */
+    color: #f05a28 !important; /* Logo navbar màu #f05a28 */
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -141,8 +141,8 @@ body {
 }
 
 .footer-brand {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
     color: #000; /* Logo footer màu đen */
     line-height: 1;
     text-transform: uppercase;
@@ -157,7 +157,7 @@ body {
 
 .footer .fa-solid, .footer .fa-brands {
     margin-right: 8px;
-    color: #f05a28; /* Icon màu #f05a28 */
+    color: #f05a28 !important; /* Icon màu #f05a28 */
     font-size: 12px;
 }
 
@@ -170,7 +170,7 @@ body {
 }
 
 .social-icons a {
-    color: #f05a28; /* Icon mạng xã hội màu #f05a28 */
+    color: #f05a28 !important; /* Icon mạng xã hội màu #f05a28 */
     font-size: 14px;
     margin: 0 8px;
     text-decoration: none;
@@ -189,16 +189,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
     padding-top: 10px;
 }
 
 .footer-link {
     color: #000; /* Chữ màu đen */
-    font-size: 10px;
+    font-size: 10px !important;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
-    margin: 0 20px;
+    margin: 0 20px !important;
     text-transform: uppercase;
     text-decoration: none;
     transition: color 0.3s;
@@ -579,7 +579,7 @@ body {
     .footer-links-container {
         justify-content: center;
         flex-direction: column;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .footer-link {

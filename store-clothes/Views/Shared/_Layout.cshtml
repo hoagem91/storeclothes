@@ -53,7 +53,8 @@
                             <button type="submit" class="btn btn-outline-primary ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </div>
-                    <a href="@Url.Action("Login", "Account")" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                    <a asp-controller="Account" asp-action="Info" class="nav-link"><i class="fa-solid fa-user"></i></a>
+
                     <a class="nav-link" asp-controller="Favorites" asp-action="Index"><i class="fa-solid fa-heart"></i></a>
                     <!-- Logo giỏ hàng với Mini Cart -->
                     <a href="#" class="nav-link position-relative" id="cart-toggle">
