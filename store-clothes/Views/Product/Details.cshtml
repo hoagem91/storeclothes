@@ -7,23 +7,29 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/products/product-details.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 }
 
 <div class="product-details">
     <div class="row">
-        <!-- Hình ảnh sản phẩm -->
         <div class="col-md-6">
             <div class="product-image">
+                <span class="badge">Best Seller</span>
                 <img src="@(Url.Content("~/assests/products/" + Model.ImageUrl))" alt="@Model.Name" class="img-fluid" />
             </div>
         </div>
-        <!-- Thông tin sản phẩm -->
         <div class="col-md-6">
             <h1 class="product-title">@Model.Name</h1>
             <p class="product-price">@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") + " đ" : "N/A")</p>
+            <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="rating-text">(4.5)</span>
+            </div>
             <p class="product-description">@Model.Description</p>
-
-            <!-- Chọn kích cỡ -->
             <div class="size-selection">
                 <h5>Chọn kích cỡ</h5>
                 <div class="size-buttons">
@@ -44,13 +50,22 @@
                     }
                 </div>
             </div>
-
-            <!-- Form thêm vào giỏ hàng -->
             <form id="add-to-cart-form" data-product-id="@Model.Id">
-                <button type="submit" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</button>
+                <button type="submit" class="btn btn-primary btn-add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+                </button>
             </form>
-
-            <!-- Thông tin bổ sung -->
+            <div class="delivery-info mt-3">
+                <p class="delivery-item">
+                    <i class="fas fa-truck"></i>
+                    Estimated Delivery: Apr 10 – Apr 12
+                    <span class="delivery-badge">Same Day Delivery</span>
+                </p>
+                <p class="delivery-item">
+                    <i class="fas fa-box-open"></i>
+                    Free Shipping & Returns: On all orders over 500,000 đ
+                </p>
+            </div>
             <div class="additional-info">
                 <h5 class="section-title">Thông tin bổ sung</h5>
                 <ul>
