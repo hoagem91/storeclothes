@@ -349,6 +349,18 @@ h1 {
         border-color: #e03e00;
     }
 
+.btn-secondary {
+    background-color: #6c757d; /* Màu xám mặc định của Bootstrap */
+    border-color: #6c757d;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268; /* Màu xám đậm hơn khi hover */
+        border-color: #5a6268;
+    }
+
 /* Pagination */
 .pagination {
     display: flex;
@@ -361,10 +373,10 @@ h1 {
     .pagination a {
         color: #000;
         border: 1px solid #000;
-        padding: 0.5rem 0.75rem; /* 8px 12px */
+        padding: 0.5rem 0.75rem; 
         text-decoration: none;
         font-size: 0.875rem; /* 14px */
-        border-radius: 0.25rem; /* 4px */
+        border-radius: 1rem; 
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -383,7 +395,6 @@ h1 {
         .pagination a:hover {
             background-color: #e9ecef;
         }
-
 /* Responsive */
 @media (max-width: 768px) {
     .product-grid {

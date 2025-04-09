@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Thông tin tài khoản";
+}
+
+@section Styles {
+    <link href="~/css/account/info.css" rel="stylesheet" />
+}
+
+<div class="account-container">
+    <div class="account-card">
+        <!-- Ảnh đại diện -->
+        <div class="avatar-wrapper text-center">
+            <img src="~/assests/Home/avatar.jpg" alt="Avatar" class="avatar-img">
+        </div>
+
+        <h3 class="account-title">Thông tin tài khoản</h3>
+        <p><strong>Họ và tên:</strong> @ViewBag.UserName</p>
+        <p><strong>Email:</strong> @ViewBag.UserEmail</p>
+
+        <form asp-action="Logout" asp-controller="Account" method="post" class="text-center">
+            <button type="submit" class="logout-btn mt-3 w-100">Đăng xuất</button>
+        </form>
+
+    </div>
+</div>
