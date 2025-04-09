@@ -1,5 +1,5 @@
 
-USE storeclothes;
+use storeclothes;
 
 -- tạo namgr admin 
 CREATE TABLE Admins (
