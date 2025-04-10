@@ -25,7 +25,7 @@ namespace store_clothes.Controllers
             // Nhóm sản phẩm theo danh mục và chỉ lấy 4 sản phẩm mỗi nhóm
             var products = allProducts
                 .GroupBy(p => p.CategoryId) // Nhóm theo danh mục
-                .SelectMany(g => g.Take(4)) // Lấy 4 sản phẩm đầu tiên của mỗi nhóm
+                .SelectMany(g => g.Take(5)) // Lấy 4 sản phẩm đầu tiên của mỗi nhóm
                 .ToList();
 
             return View(products);

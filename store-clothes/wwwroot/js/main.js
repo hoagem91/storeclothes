@@ -16,15 +16,15 @@
             button.addEventListener("click", function () {
                 const selectedCategory = this.getAttribute("data-category");
 
-                // Xóa active khỏi tất cả nút
+                // Reset tất cả nút về btn-light
                 buttons.forEach(btn => {
-                    btn.classList.remove("btn-dark");
+                    btn.classList.remove("btn-dark", "active");
                     btn.classList.add("btn-light");
                 });
 
-                // Thêm active cho nút được chọn
+                // Gán active cho nút được chọn
                 this.classList.remove("btn-light");
-                this.classList.add("btn-dark");
+                this.classList.add("btn-dark", "active");
 
                 // Hiển thị sản phẩm theo danh mục
                 productCards.forEach(card => {
@@ -66,7 +66,6 @@
     // Chế độ Dark Mode có lưu trạng thái
     const toggleSwitch = document.getElementById("darkModeToggle");
     if (toggleSwitch) {
-        // Kiểm tra localStorage
         if (localStorage.getItem("darkMode") === "enabled") {
             document.body.classList.add("dark-mode");
             toggleSwitch.checked = true;
@@ -83,12 +82,11 @@
         });
     }
 
-    // Xử lý nút View More để điều hướng đúng
+    // Nút View More điều hướng đến Login
     const viewMoreBtn = document.getElementById("btn-view-more");
     if (viewMoreBtn) {
         viewMoreBtn.addEventListener("click", function () {
-            window.location.href = "/Login/Index"; // Điều hướng đến trang đăng nhập
+            window.location.href = "/Login/Index";
         });
     }
 });
-
