@@ -55,17 +55,17 @@ namespace store_clothes.Controllers
             }
 
             // Tìm admin theo username
-            var admin = _context.Admins.FirstOrDefault(a => a.name == username);
+            var admin = _context.Admins.FirstOrDefault(a => a.Name == username);
 
-            if (admin == null || admin.password != password)  // So sánh trực tiếp
+            if (admin == null || admin.Password != password)  // So sánh trực tiếp
             {
                 ViewBag.Error = "Invalid username or password!";
                 return View("LoginAdmin");
             }
 
             // Lưu thông tin vào session
-            HttpContext.Session.SetString("AdminName", admin.name);
-            HttpContext.Session.SetInt32("AdminId", admin.id);
+            HttpContext.Session.SetString("AdminName", admin.Name);
+            HttpContext.Session.SetInt32("AdminId", admin.Id);
             HttpContext.Session.SetString("UserRole", "Admin");
 
             return RedirectToAction("Index", "User");

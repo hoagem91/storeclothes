@@ -16,6 +16,7 @@ namespace store_clothes.Models
         {
         }
 
+        public virtual DbSet<Admin> Admins { get; set; } = null!;
         public virtual DbSet<Cart> Carts { get; set; } = null!;
         public virtual DbSet<CartItem> CartItems { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
@@ -24,14 +25,14 @@ namespace store_clothes.Models
         public virtual DbSet<OrdersItem> OrdersItems { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null;
-        public DbSet<Admins> Admins { get; set; } = null;
+        public virtual DbSet<User> Users { get; set; } = null!;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=127.0.0.1;port=3306;database=storeclothes;user=root;password=30082004", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.2.0-mysql"));
+                optionsBuilder.UseMySql("server=localhost;database=storeclothes;user=root;password=12345678", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.1.0-mysql"));
             }
         }
 
@@ -39,6 +40,21 @@ namespace store_clothes.Models
         {
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
+
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.ToTable("admins");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .HasColumnName("password");
+            });
 
             modelBuilder.Entity<Cart>(entity =>
             {
@@ -48,17 +64,13 @@ namespace store_clothes.Models
 
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.Property(e => e.Size)
-                    .HasMaxLength(10)
-                    .HasColumnName("size");
+                entity.Property(e => e.Size).HasMaxLength(20);
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -94,12 +106,12 @@ namespace store_clothes.Models
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Cartitems)
+                    .WithMany(p => p.CartItems)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("cartitem_ibfk_2");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Cartitems)
+                    .WithMany(p => p.CartItems)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("cartitem_ibfk_1");
             });
@@ -108,9 +120,7 @@ namespace store_clothes.Models
             {
                 entity.ToTable("categories");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(100)
@@ -160,9 +170,7 @@ namespace store_clothes.Models
 
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(45)
@@ -182,8 +190,6 @@ namespace store_clothes.Models
 
             modelBuilder.Entity<OrdersItem>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("orders_items");
 
                 entity.HasIndex(e => e.OrderId, "order_id_idx");
@@ -203,12 +209,12 @@ namespace store_clothes.Models
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrdersItems)
                     .HasForeignKey(d => d.OrderId)
                     .HasConstraintName("order_id");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.OrdersItems)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("product_id");
             });
@@ -224,9 +230,7 @@ namespace store_clothes.Models
 
                 entity.HasIndex(e => e.UserId, "user_id_idx");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
@@ -262,9 +266,7 @@ namespace store_clothes.Models
 
                 entity.HasIndex(e => e.CategoryId, "category_id_idx");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 

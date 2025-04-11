@@ -7,6 +7,7 @@ namespace store_clothes.Models
     {
         public Order()
         {
+            OrdersItems = new HashSet<OrdersItem>();
             Payments = new HashSet<Payment>();
         }
 
@@ -16,6 +17,7 @@ namespace store_clothes.Models
         public string? Status { get; set; }
 
         public virtual User? User { get; set; }
+        public virtual ICollection<OrdersItem> OrdersItems { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

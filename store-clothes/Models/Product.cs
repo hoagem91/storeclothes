@@ -7,9 +7,10 @@ namespace store_clothes.Models
     {
         public Product()
         {
-            Cartitems = new HashSet<CartItem>();
+            CartItems = new HashSet<CartItem>();
             Carts = new HashSet<Cart>();
             Favorites = new HashSet<Favorite>();
+            OrdersItems = new HashSet<OrdersItem>();
         }
 
         public int Id { get; set; }
@@ -21,8 +22,9 @@ namespace store_clothes.Models
         public string? Size { get; set; }
 
         public virtual Category? Category { get; set; }
-        public virtual ICollection<CartItem> Cartitems { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Favorite> Favorites { get; set; }
+        public virtual ICollection<OrdersItem> OrdersItems { get; set; }
     }
 }
