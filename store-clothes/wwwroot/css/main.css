@@ -4,10 +4,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    background: #b7b7ff00
 }
 
 body {
-    background-color: #fff;
+    background-color: #f5f5f5 !important;
     color: #333;
 }
 
@@ -17,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 50px;
-    background: white;
+    background: #ddcaca;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -81,7 +82,7 @@ body {
 
 /* Swiper chính (hình ảnh) */
 .mySwiper {
-    width: 70%;
+    width: 100%;
     height:80%;
 }
     .mySwiper .swiper-slide {
@@ -105,7 +106,7 @@ body {
     width: 15%;
     z-index: 10;
     cursor: pointer;
-    background: #f8f8ff;
+    background: #b7b7ff00;
 }
 
 .left-zone {
@@ -143,36 +144,47 @@ body {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap; /* Giữ bố cục nhưng cho phép xuống dòng nếu thiếu chỗ */
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
+    border-bottom-left-radius:20px;
 }
 
-    .btn-group .btn {
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+.btn-dark {
+    background-color: #F05A28 !important;
+    color: #fff !important;
+    border :none;
+    border-radius:20px;
+    height: 60px;
+}
 
-    .btn-group .btn-dark {
-        background-color: black;
-        color: white;
-    }
+.btn-light {
+    background-color: #fff !important;
+    color: #F05A28 !important;
+    border: 1px solid #F05A28 !important;
+    border-radius: 20px;
+    height: 60px;
+}
 
-    .btn-group .btn-light {
-        background-color: #c6c7c8;
-        color: black;
+    /* Nút khi được chọn (active) */
+    .btn-light.active,
+    .btn-light:active {
+        background-color: #F05A28 !important;
+        color: #fff !important;
+        border-color: #F05A28 !important;
+        height: 60px;
     }
 
     .btn-group .btn:hover {
-        background-color: gray;
-        color: white;
+        background-color: #F05A28 !important;
+        color: #fff !important;
     }
 
 
 /* Product Cards */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-top: 20px;
     padding: 20px;
@@ -180,7 +192,7 @@ body {
 
 .product-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 30px;
     padding: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -188,11 +200,13 @@ body {
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    
+    width: 100%;
+    height: 100%;
 }
     .product-card a{
         text-decoration:none;
         color: black;
+        font-size: 16px;
     }
 
     .product-card:hover {
@@ -203,26 +217,30 @@ body {
     .product-card img {
         width: 100%;
         max-width: 300px;
-        height: 300px;
+        height: auto;
         object-fit: contain;
-        border-radius: 15px;
+        border-radius: 35px;
         background-color: #f8f8f8;
         display: block;
         margin: 0 auto;
+        margin-bottom:30px;
     }
 
     .product-card p {
         font-size: 20px;
         font-weight: bold;
-        color: black;
+        color: #ff0000;
+    }
+    .product-card h3 {
+        font-size: 20px;
     }
 
 /* View More Button */
 #btn-view-more {
-    background-color: black;
-    color: white;
+    background-color: #fff;
+    color: #F05A28;
     padding: 15px 30px;
-    border: none;
+    border: 1px solid #F05A28;
     cursor: pointer;
     font-size: 18px;
     transition: 0.3s;
@@ -230,12 +248,13 @@ body {
 }
 
     #btn-view-more:hover {
-        background-color: gray;
+        background-color: #F05A28;
+        color: white;
     }
 
 /* Footer */
 .footer {
-    background-color: #f8f9fa;
+    background-color: #f2d8d8;
     padding: 20px 0;
     border-top: 1px solid #ddd;
     color: #666;
@@ -244,7 +263,7 @@ body {
 .footer-brand {
     font-size: 48px;
     font-weight: bold;
-    color: #333;
+    color: #F05A28;
 }
 
 .footer p {
@@ -269,10 +288,13 @@ body {
 }
 
 .social-icons a {
-    color: #666;
+    color: #F05A28;
     font-size: 18px;
     margin: 0 5px;
     text-decoration: none;
+}
+.footer p i {
+    color:#F05A28;
 }
 
     .social-icons a:hover {
@@ -403,7 +425,7 @@ body {
 }
 
 .swiper-pagination-bullet-active {
-    background: #b7b7b7 !important;
+    background: #F05A28 !important;
     width: 60px !important;
     height: 10px !important;
     color: black !important;
