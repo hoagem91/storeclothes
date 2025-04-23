@@ -17,6 +17,10 @@ namespace store_clothes.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (TempData["UserId"] != null)
+            {
+                ViewBag.UserId = TempData["UserId"];
+            }
             var categories = await _context.Categories.ToListAsync();
             var products = await _context.Products.ToListAsync();
 

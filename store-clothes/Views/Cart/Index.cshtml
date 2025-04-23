@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = "Shopping Cart";
 }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="~/css/cart_style/cart.css" />
 <link href="~/js/products/products.js" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/cart_shop/cart.js"></script>
 <!-- Content -->
 <div class="cart-container">
@@ -33,15 +35,13 @@
                 <tr class="product-view__cart">
                     <td class="product-info">
                         <img src="~/assests/products/@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
-                        <span>@item.Product.Name</span>
+                        <span class="product-name">@item.Product.Name</span>
                     </td>
                     <td class="price">
                         @(String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0} ₫", item.Product.Price))
                     </td>
                     <td class="quantity">
-                        <button class="qty-btn minus" data-id="@item.Id">-</button>
                         <input type="text" value="@item.Quantity" class="qty-input" data-id="@item.Id" />
-                        <button class="qty-btn plus" data-id="@item.Id">+</button>
                     </td>
                     <td class="total-price" data-id="@item.Id" data-price="@item.Product.Price">
                         @(String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0} ₫", item.Product.Price * item.Quantity))

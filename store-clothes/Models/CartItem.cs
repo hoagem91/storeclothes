@@ -13,5 +13,6 @@ namespace store_clothes.Models
 
         public virtual Product Product { get; set; } = null!;
         public virtual User User { get; set; } = null!;
+        public decimal Total => (Product?.Price ?? 0) * Quantity;
     }
 }

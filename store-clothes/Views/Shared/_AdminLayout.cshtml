@@ -41,6 +41,12 @@
                                 <span>Category</span>
                             </a>
                         </li>
+                        <li>
+                            <a asp-controller="Login" asp-action="Index" class="@(ViewData["ActiveMenu"]?.ToString() == "Login" ? "active" : "")">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
