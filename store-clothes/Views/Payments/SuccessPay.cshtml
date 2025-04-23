@@ -1,0 +1,85 @@
+﻿@model store_clothes.Models.PaymentSuccessViewModel
+@{
+    ViewBag.Title = "Thanh toán thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="payment-success-container">
+                <div class="text-center mb-4">
+                    <div class="success-icon-container">
+                        <i class="fa fa-check-circle success-icon"></i>
+                    </div>
+                    <h1 class="success-title">Thanh toán thành công!</h1>
+                    <p class="lead">Cảm ơn bạn đã đặt hàng. Đơn hàng của bạn đã được xác nhận.</p>
+                </div>
+
+                <div class="order-summary">
+                    <div class="order-info-header">
+                        <h3>Thông tin thanh toán</h3>
+                    </div>
+
+                    <div class="order-info-content">
+                        <div class="row info-row">
+                            <div class="col-md-6">
+                                <p><strong>Mã giao dịch:</strong></p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <p>@Model.TransactionId</p>
+                            </div>
+                        </div>
+
+                        <div class="row info-row">
+                            <div class="col-md-6">
+                                <p><strong>Ngày thanh toán:</strong></p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <p>@Model.PaymentDate.ToString("dd/MM/yyyy HH:mm")</p>
+                            </div>
+                        </div>
+
+                        <div class="row info-row">
+                            <div class="col-md-6">
+                                <p><strong>Dự kiến giao hàng:</strong></p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <p>@Model.EstimatedDeliveryDate.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="next-steps mt-4">
+                    <div class="order-info-header">
+                        <h3>Bước tiếp theo</h3>
+                    </div>
+                    <div class="order-info-content">
+                        <p>Một email xác nhận đã được gửi đến địa chỉ email của bạn. Bạn có thể theo dõi tình trạng đơn hàng trong tài khoản của mình.</p>
+                        <p>Nếu bạn có bất kỳ câu hỏi nào về đơn hàng, vui lòng liên hệ với chúng tôi qua email <a href="mailto:support@example.com">support@example.com</a> hoặc số điện thoại <strong>1900 1234</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="@Url.Action("Index", "Orders")" class="btn btn-outline-primary btn-lg">
+                        Xem đơn hàng của tôi
+                    </a>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-lg ml-3">
+                        Tiếp tục mua sắm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Tùy chọn: Thêm hiệu ứng hoặc xử lý JS nếu cần
+        $(document).ready(function () {
+            // Hiệu ứng hiển thị animation cho icon thành công
+            $('.success-icon').addClass('animated');
+        });
+    </script>
+}

@@ -74,3 +74,58 @@
 
     updateCartSubtotal();
 });
+$(document).on("click", ".pay-btn", function (e) {
+    e.preventDefault();
+
+    let cartItems = [];
+
+    $(".product-view__cart").each(function () {
+        const quantity = parseInt($(this).find(".qty-input").val());
+        const priceValue = parseFloat($(this).find(".total-price").data("price"));
+        const name = $(this).find(".product-name").text().trim();
+        const productId = $(this).find(".qty-input").data("id");
+        const imageUrl = $(this).find(".product-image").attr("src");
+
+        const item = {
+            productId: productId,
+            quantity: quantity,
+            name: name,
+            price: priceValue.toLocaleString('vi-VN') + " ₫",
+            priceValue: priceValue,
+            imageUrl: imageUrl,
+            size: "M"
+        };
+
+        console.log(item);
+        cartItems.push(item);
+    });
+
+    if (cartItems.length === 0) {
+        alert("Giỏ hàng của bạn đang trống.");
+        return;
+    }
+
+    alert("Giỏ hàng của bạn:\n" + JSON.stringify(cartItems, null, 2));
+
+    if (!confirm("Bạn có chắc chắn muốn tiếp tục thanh toán?")) {
+        return;
+    }
+
+    $.ajax({
+        url: "/Payments/StartCheckout",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(cartItems),
+        success: function (res) {
+            if (res.success) {
+                window.location.href = "/Payments";
+            } else {
+                alert("Không thể bắt đầu thanh toán.");
+            }
+        },
+        error: function () {
+            alert("Lỗi khi gửi dữ liệu giỏ hàng.");
+        }
+    });
+});
+

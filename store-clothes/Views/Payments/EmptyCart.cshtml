@@ -1,0 +1,24 @@
+﻿<!-- EmptyCart.cshtml -->
+@{
+    ViewBag.Title = "Giỏ hàng trống";
+}
+<link href="~/css/checkout/emptycart.css" rel="stylesheet" />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="empty-cart-container">
+                <i class="fa fa-shopping-cart fa-5x text-muted mb-4"></i>
+                <h2 class="mb-3">Giỏ hàng của bạn đang trống</h2>
+                <p class="lead mb-4">Bạn chưa có sản phẩm nào trong giỏ hàng để thanh toán.</p>
+                <div class="empty-cart-actions">
+                    <a href="@Url.Action("Index", "Product")" class="btn btn-primary btn-lg">
+                        Tiếp tục mua sắm
+                    </a>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-lg ml-3">
+                        Về trang chủ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
