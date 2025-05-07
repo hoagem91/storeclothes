@@ -1,125 +1,171 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using store_clothes.Attribute;
-using store_clothes.Models; // Namespace của model User
+using store_clothes.Models; // Namespace của model User và Cart
 using System.Linq;
 
-public class UserController : Controller
+namespace store_clothes.Controllers
 {
-    private readonly storeclothesContext _context; // Thay bằng DbContext của bạn
+    public class UserController : Controller
+    {
+        private readonly storeclothesContext _context;
 
-    public UserController(storeclothesContext context)
-    {
-        _context = context;
-    }
-
-    [ViewLayout("_AdminLayout")]
-    public IActionResult Index()
-    {
-        var users = _context.Users.ToList(); // Lấy danh sách người dùng từ database
-        return View(users); // Trả về view UserList.cshtml với model là danh sách users
-    }
-    [ViewLayout("_AdminLayout")]
-    public ActionResult CreateUser()
-    {
-        return View();
-    }
-    [ViewLayout("_AdminLayout")]
-    public ActionResult UpdateUser(int id)
-    {
-        var user = _context.Users.Find(id);
-        if (user == null)
+        public UserController(storeclothesContext context)
         {
-            TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+            _context = context;
+        }
+
+        [ViewLayout("_AdminLayout")]
+        public IActionResult Index()
+        {
+            var users = _context.Users.ToList(); // Lấy danh sách người dùng
+            return View(users);
+        }
+
+        [ViewLayout("_AdminLayout")]
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [ViewLayout("_AdminLayout")]
+        public ActionResult UpdateUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
+        }
+
+        [ViewLayout("_AdminLayout")]
+        public ActionResult DeleteUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ViewLayout("_AdminLayout")]
+        public IActionResult Create(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("CreateUser", user); // Trả về view CreateUser thay vì Index
+            }
+
+            // Kiểm tra email đã tồn tại
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
+            if (existingUser != null)
+            {
+                TempData["ErrorMessage"] = "Email đã tồn tại!";
+                return View("CreateUser", user);
+            }
+
+            try
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Đăng ký thành công!";
+            }
+            catch (DbUpdateException ex)
+            {
+                TempData["ErrorMessage"] = $"Lỗi khi tạo người dùng: {ex.InnerException?.Message ?? ex.Message}";
+                return View("CreateUser", user);
+            }
+
             return RedirectToAction("Index");
         }
 
-        return View(user);
-    }
-    [ViewLayout("_AdminLayout")]
-    public ActionResult DeleteUser(int id)
-    {
-        var user = _context.Users.Find(id);
-        if (user == null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ViewLayout("_AdminLayout")]
+        public ActionResult UpdateUser(User updatedUser)
         {
-            TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
-            return RedirectToAction("Index");
-        }
-        return View(user);
-    }
+            if (!ModelState.IsValid)
+            {
+                return View(updatedUser);
+            }
 
+            var user = _context.Users.Find(updatedUser.Id);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                return RedirectToAction("Index");
+            }
 
-    [HttpPost]
-    [ViewLayout("_AdminLayout")]
-    public IActionResult Create(User user)
-    {
-        if (!ModelState.IsValid)
-        {
-            return View("Index", user);
-        }
+            // Kiểm tra email trùng lặp
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == updatedUser.Email && u.Id != updatedUser.Id);
+            if (existingUser != null)
+            {
+                TempData["ErrorMessage"] = "Email đã tồn tại!";
+                return View(updatedUser);
+            }
 
-        // Kiểm tra email đã tồn tại chưa
-        var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
-        if (existingUser != null)
-        {
-            TempData["ErrorMessage"] = "Email đã tồn tại!";
-            return RedirectToAction("Index");
-        }
+            try
+            {
+                // Cập nhật thông tin
+                user.Name = updatedUser.Name;
+                user.Email = updatedUser.Email;
 
-        // Lưu user vào database (KHÔNG mã hóa mật khẩu)
-        _context.Users.Add(user);
-        _context.SaveChanges();
+                // Kiểm tra nếu nhập mật khẩu mới
+                if (!string.IsNullOrEmpty(updatedUser.Password))
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
+                }
 
-        // Lưu thông báo thành công
-        TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Cập nhật người dùng thành công!";
+            }
+            catch (DbUpdateException ex)
+            {
+                TempData["ErrorMessage"] = $"Lỗi khi cập nhật người dùng: {ex.InnerException?.Message ?? ex.Message}";
+                return View(updatedUser);
+            }
 
-        // Chuyển hướng về trang Login
-        return RedirectToAction("Index", "User");
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    [ViewLayout("_AdminLayout")]
-    public ActionResult UpdateUser(User updatedUser)
-    {
-        var user = _context.Users.Find(updatedUser.Id);
-        if (user == null)
-        {
-            TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
             return RedirectToAction("Index");
         }
 
-        // Cập nhật thông tin
-        user.Name = updatedUser.Name;
-        user.Email = updatedUser.Email;
-
-        // Kiểm tra nếu nhập mật khẩu mới
-        if (!string.IsNullOrEmpty(updatedUser.Password))
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ViewLayout("_AdminLayout")]
+        public ActionResult Delete(int id)
         {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
-        }
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                return RedirectToAction("Index");
+            }
 
-        _context.SaveChanges();
-        TempData["SuccessMessage"] = "Cập nhật người dùng thành công!";
+            try
+            {
+                // Xóa các bản ghi trong bảng cart liên quan đến user
+                var userCarts = _context.Carts.Where(c => c.UserId == id).ToList();
+                _context.Carts.RemoveRange(userCarts);
 
-        return RedirectToAction("Index");
-    }
+                // Xóa user
+                _context.Users.Remove(user);
+                _context.SaveChanges();
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    [ViewLayout("_AdminLayout")]
-    public ActionResult Delete(int id)
-    {
-        var user = _context.Users.Find(id);
-        if (user == null)
-        {
-            TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                TempData["SuccessMessage"] = "Xóa người dùng thành công!";
+            }
+            catch (DbUpdateException ex)
+            {
+                TempData["ErrorMessage"] = $"Lỗi khi xóa người dùng: {ex.InnerException?.Message ?? ex.Message}";
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
-
-        _context.Users.Remove(user);
-        _context.SaveChanges();
-
-        TempData["SuccessMessage"] = "Xóa người dùng thành công!";
-        return RedirectToAction("Index");
     }
 }

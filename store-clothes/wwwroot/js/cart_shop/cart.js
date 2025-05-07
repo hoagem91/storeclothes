@@ -105,7 +105,7 @@ $(document).on("click", ".pay-btn", function (e) {
         return;
     }
 
-    alert("Giỏ hàng của bạn:\n" + JSON.stringify(cartItems, null, 2));
+    //alert("Giỏ hàng của bạn:\n" + JSON.stringify(cartItems, null, 2));
 
     if (!confirm("Bạn có chắc chắn muốn tiếp tục thanh toán?")) {
         return;

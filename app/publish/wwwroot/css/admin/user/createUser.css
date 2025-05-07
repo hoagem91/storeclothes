@@ -1,0 +1,162 @@
+﻿/* Đặt một số thuộc tính cho container */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Phong cách cho các alert thông báo */
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert i {
+    margin-right: 10px;
+}
+
+/* Chỉnh sửa phần form card */
+.form-card {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Phong cách cho header form */
+.form-header h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+/* Phong cách cho từng form-group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    /* Định dạng các input, password */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+/* Phong cách cho validation message */
+.field-validation-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Chỉnh sửa phần nút */
+/* Button container */
+.btn-container {
+    display: flex;
+    justify-content:space-around;
+    gap: 12px;
+    margin-top: 25px;
+}
+/* Enhanced button styling */
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Primary button - Blue theme */
+.btn-primary {
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(to right, #1d4ed8, #2563eb);
+        box-shadow: 0 6px 8px rgba(37, 99, 235, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.15);
+    }
+
+/* Secondary button - Gray theme */
+.btn-secondary {
+    background: linear-gradient(to right, #64748b, #94a3b8);
+    color: white;
+    box-shadow: 0 4px 6px rgba(100, 116, 139, 0.15);
+}
+
+    .btn-secondary:hover {
+        background: linear-gradient(to right, #475569, #64748b);
+        box-shadow: 0 6px 8px rgba(100, 116, 139, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(100, 116, 139, 0.15);
+    }
+
+/* Thêm một số responsive cho thiết bị di động */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .form-card {
+        padding: 15px;
+    }
+
+    .btn-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .btn-container .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+}
