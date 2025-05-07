@@ -1,0 +1,150 @@
+﻿/* Main container styling */
+.delete-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Page title */
+h2 {
+    color: #e74c3c;
+    font-size: 24px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f8f9fa;
+    font-weight: 600;
+}
+
+/* Product details section */
+.product-details {
+    margin-bottom: 30px;
+}
+
+    /* Product property labels */
+    .product-details p {
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .product-details strong {
+        display: inline-block;
+        width: 120px;
+        color: #34495e;
+        font-weight: 600;
+    }
+
+/* Product image container */
+.product-image {
+    margin: 20px 0;
+}
+
+    .product-image img {
+        width: 150px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #e0e6ed;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+/* Form button container */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #f8f9fa;
+}
+
+/* Delete button */
+.btn-danger {
+    padding: 10px 24px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+    }
+
+/* Cancel button */
+.btn-secondary {
+    padding: 10px 24px;
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
+    }
+
+/* Warning message */
+.delete-warning {
+    display: block;
+    padding: 12px 15px;
+    margin: 20px 0;
+    background-color: #fff3f3;
+    border-left: 4px solid #e74c3c;
+    color: #c0392b;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .delete-container {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-danger, .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* Animation for page elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delete-container {
+    animation: fadeIn 0.4s ease-out forwards;
+}

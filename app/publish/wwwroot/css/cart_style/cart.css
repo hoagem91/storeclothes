@@ -1,0 +1,345 @@
+﻿/* General Reset and Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #fff;
+}
+
+/* Cart Container */
+.cart-container {
+    max-width: 1200px;
+    margin: 62px auto;
+    padding: 20px 0;
+    background-color: transparent;
+    border: none;
+    text-align:center;
+}
+
+/* Cart Table */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .cart-table th,
+    .cart-table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .cart-table th {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        text-transform: uppercase;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .cart-table .product-view__cart {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+        .cart-table .product-view__cart td {
+            height: 120px;
+            align-items: center;
+        }
+
+.product-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 20px;
+    gap: 20px;
+}
+
+.product-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-color {
+    font-size: 14px;
+    color: #666;
+}
+
+.remove-link {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+    .remove-link:hover {
+        color: #0056b3;
+    }
+
+.price,
+.total-price {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Quantity Buttons */
+.quantity {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding: 0;
+    bottom: 20px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .qty-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+.qty-input {
+    width: 30px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    background: transparent;
+}
+
+/* Cart Summary */
+.cart-active {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 0;
+    position: relative;
+}
+
+.cart-summary {
+    width: 415px;
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+    .cart-summary span:first-child {
+        color: #333;
+    }
+
+.pay-btn {
+    background-color: #f05a28;
+    font-weight: bold;
+    position: absolute;
+    width: 415px;
+    height: 50px;
+    right: 0;
+    top: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-container {
+        margin: 20px auto; /* Giảm margin trên màn hình nhỏ */
+        padding: 10px 15px; /* Thêm padding ngang để tránh sát lề */
+    }
+
+    .cart-table {
+        margin-bottom: 10px;
+    }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .cart-table th {
+            font-size: 14px;
+        }
+
+        .cart-table .product-view__cart td {
+            height: 100px; /* Giảm chiều cao ô */
+        }
+
+    .product-info {
+        gap: 15px;
+        top: 0; /* Bỏ position top để tránh lệch */
+    }
+
+    .product-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .product-color,
+    .remove-link {
+        font-size: 12px;
+    }
+
+    .price,
+    .total-price {
+        font-size: 14px;
+    }
+
+    .quantity {
+        bottom: 0; /* Bỏ position bottom để tránh lệch */
+    }
+
+    .qty-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+    }
+
+    .qty-input {
+        width: 25px;
+        font-size: 14px;
+    }
+
+    .cart-table th:nth-child(2),
+    .cart-table td.price {
+        display: none; /* Ẩn cột Price trên màn hình nhỏ */
+    }
+
+    .cart-active {
+        padding: 10px 0;
+    }
+
+    .cart-summary {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        position: static; /* Bỏ position absolute */
+        font-size: 16px;
+        justify-content: space-between;
+    }
+
+    .pay-btn {
+        position: static; /* Bỏ position absolute */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        margin-top: 20px; /* Thêm khoảng cách phía trên */
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-container {
+        padding: 10px;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .cart-table th {
+        font-size: 12px;
+    }
+
+    .cart-table .product-view__cart td {
+        height: 80px; /* Giảm chiều cao ô */
+    }
+
+    .product-info {
+        flex-direction: row; /* Giữ hàng ngang để tiết kiệm không gian */
+        gap: 10px;
+        align-items: center;
+    }
+
+    .product-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .product-color,
+    .remove-link {
+        font-size: 10px;
+    }
+
+    .price,
+    .total-price {
+        font-size: 12px;
+    }
+
+    .quantity {
+        gap: 3px;
+    }
+
+    .qty-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    .qty-input {
+        width: 20px;
+        font-size: 12px;
+    }
+
+    /* Ẩn cột Quantity và hiển thị số lượng trong cột Product */
+    .cart-table th:nth-child(3),
+    .cart-table td.quantity {
+        display: none;
+    }
+
+    .product-details::after {
+        content: "Qty: " attr(data-quantity); /* Hiển thị số lượng trong cột Product */
+        font-size: 10px;
+        color: #666;
+    }
+
+    .cart-summary {
+        font-size: 14px;
+    }
+
+    .pay-btn {
+        height: 40px;
+        font-size: 14px;
+    }
+}

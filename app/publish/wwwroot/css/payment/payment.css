@@ -1,0 +1,194 @@
+﻿/* CSS Chính cho trang thanh toán TEELAB */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+h2 {
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 25px;
+    font-weight: 700;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #000;
+    margin: 20px 0 15px;
+    font-weight: 600;
+}
+
+.checkout-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.checkout-form {
+    flex: 1;
+    min-width: 320px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 22px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        transition: border 0.3s ease;
+    }
+
+        .form-group input:focus {
+            border-color: #000;
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group input[readonly] {
+            background-color: #eee;
+            cursor: not-allowed;
+        }
+
+.validation-message {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Radio buttons styling */
+input[type="radio"] {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Cart Summary Panel */
+.cart-summary {
+    width: 320px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    position: sticky;
+    top: 20px;
+    border: 1px solid #eee;
+}
+
+.cart-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+    .cart-item p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+/* Total Price */
+.cart-total {
+    font-weight: 700;
+    font-size: 18px;
+    padding-top: 10px;
+    margin-top: 15px;
+    border-top: 2px dashed #ddd;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #000;
+    color: #fff;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 15px;
+}
+
+    .btn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .cart-summary {
+        width: 100%;
+        position: static;
+        margin-top: 20px;
+    }
+
+    .checkout-content {
+        flex-direction: column;
+    }
+}
+
+/* Animation for feedback */
+@keyframes highlight {
+    0% {
+        background-color: #fff;
+    }
+
+    50% {
+        background-color: #f8f1e4;
+    }
+
+    100% {
+        background-color: #fff;
+    }
+}
+
+.highlight {
+    animation: highlight 1s;
+}

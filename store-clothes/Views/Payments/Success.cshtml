@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<div id="successOverlay" class="overlay show">
+    <div class="overlay-content">
+        <h2>🎉 Thanh toán thành công!</h2>
+        <p>Cảm ơn bạn đã mua hàng.</p>
+    </div>
+</div>
+
+<script>
+    // Sau khi overlay hiển thị, làm mới mini cart
+    fetch('/Cart/GetMiniCartItems')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("mini-cart-container").innerHTML = html;
+        });
+
+    // Optional: Tự động ẩn overlay sau vài giây
+    setTimeout(() => {
+        document.getElementById("successOverlay").classList.remove("show");
+    }, 5000);
+</script>

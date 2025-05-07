@@ -1,0 +1,17 @@
+﻿<div class="container">
+    <h2>Thanh toán thất bại</h2>
+    <p>@ViewBag.ErrorMessage</p>
+    <a href="@Url.Action("Index", "Payments")" class="btn btn-primary">Quay lại thanh toán</a>
+</div>
+
+<style>
+    .container {
+        text-align: center;
+        padding: 50px;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+</style>
