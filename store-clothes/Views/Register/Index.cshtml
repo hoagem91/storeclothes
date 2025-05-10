@@ -5,11 +5,11 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - LITA</title>
+    <title>Đăng ký - LITA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/login.css" />
 </head>
@@ -22,13 +22,13 @@
         <!-- Form đăng ký bên phải -->
         <div class="form-section">
             <div class="form-container">
-                <h3 class="text-center">Welcome to LITA</h3>
+                <h3 class="text-center">Chào mừng đến với LITA</h3>
                 <div class="d-flex justify-content-center my-3">
-                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Login</a>
-                    <button class="btn-toggle me-2 active">Register</button>
-                    <a href="@Url.Action("LoginAdmin", "Login")" class="btn-toggle" style="margin-right:8px">Admin</a>
+                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Đăng nhập</a>
+                    <button class="btn-toggle me-2 active">Đăng ký</button>
+                    <a href="@Url.Action("LoginAdmin", "Login")" class="btn-toggle" style="margin-right:8px">Quản trị</a>
                 </div>
-                <p class="text-center text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <p class="text-center text-muted">Khám phá vẻ đẹp trong sự đơn giản, nơi mỗi chi tiết nhỏ đều toát lên sự tinh tế và hoàn hảo</p>
 
                 <!-- Hiển thị thông báo lỗi từ Server -->
                 @if (TempData["ErrorMessage"] != null)
@@ -43,22 +43,22 @@
 
                 <form method="post" asp-action="Register" asp-controller="Register">
                     <!-- Email -->
-                    <input asp-for="Email" class="input-field" placeholder="Enter your Email Address" required>
+                    <input asp-for="Email" class="input-field" placeholder="Nhập địa chỉ email của bạn" required>
                     <span asp-validation-for="Email" class="text-danger"></span>
 
                     <!-- Tên đăng nhập -->
-                    <input asp-for="Name" class="input-field" placeholder="Enter your User name" required>
+                    <input asp-for="Name" class="input-field" placeholder="Nhập tên đăng nhập của bạn" required>
                     <span asp-validation-for="Name" class="text-danger"></span>
 
                     <!-- Mật khẩu -->
-                    <input asp-for="Password" type="password" class="input-field" placeholder="Enter your Password" required>
+                    <input asp-for="Password" type="password" class="input-field" placeholder="Nhập mật khẩu của bạn" required>
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                     <!-- Xác nhận mật khẩu -->
-                    <input id="ConfirmPassword" type="password" class="input-field" placeholder="Confirm your Password" required>
-                    <span id="ConfirmPasswordError" class="text-danger" style="display:none;">Passwords do not match</span>
+                    <input id="ConfirmPassword" type="password" class="input-field" placeholder="Xác nhận mật khẩu của bạn" required>
+                    <span id="ConfirmPasswordError" class="text-danger" style="display:none;">Mật khẩu không khớp</span>
 
-                    <button type="submit" class="btn-register">Register</button>
+                    <button type="submit" class="btn-register">Đăng ký</button>
                 </form>
 
             </div>
