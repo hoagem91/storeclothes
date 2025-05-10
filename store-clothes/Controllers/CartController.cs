@@ -165,5 +165,74 @@ namespace store_clothes.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var userId = HttpContext.Session.GetInt32("UserId");
+                if (!userId.HasValue)
+                {
+                    return Json(new { success = false, message = "Vui lòng đăng nhập!" });
+                }
+
+                var cartItem = await _context.Carts
+                    .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId.Value);
+                if (cartItem == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy sản phẩm trong giỏ hàng!" });
+                }
+
+                _context.Carts.Remove(cartItem);
+                await _context.SaveChangesAsync();
+
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
+                var cartCount = await _context.Carts
+                    .Where(c => c.UserId == userId.Value)
+                    .SumAsync(c => c.Quantity);
+                HttpContext.Session.SetInt32("CartCount", cartCount);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClearCart()
+        {
+            try
+            {
+                var userId = HttpContext.Session.GetInt32("UserId");
+                if (!userId.HasValue)
+                {
+                    return Json(new { success = false, message = "Vui lòng đăng nhập!" });
+                }
+
+                var userCart = await _context.Carts
+                    .Where(c => c.UserId == userId.Value)
+                    .ToListAsync();
+
+                if (userCart.Any())
+                {
+                    _context.Carts.RemoveRange(userCart);
+                    await _context.SaveChangesAsync();
+                    
+                    // Reset cart count in session
+                    HttpContext.Session.SetInt32("CartCount", 0);
+                    
+                    return Json(new { success = true });
+                }
+
+                return Json(new { success = true, message = "Giỏ hàng đã trống" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }

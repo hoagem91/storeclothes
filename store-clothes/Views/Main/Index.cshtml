@@ -4,9 +4,9 @@
 @model List<store_clothes.Models.Product>
 
 @{
-    ViewData["Title"] = "LITA Store";
+    ViewData["Title"] = "Cửa hàng LITA";
 }
-<title>LITA Store</title>
+<title>Cửa hàng LITA</title>
 
 <!-- Styles -->
 <link rel="stylesheet" href="/css/main.css">
@@ -23,8 +23,8 @@
     <div class="navbar">
         <div class="logo">LITA</div>
         <div class="auth-buttons">
-            <a href="@Url.Action("Index", "Login")" class="login">Sign In</a>
-            <a href="@Url.Action("Index", "Register")" class="signup">Sign Up</a>
+            <a href="@Url.Action("Index", "Login")" class="login">Đăng nhập</a>
+            <a href="@Url.Action("Index", "Register")" class="signup">Đăng ký</a>
         </div>
     </div>
 </header>
@@ -87,16 +87,16 @@
 
 <!-- New Arrivals Section -->
 <section class="container mt-5">
-    <h2 class="section-title text-center">LITA STORE</h2>
+    <h2 class="section-title text-center">CỬA HÀNG LITA</h2>
     <p class="section-subtitle text-center">-Khám phá vẻ đẹp trong sự đơn giản, nơi mỗi chi tiết nhỏ đều toát lên sự tinh tế và hoàn hảo.-</p>
 
     <!-- Buttons để chọn danh mục -->
     <div class="btn-group d-flex justify-content-center my-3" role="group">
-        <button class="btn btn-light filter-btn" data-category="1">T-Shirt</button>
+        <button class="btn btn-light filter-btn" data-category="1">Áo thun</button>
         <button class="btn btn-light filter-btn active " data-category="2">Áo Polo</button>
-        <button class="btn btn-light filter-btn" data-category="3">Shirt</button>
-        <button class="btn btn-light filter-btn" data-category="4">Hoodie</button>
-        <button class="btn btn-light filter-btn" data-category="5">Jacket</button>
+        <button class="btn btn-light filter-btn" data-category="3">Áo sơ mi</button>
+        <button class="btn btn-light filter-btn" data-category="4">Áo hoodie</button>
+        <button class="btn btn-light filter-btn" data-category="5">Áo khoác</button>
     </div>
 
     <!-- Danh sách sản phẩm -->
@@ -117,7 +117,7 @@
 
     <!-- Nút View More -->
     <div class="text-center mt-4">
-        <button id="btn-view-more" class="btn btn-dark" onclick="redirectToLogin()">View More</button>
+        <button id="btn-view-more" class="btn btn-dark" onclick="redirectToLogin()">Xem thêm</button>
     </div>
 </section>
 
@@ -137,7 +137,7 @@
         <div class="row mb-3">
             <div class="col-md-6"></div>
             <div class="col-md-6 text-end">
-                <p class="social-media">Social Media</p>
+                <p class="social-media">Mạng xã hội</p>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/lita" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://www.twitter.com/lita" target="_blank"><i class="fa-brands fa-twitter"></i></a>
@@ -157,11 +157,11 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="footer-links-container">
-                    <a href="#" class="footer-link">ABOUT US</a>
-                    <a href="#" class="footer-link">CONTACT US</a>
-                    <a href="#" class="footer-link">HELP</a>
-                    <a href="#" class="footer-link">PRIVACY POLICY</a>
-                    <a href="#" class="footer-link">DISCLAIMER</a>
+                    <a href="#" class="footer-link">VỀ CHÚNG TÔI</a>
+                    <a href="#" class="footer-link">LIÊN HỆ</a>
+                    <a href="#" class="footer-link">TRỢ GIÚP</a>
+                    <a href="#" class="footer-link">CHÍNH SÁCH BẢO MẬT</a>
+                    <a href="#" class="footer-link">ĐIỀU KHOẢN</a>
                 </div>
             </div>
         </div>

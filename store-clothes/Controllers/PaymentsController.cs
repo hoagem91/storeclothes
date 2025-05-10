@@ -22,7 +22,43 @@ namespace store_clothes.Controllers
             _momoService = momoService;
         }
 
-        // GET: /Payments/
+        private int? GetCurrentUserId()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString)) return null;
+            return int.TryParse(userIdString, out int id) ? id : (int?)null;
+        }
+
+        private async Task ClearCart(int userId)
+        {
+            try
+            {
+                Console.WriteLine($"[ClearCart] Starting to clear cart for userId = {userId}");
+
+                var userCart = await _context.Carts
+                    .Where(c => c.UserId == userId)
+                    .ToListAsync();
+
+                Console.WriteLine($"[ClearCart] Found {userCart.Count} items in cart");
+
+                if (userCart.Any())
+                {
+                    _context.Carts.RemoveRange(userCart);
+                    var result = await _context.SaveChangesAsync();
+                    Console.WriteLine($"[ClearCart] Successfully removed {result} items from cart");
+                }
+                else
+                {
+                    Console.WriteLine("[ClearCart] Cart was already empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ClearCart] Error clearing cart: {ex.Message}");
+                throw;
+            }
+        }
+
         public async Task<IActionResult> Index()
         {
             List<CartItemInputModel> clientCartItems = null;
@@ -58,22 +94,70 @@ namespace store_clothes.Controllers
 
             return View(model);
         }
-        // POST: /Payments/
+
         [HttpPost]
         public async Task<IActionResult> Index(PaymentModel model)
         {
-            if (!ModelState.IsValid || model.CartItems == null || !model.CartItems.Any())
+            try
             {
-                return View(model);
+                if (!ModelState.IsValid)
+                {
+                    // Thêm thông báo lỗi validation
+                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        ModelState.AddModelError("", error.ErrorMessage);
+                    }
+                    return View(model);
+                }
+
+                if (model.CartItems == null || !model.CartItems.Any())
+                {
+                    ModelState.AddModelError("", "Giỏ hàng trống. Vui lòng thêm sản phẩm vào giỏ hàng.");
+                    return View(model);
+                }
+
+                // Validate required fields
+                if (string.IsNullOrEmpty(model.FullName))
+                {
+                    ModelState.AddModelError("FullName", "Vui lòng nhập họ và tên.");
+                    return View(model);
+                }
+
+                if (string.IsNullOrEmpty(model.Address))
+                {
+                    ModelState.AddModelError("Address", "Vui lòng nhập địa chỉ giao hàng.");
+                    return View(model);
+                }
+
+                if (string.IsNullOrEmpty(model.Phone))
+                {
+                    ModelState.AddModelError("Phone", "Vui lòng nhập số điện thoại.");
+                    return View(model);
+                }
+
+                // Save order and payment
+                try
+                {
+                    var orderId = await SaveOrder(model);
+                    await SavePayment(orderId, model.PaymentMethod);
+                    return RedirectToAction("Success");
+                }
+                catch (Exception ex)
+                {
+                    // Log error
+                    Console.WriteLine($"Error saving order/payment: {ex.Message}");
+                    ModelState.AddModelError("", "Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại sau.");
+                    return View(model);
+                }
             }
-
-            var orderId = await SaveOrder(model);
-            await SavePayment(orderId, model.PaymentMethod);
-
-            return RedirectToAction("Success");
+            catch (Exception ex)
+            {
+                // Log error
+                Console.WriteLine($"Unexpected error in payment process: {ex.Message}");
+                return RedirectToAction("PaymentFailed", new { errorMessage = "Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại sau." });
+            }
         }
 
-        // POST: /Payments/CreatePaymentUrl
         [HttpPost]
         [Route("CreatePaymentUrl")]
         public async Task<IActionResult> CreatePaymentUrl([FromForm] string FullName, [FromForm] long Amount, [FromForm] string OrderInfo)
@@ -90,19 +174,18 @@ namespace store_clothes.Controllers
                 var response = await _momoService.CreatePaymentMomo(model);
                 if (string.IsNullOrEmpty(response.PayUrl))
                 {
-                    ViewBag.ErrorMessage = "Không thể tạo URL thanh toán MoMo.";
+                    ViewBag.ErrorMessage = "Khong the tao URL thanh toan MoMo.";
                     return View("PaymentFailed");
                 }
                 return Redirect(response.PayUrl);
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = $"Lỗi khi tạo thanh toán MoMo: {ex.Message}";
+                ViewBag.ErrorMessage = $"Loi khi tao thanh toan MoMo: {ex.Message}";
                 return View("PaymentFailed");
             }
         }
 
-        // GET: /Checkout/PaymentCallBack
         [HttpGet]
         [Route("Checkout/PaymentCallBack")]
         public async Task<IActionResult> PaymentCallBack()
@@ -111,7 +194,7 @@ namespace store_clothes.Controllers
             string orderId = Request.Query["orderId"];
             string message = Request.Query["message"];
 
-            if (resultCode == "0") // Success
+            if (resultCode == "0")
             {
                 var payment = await _context.Payments
                     .Where(p => p.TransactionId == orderId)
@@ -121,28 +204,22 @@ namespace store_clothes.Controllers
                     payment.PaymentStatus = "Completed";
                     await _context.SaveChangesAsync();
 
-                    // Xóa giỏ hàng của người dùng
-                    var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    int userId = int.TryParse(userIdString, out int id) ? id : 1; // Fallback to 1 if not authenticated
-                    await ClearCart(userId);
-
-                    return RedirectToAction("Success","Checkout");
+                    await ClearCart((int)payment.UserId);
+                    return RedirectToAction("Success");
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Không tìm thấy giao dịch.";
-                    return RedirectToAction("PaymentFailed", "Checkout");
+                    ViewBag.ErrorMessage = "Khong tim thay giao dich.";
+                    return RedirectToAction("PaymentFailed");
                 }
             }
             else
             {
-                ViewBag.ErrorMessage = $"Thanh toán thất bại: {message}";
-                return RedirectToAction("PaymentFailed", "Checkout");
+                ViewBag.ErrorMessage = $"Thanh toan that bai: {message}";
+                return RedirectToAction("PaymentFailed");
             }
         }
-        // POST: /Checkout/MomoNotify
-        [HttpPost]
-        [Route("Checkout/MomoNotify")]
+
         [HttpPost]
         [Route("Checkout/MomoNotify")]
         public async Task<IActionResult> MomoNotify()
@@ -159,41 +236,29 @@ namespace store_clothes.Controllers
                 {
                     payment.PaymentStatus = "Completed";
                     await _context.SaveChangesAsync();
-
-                    // Xóa giỏ hàng của người dùng
-                    int userId = (int)payment.UserId; // payment.UserId đã là kiểu int
-                    if (userId <= 0)
-                    {
-                        Console.WriteLine($"Invalid userId: {userId}");
-                    }
-                    else
-                    {
-                        await ClearCart(userId);
-                    }
+                    await ClearCart((int)payment.UserId);
                 }
             }
 
             return Ok();
         }
 
-        // POST: /Payments/StartCheckout
         [HttpPost]
         public IActionResult StartCheckout([FromBody] List<CartItemInputModel> cartItems)
         {
             if (cartItems == null || !cartItems.Any())
-                return BadRequest("Giỏ hàng trống.");
+                return BadRequest("Gio hang trong.");
 
             TempData["CartData"] = JsonSerializer.Serialize(cartItems);
             return Json(new { success = true });
         }
 
-        // POST: /Payments/ProcessPayment
         [HttpPost]
         public async Task<IActionResult> ProcessPayment(int userId, int productId, int quantity, decimal totalPrice, string paymentMethod)
         {
             if (userId <= 0 || productId <= 0 || quantity <= 0 || totalPrice <= 0 || string.IsNullOrEmpty(paymentMethod))
             {
-                return BadRequest("Dữ liệu không hợp lệ.");
+                return BadRequest("Du lieu khong hop le.");
             }
 
             var order = new Order
@@ -229,57 +294,105 @@ namespace store_clothes.Controllers
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
-            // Xóa giỏ hàng sau khi thanh toán thành công
             await ClearCart(userId);
 
             return RedirectToAction("Success");
         }
 
-        // GET: /Payments/Success
-        public async Task<IActionResult> Success()
+        [HttpPost]
+        public async Task<IActionResult> ProcessPaymentSuccess(PaymentModel model)
         {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
+            try
             {
-                return RedirectToAction("Index", "Home");
+                if (!ModelState.IsValid)
+                {
+                    return Json(new { success = false, message = "Dữ liệu không hợp lệ" });
+                }
+
+                if (model.CartItems == null || !model.CartItems.Any())
+                {
+                    return Json(new { success = false, message = "Giỏ hàng trống" });
+                }
+
+                // Validate required fields
+                if (string.IsNullOrEmpty(model.FullName))
+                {
+                    return Json(new { success = false, message = "Vui lòng nhập họ và tên" });
+                }
+
+                if (string.IsNullOrEmpty(model.Address))
+                {
+                    return Json(new { success = false, message = "Vui lòng nhập địa chỉ giao hàng" });
+                }
+
+                if (string.IsNullOrEmpty(model.Phone))
+                {
+                    return Json(new { success = false, message = "Vui lòng nhập số điện thoại" });
+                }
+
+                // Save order and payment
+                try
+                {
+                    var orderId = await SaveOrder(model);
+                    await SavePayment(orderId, model.PaymentMethod);
+
+                    var latestPayment = await _context.Payments
+                        .Where(p => p.OrderId == orderId)
+                        .FirstOrDefaultAsync();
+
+                    if (latestPayment != null)
+                    {
+                        return Json(new { 
+                            success = true, 
+                            redirectUrl = Url.Action("Success", "Payments"),
+                            paymentInfo = new {
+                                transactionId = latestPayment.TransactionId,
+                                paymentDate = latestPayment.PaymentDate,
+                                estimatedDeliveryDate = DateTime.Now.AddDays(3)
+                            }
+                        });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Không thể lưu thông tin thanh toán" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = $"Lỗi khi xử lý đơn hàng: {ex.Message}" });
+                }
             }
-
-            var latestPayment = await _context.Payments
-                .Where(p => p.UserId == userId)
-                .OrderByDescending(p => p.PaymentDate)
-                .FirstOrDefaultAsync();
-
-            if (latestPayment == null)
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Home");
+                return Json(new { success = false, message = $"Lỗi không mong muốn: {ex.Message}" });
             }
+        }
 
+        public IActionResult Success()
+        {
             var viewModel = new PaymentSuccessViewModel
             {
-                TransactionId = latestPayment.TransactionId ?? "N/A",
-                PaymentDate = latestPayment.PaymentDate,
+                TransactionId = "TRX" + DateTime.Now.Ticks,
+                PaymentDate = DateTime.Now,
                 EstimatedDeliveryDate = DateTime.Now.AddDays(3)
             };
 
             return View(viewModel);
         }
 
-        // GET: /Payments/EmptyCart
         public IActionResult EmptyCart()
         {
             return View();
         }
 
-        // Phương thức lưu đơn hàng
         private async Task<int> SaveOrder(PaymentModel model)
         {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            int userId = int.TryParse(userIdString, out int id) ? id : 1; // Fallback to 1 if not authenticated
+            var userId = GetCurrentUserId();
+            if (userId == null) throw new Exception("Khong xac dinh duoc nguoi dung.");
 
             var order = new Order
             {
-                UserId = userId,
+                UserId = userId.Value,
                 TotalPrice = (decimal)model.CartItems.Sum(item => item.Product.Price * item.Quantity),
                 Status = "Pending"
             };
@@ -300,23 +413,20 @@ namespace store_clothes.Controllers
             }
 
             await _context.SaveChangesAsync();
-
-            // Xóa giỏ hàng
-            await ClearCart(userId);
+            await ClearCart(userId.Value);
 
             return order.Id;
         }
 
-        // Phương thức lưu thanh toán
         private async Task SavePayment(int orderId, string paymentMethod)
         {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            int userId = int.TryParse(userIdString, out int id) ? id : 1;
+            var userId = GetCurrentUserId();
+            if (userId == null) throw new Exception("Khong xac dinh duoc nguoi dung.");
 
             var payment = new Payment
             {
                 OrderId = orderId,
-                UserId = userId,
+                UserId = userId.Value,
                 PaymentMethod = paymentMethod,
                 PaymentStatus = "Processing",
                 TransactionId = Guid.NewGuid().ToString(),
@@ -327,17 +437,9 @@ namespace store_clothes.Controllers
             await _context.SaveChangesAsync();
         }
 
-        // Phương thức xóa giỏ hàng (tối ưu hóa)
-        private async Task ClearCart(int userId)
+        public IActionResult PaymentFailed()
         {
-            var userCart = await _context.Carts
-                .Where(c => c.UserId == userId)
-                .ToListAsync();
-            if (userCart.Any())
-            {
-                _context.Carts.RemoveRange(userCart);
-                await _context.SaveChangesAsync();
-            }
+            return View();
         }
     }
 

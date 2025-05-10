@@ -67,7 +67,7 @@
             <!-- Right: Form -->
             <div class="col-md-4">
                 <div class="checkout-section shipping-details">
-                    <div class="section-title"> Thông tin giao hàng</div>
+                    <div class="section-title">Thông tin giao hàng</div>
 
                     <div class="form-group">
                         <label asp-for="FullName" class="form-label">Họ và tên</label>
@@ -111,7 +111,7 @@
         {
             <input type="hidden" name="CartItems" value="@System.Text.Json.JsonSerializer.Serialize(new { item.ProductId, item.Quantity, item.Product.Name, PriceValue = item.Product.Price, item.Product.ImageUrl })" />
         }
-        <button class="btn-momo mt-3" type="submit">Pay with MoMo</button>
+        <button class="btn-momo mt-3" type="submit">Thanh toán qua MoMo</button>
     </form>
 </div>
 
@@ -134,9 +134,50 @@
                 // Allow default submission to CreatePaymentUrl
             });
 
-            // Prevent cart reset on checkout form submission
+            // Handle checkout form submission
             $(".checkout-form").submit(function (e) {
-                // Allow submission for COD/Banking, no cart reset here
+                e.preventDefault(); // Prevent default form submission
+
+                // Validate form
+                if (!this.checkValidity()) {
+                    $(this).addClass('was-validated');
+                    return;
+                }
+
+                // Show loading state
+                const submitButton = $(this).find('button[type="submit"]');
+                const originalText = submitButton.text();
+                submitButton.prop('disabled', true).text('Đang xử lý...');
+
+                // Clear cart first
+                $.ajax({
+                    url: '/Cart/ClearCart',
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.success) {
+                            // Generate random transaction ID
+                            const transactionId = 'TRX' + Date.now();
+                            const paymentInfo = {
+                                transactionId: transactionId,
+                                paymentDate: new Date().toISOString(),
+                                estimatedDeliveryDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
+                            };
+                            
+                            // Store payment info in sessionStorage
+                            sessionStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+                            
+                            // Redirect to success page
+                            window.location.href = '/Payments/Success';
+                        } else {
+                            alert(response.message || 'Có lỗi xảy ra khi xóa giỏ hàng!');
+                            submitButton.prop('disabled', false).text(originalText);
+                        }
+                    },
+                    error: function() {
+                        alert('Có lỗi xảy ra khi xóa giỏ hàng!');
+                        submitButton.prop('disabled', false).text(originalText);
+                    }
+                });
             });
         });
     </script>

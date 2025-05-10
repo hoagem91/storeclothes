@@ -1,24 +1,55 @@
-﻿@{
+﻿@model store_clothes.Models.PaymentSuccessViewModel
+
+@{
     ViewData["Title"] = "Thanh toán thành công";
 }
 
-<div id="successOverlay" class="overlay show">
-    <div class="overlay-content">
-        <h2>🎉 Thanh toán thành công!</h2>
-        <p>Cảm ơn bạn đã mua hàng.</p>
+<link rel="stylesheet" href="~/css/checkout/success.css" />
+
+<div class="container success-container">
+    <div class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <h1>Thanh toán thành công!</h1>
+        <p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.</p>
+    </div>
+
+    <div class="order-details">
+        <h2>Thông tin đơn hàng</h2>
+        <div class="detail-row">
+            <span>Mã giao dịch:</span>
+            <span id="transactionId">TRX@DateTime.Now.Ticks</span>
+        </div>
+        <div class="detail-row">
+            <span>Ngày thanh toán:</span>
+            <span id="paymentDate">@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</span>
+        </div>
+        <div class="detail-row">
+            <span>Dự kiến giao hàng:</span>
+            <span id="deliveryDate">@DateTime.Now.AddDays(3).ToString("dd/MM/yyyy")</span>
+        </div>
+    </div>
+
+    <div class="action-buttons" style="display: flex;justify-content: center;">
+        <a style="height: 38px;width: 200px;display: flex;align-items: center;justify-content: center;font-size: 14px;border-radius: 18px;" class="btn-checkout nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Product" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "")" asp-controller="Product" asp-action="Index">Tiếp tục mua sắm</a>
     </div>
 </div>
 
-<script>
-    // Sau khi overlay hiển thị, làm mới mini cart
-    fetch('/Cart/GetMiniCartItems')
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById("mini-cart-container").innerHTML = html;
-        });
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Get payment info from sessionStorage
+            const paymentInfo = JSON.parse(sessionStorage.getItem('paymentInfo'));
 
-    // Optional: Tự động ẩn overlay sau vài giây
-    setTimeout(() => {
-        document.getElementById("successOverlay").classList.remove("show");
-    }, 5000);
-</script>
+            if (paymentInfo) {
+                // Display payment info from sessionStorage if available
+                $('#transactionId').text(paymentInfo.transactionId);
+                $('#paymentDate').text(new Date(paymentInfo.paymentDate).toLocaleString('vi-VN'));
+                $('#deliveryDate').text(new Date(paymentInfo.estimatedDeliveryDate).toLocaleDateString('vi-VN'));
+
+                // Clear sessionStorage
+                sessionStorage.removeItem('paymentInfo');
+            }
+            // If no payment info in sessionStorage, keep the default values from server-side
+        });
+    </script>
+}
