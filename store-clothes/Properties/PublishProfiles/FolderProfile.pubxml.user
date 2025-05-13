@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>F:\WorkSpace\Front-End\ASP_NET\store-clothes\store-clothes\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2025-05-09T09:27:57.2629078Z||;True|2025-05-09T11:07:46.7992941+07:00||;True|2025-05-08T17:06:29.5632587+07:00||;</History>
+    <History>True|2025-05-10T16:33:56.9782918Z||;True|2025-05-09T16:27:57.2629078+07:00||;True|2025-05-09T11:07:46.7992941+07:00||;True|2025-05-08T17:06:29.5632587+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
