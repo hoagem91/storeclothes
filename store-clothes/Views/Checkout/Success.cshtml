@@ -1,0 +1,43 @@
+﻿@model store_clothes.Models.PaymentSuccessViewModel
+
+<div class="container">
+    <div class="overlay" style="display: block;">
+        <div class="overlay-content">
+            <h2>🎉 Thanh toán thành công!</h2>
+            <p>Cảm ơn bạn đã mua hàng.</p>
+            <p>Mã giao dịch: @Model.TransactionId</p>
+            <p>Ngày thanh toán: @Model.PaymentDate.ToString("dd/MM/yyyy HH:mm")</p>
+            <p>Dự kiến giao hàng: @Model.EstimatedDeliveryDate.ToString("dd/MM/yyyy")</p>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay lại trang chủ</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .overlay-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+</style>

@@ -1,14 +1,14 @@
 ﻿@model List<store_clothes.Models.Favorite>
 
 @{
-    ViewData["Title"] = "Favorites";
+    ViewData["Title"] = "Yêu thích";
 }
 
 <link rel="stylesheet" href="~/css/favorites.css" asp-append-version="true" />
 
 <!-- Content -->
 <div class="favorites-container">
-    <h2 class="favorites-title">Favorites</h2>
+    <h2 class="favorites-title">Yêu thích</h2>
     @if (Model == null || !Model.Any())
     {
         <div class="empty-favorites">
@@ -67,9 +67,9 @@
         <table class="favorites-table">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Action</th>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>

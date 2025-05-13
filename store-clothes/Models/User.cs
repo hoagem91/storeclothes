@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace store_clothes.Models
 {
@@ -14,6 +16,8 @@ namespace store_clothes.Models
             Payments = new HashSet<Payment>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

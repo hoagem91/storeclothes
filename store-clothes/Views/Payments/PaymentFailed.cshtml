@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thất bại";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-times-circle text-danger" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="card-title text-danger mb-4">Thanh toán thất bại!</h2>
+                    
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                    
+                    <p class="card-text">Đã có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại sau.</p>
+
+                    <div class="mt-4">
+                        <a href="/Cart" class="btn btn-primary me-2">Quay lại giỏ hàng</a>
+                        <a href="/" class="btn btn-outline-primary">Tiếp tục mua sắm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Không cần xóa cart data vì thanh toán thất bại
+        });
+    </script>
+}
+
+<style>
+    .container {
+        text-align: center;
+        padding: 50px;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+</style>

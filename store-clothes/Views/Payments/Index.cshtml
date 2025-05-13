@@ -6,8 +6,8 @@
     var total = cartItems.Sum(item => (item.Product.Price ?? 0) * item.Quantity);
 }
 
+<link rel="stylesheet" href="~/css/checkout/checkout.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="/css/checkout/checkout.css" /> 
 
 <div class="container checkout-container">
     <div class="checkout-header">
@@ -15,12 +15,13 @@
         <p class="checkout-subtitle">Hoàn tất quá trình mua sắm của bạn</p>
     </div>
 
-    <form asp-action="Index" method="post">
+    <!-- Main form for COD/Banking -->
+    <form asp-action="Index" method="post" class="checkout-form">
         <div class="row">
             <!-- Left: Cart items -->
             <div class="col-md-8">
                 <div class="checkout-section">
-                    <div class="section-title"><i class="bi bi-cart-fill"></i> Thông tin đơn hàng</div>
+                    <div class="section-title">Thông tin đơn hàng</div>
                     <div class="table-responsive">
                         <table class="table cart-table">
                             <thead>
@@ -66,7 +67,7 @@
             <!-- Right: Form -->
             <div class="col-md-4">
                 <div class="checkout-section shipping-details">
-                    <div class="section-title"><i class="bi bi-box-seam-fill"></i> Thông tin giao hàng</div>
+                    <div class="section-title">Thông tin giao hàng</div>
 
                     <div class="form-group">
                         <label asp-for="FullName" class="form-label">Họ và tên</label>
@@ -95,28 +96,22 @@
                         <span asp-validation-for="PaymentMethod" class="text-danger"></span>
                     </div>
 
-                    <div class="banking-info" id="bankingInfo" style="display:none;">
-                        <div class="bank-details">
-                            <p class="bank-title">Thông tin tài khoản:</p>
-                            <p><strong>Ngân hàng:</strong> VIETCOMBANK</p>
-                            <p><strong>Số tài khoản:</strong> 0123456789</p>
-                            <p><strong>Chủ tài khoản:</strong> NGUYEN VAN A</p>
-                            <p><strong>Nội dung:</strong> Thanh toan don hang #<span id="orderNumber">123456</span></p>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-checkout">Xác nhận thanh toán</button>
+                    <button type="submit" class="btn-checkout">Xác nhận thanh toán</button>
                 </div>
             </div>
         </div>
-
-        <!-- Overlay Success -->
-        <div id="successOverlay" class="overlay">
-            <div class="overlay-content">
-                <h2>🎉 Thanh toán thành công!</h2>
-                <p>Cảm ơn bạn đã mua hàng.</p>
-            </div>
-        </div>
+    </form>
+    <!-- Separate MoMo form -->
+    <form method="POST" asp-action="CreatePaymentUrl" asp-controller="Payments" class="momo-payment-form">
+        <input type="hidden" name="FullName" value="@User.Identity.Name" />
+        <input type="hidden" name="Amount" value="@total" />
+        <input type="hidden" name="OrderInfo" value="Thanh toán đặt hàng qua Momo tại HieuTanStore" />
+        <!-- Hidden cart items to preserve data -->
+        @foreach (var item in cartItems)
+        {
+            <input type="hidden" name="CartItems" value="@System.Text.Json.JsonSerializer.Serialize(new { item.ProductId, item.Quantity, item.Product.Name, PriceValue = item.Product.Price, item.Product.ImageUrl })" />
+        }
+        <button class="btn-momo mt-3" type="submit">Thanh toán qua MoMo</button>
     </form>
 </div>
 
@@ -125,7 +120,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Hiển thị thông tin chuyển khoản nếu chọn Banking
+            // Handle payment method change
             $("#PaymentMethod").change(function () {
                 if ($(this).val() === "Banking") {
                     $("#bankingInfo").slideDown();
@@ -134,24 +129,56 @@
                 }
             });
 
-            // Hiển thị overlay + reset số liệu khi submit form
-            $("form").submit(function (e) {
-                e.preventDefault(); // Ngăn submit ngay
+            // Prevent interference with MoMo form
+            $(".momo-payment-form").submit(function (e) {
+                // Allow default submission to CreatePaymentUrl
+            });
 
-                // Hiển thị overlay
-                $("#successOverlay").fadeIn();
+            // Handle checkout form submission
+            $(".checkout-form").submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
 
-                // Reset hiển thị giỏ hàng
-                $(".cart-table tbody").empty(); // Xóa sản phẩm
-                $(".summary-row span:nth-child(2)").text("0 đ"); // Tổng sản phẩm
-                $(".summary-row.total span:nth-child(2)").text("0 đ"); // Tổng thanh toán
+                // Validate form
+                if (!this.checkValidity()) {
+                    $(this).addClass('was-validated');
+                    return;
+                }
 
-                // Gửi lại form sau 2 giây (tùy chọn)
-                setTimeout(() => {
-                    this.submit(); // Gửi thật
-                }, 2000);
+                // Show loading state
+                const submitButton = $(this).find('button[type="submit"]');
+                const originalText = submitButton.text();
+                submitButton.prop('disabled', true).text('Đang xử lý...');
+
+                // Clear cart first
+                $.ajax({
+                    url: '/Cart/ClearCart',
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.success) {
+                            // Generate random transaction ID
+                            const transactionId = 'TRX' + Date.now();
+                            const paymentInfo = {
+                                transactionId: transactionId,
+                                paymentDate: new Date().toISOString(),
+                                estimatedDeliveryDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
+                            };
+                            
+                            // Store payment info in sessionStorage
+                            sessionStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+                            
+                            // Redirect to success page
+                            window.location.href = '/Payments/Success';
+                        } else {
+                            alert(response.message || 'Có lỗi xảy ra khi xóa giỏ hàng!');
+                            submitButton.prop('disabled', false).text(originalText);
+                        }
+                    },
+                    error: function() {
+                        alert('Có lỗi xảy ra khi xóa giỏ hàng!');
+                        submitButton.prop('disabled', false).text(originalText);
+                    }
+                });
             });
         });
     </script>
 }
-

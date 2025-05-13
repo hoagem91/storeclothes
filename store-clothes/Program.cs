@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using store_clothes.Models;
+using store_clothes.Models.Momo;
+using store_clothes.Services.Momo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<storeclothesContext>(options =>
 );
 
 // Thêm dịch vụ session
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -115,7 +119,26 @@ app.MapControllerRoute(
     pattern: "payments/{action=Index}/{id?}",
     defaults: new { controller = "Payments" }
 );
-
+app.MapControllerRoute(
+    name: "checkout",
+    pattern: "checkout/{action=PaymentFailed}/{id?}",
+    defaults: new { controller = "Checkout" }
+);
+app.MapControllerRoute(
+    name: "payments",
+    pattern: "payments/{action=PaymentFailed}/{id?}",
+    defaults: new { controller = "Payments" }
+)
+    ;app.MapControllerRoute(
+    name: "payments",
+    pattern: "payments/{action=Success}/{id?}",
+    defaults: new { controller = "Payments" }
+);
+app.MapControllerRoute(
+    name: "checkout",
+    pattern: "checkout/{action=Success}/{id?}",
+    defaults: new { controller = "Checkout" }
+);
 app.MapControllerRoute(
     name: "login",
     pattern: "login/{action=Index}/{id?}",

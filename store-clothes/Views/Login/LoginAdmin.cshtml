@@ -3,11 +3,11 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - LITA</title>
+    <title>Đăng nhập Quản trị - LITA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/login.css" />
 </head>
@@ -20,25 +20,25 @@
         <!-- Form đăng nhập bên phải -->
         <div class="form-section">
             <div class="form-container">
-                <h3 class="text-center">Admin Login - LITA</h3>
+                <h3 class="text-center">Đăng nhập Quản trị - LITA</h3>
                 <div class="d-flex justify-content-center my-3">
-                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Login</a>
-                    <a href="@Url.Action("Index", "Register")" class="btn-toggle" style="margin-right:8px">Register</a>
-                    <button class="btn-toggle me-2 active" >Admin</button>
+                    <a href="@Url.Action("Index", "Login")" class="btn-toggle" style="margin-right:8px">Đăng nhập</a>
+                    <a href="@Url.Action("Index", "Register")" class="btn-toggle" style="margin-right:8px">Đăng ký</a>
+                    <button class="btn-toggle me-2 active">Quản trị</button>
                 </div>
-                <p class="text-center text-muted">Admin Portal for managing the LITA platform.</p>
+                <p class="text-center text-muted">Trang quản trị cho nền tảng LITA.</p>
 
                 <form method="post" action="@Url.Action("AuthenticateAdmin", "Login")">
-                    <input type="text" class="input-field" name="username" placeholder="Enter your Admin Username" required>
-                    <input type="password" class="input-field" name="password" placeholder="Enter your Admin Password" required>
+                    <input type="text" class="input-field" name="username" placeholder="Nhập tên đăng nhập quản trị" required>
+                    <input type="password" class="input-field" name="password" placeholder="Nhập mật khẩu quản trị" required>
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                             <input type="checkbox" id="rememberMe">
-                            <label for="rememberMe">Remember me</label>
+                            <label for="rememberMe">Ghi nhớ đăng nhập</label>
                         </div>
-                        <a href="@Url.Action("Index", "ForgotPassword")">Forgot Password?</a>
+                        <a href="@Url.Action("Index", "ForgotPassword")">Quên mật khẩu?</a>
                     </div>
-                    <button type="submit" class="btn-login">Login</button>
+                    <button type="submit" class="btn-login">Đăng nhập</button>
                 </form>
 
                 @if (!string.IsNullOrEmpty(ViewBag.Error))
